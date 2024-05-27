@@ -1,0 +1,3 @@
+### Compact 3D Scene Representation via Self-Organizing Gaussian Grids
+
+3D data is awkward to compress. But there's plenty of solutions for compressing 2D data (images!). So let's organize our 3D data into a 2D grid, where grid neighbors are also close in 3D. That's a hard problem, but we can leverage novel assignment algorithms with GPU power for parallelizing that, to get the sorting done in a few seconds.
