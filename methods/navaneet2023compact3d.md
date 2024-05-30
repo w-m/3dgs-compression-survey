@@ -1,0 +1,3 @@
+### Compact3D: Compressing Gaussian Splat Radiance Field Models with Vector Quantization
+
+This approach introduces a vector quantization method based on the K-means algorithm to quantize the Gaussian parameters in 3D Gaussian splatting, as many Gaussians may share similar parmeters. Only a small codebook is stored along with the index of the code for each Gaussian, resulting in a large reduction in the storage of the learned radiance fields and a reduction of the memory footprint at rendering time. Additionally, the representation is further compressed by sorting the Gaussians based on one of the quantized parameters and storing the indices using the Run-Length-Encoding (RLE) method.
