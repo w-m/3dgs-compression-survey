@@ -1,0 +1,42 @@
+morgenstern2024compact:
+  url: "https://arxiv.org/src/2312.13299"
+  is_csv: False
+  table_names: 
+    - tab:experiments
+  filename: "sec/4_eval.tex"
+
+lee2024compact:
+  url: "https://arxiv.org/src/2311.13681"
+  is_csv: False
+  table_names: 
+    - tab:qual1
+    - tab:qual2
+
+navaneet2023compact3d:
+  url: "https://arxiv.org/src/2311.18159"
+  is_csv: False
+  table_names: 
+    - tab:comp_sota 
+  filename: "arxiv_main.tex"
+
+fan2024lightgaussian:
+  url: "https://arxiv.org/src/2311.17245"
+  is_csv: False
+  table_names: 
+    - tab:main1
+
+chen2024hac:
+  url: "https://arxiv.org/src/2403.14530"
+  is_csv: False
+  table_names: 
+    - tab:main_quantitative
+  filename: "main_arxiv.tex"
+
+niedermayr2024compressed:
+  url: "https://arxiv.org/src/2401.02436"
+  is_csv: False
+  table_names: 
+    - tab:dataset-metrics
+  table_rotated: True
+  filename: "sec/4_method.tex"
+
