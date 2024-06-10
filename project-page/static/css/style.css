@@ -1,0 +1,10 @@
+
+.video-container {
+  aspect-ratio: 1;
+  /* float: left; */
+}
+
+.videoCanvas {
+  border-radius: 5px;
+
+}
