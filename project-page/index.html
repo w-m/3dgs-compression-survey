@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="description"
+          content="A survey comparing state of the art 3D Gaussian splatting compression methods, made by researchers at Fraunhofer Heinrich Hertz Institute HHI and Humboldt University of Berlin."/>
+    <meta property="og:title" content="3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods"/>
+    <meta property="og:description"
+          content="A survey comparing state of the art 3D Gaussian splatting compression methods, made by researchers at Fraunhofer Heinrich Hertz Institute HHI and Humboldt University of Berlin."/>
+    <meta property="og:url" content="https://3dgs.zip"/>
+    <!-- <meta property="og:image" content="static/images/teaser_self_organizing_gaussian.jpeg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="675"/> -->
+
+    <meta name="twitter:title" content="3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods"/>
+    <meta name="twitter:description"
+          content="A survey comparing state of the art 3D Gaussian splatting compression methods, made by researchers at Fraunhofer Heinrich Hertz Institute HHI and Humboldt University of Berlin."/>
+    <!-- <meta name="twitter:image" content="static/images/your_twitter_banner_image.png"/>
+    <meta name="twitter:card" content="summary_large_image"/> -->
+    <meta name="keywords"
+          content="3D Gaussian Splats, 3D scene representation, compact data size, high-quality rendering, Fraunhofer Heinrich Hertz Institute, Humboldt University of Berlin, resource-constrained devices, fast web applications"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>3D Gaussian Splatting Compression Survey</title>
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="static/css/bulma.min.css"/>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css"/>
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css"/>
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"/>
+    <link rel="stylesheet" href="static/css/index.css"/>
+    <link rel="stylesheet" href="static/css/style.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script src="static/js/bulma-slider.min.js"></script>
+    <script src="static/js/index.js"></script>
+    <script src="static/js/vidsplit_multi.js"></script>
+   
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css"> 
+    <!-- <style>
+        /* Ensure the table container is responsive */
+        .dataTables_wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+    </style> -->
+</head>
+
+<body>
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">
+                        3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods
+                    </h1>
+                    <div class="is-size-5 publication-authors">
+                        <!-- Paper authors -->
+                        <span class="author-block">
+								<a href="https://www.hhi.fraunhofer.de/en/departments/vit/research-groups/computer-vision-graphics/team/morgenstern.html"
+                                   target="_blank">Wieland Morgenstern</a><sup><small>1</small></sup>,</span>
+                        <span class="author-block">
+								<a>
+									Paul Knoll
+								</a>
+								<sup><small>1</small></sup>,</span>
+                        <!-- <span class="author-block">
+								<a href="https://iphome.hhi.de/hilsmann/index.htm" target="_blank">Anna
+									Hilsmann</a><sup><small>1</small></sup>,
+							</span>
+                        <span class="author-block">
+								<a href="https://iphome.hhi.de/eisert/" target="_blank">Peter
+									Eisert</a><sup><small>1,2</small></sup>
+							</span> -->
+                    </div>
+
+                    <div class="is-size-5 publication-authors">
+							<span class="author-block">
+								<sup><small>1 </small></sup>Fraunhofer Heinrich Hertz
+								Institute, HHI <br/>
+								<!-- <sup><small>2 </small></sup>Humboldt University of Berlin
+								<br/> -->
+                                <!-- Conferance name and year -->
+							</span>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <!-- LateXML rendering GitHub page -->
+
+                        <div class="publication-links">
+                            <!-- Arxiv PDF link -->
+                            <!-- <span class="link-block">
+									<a href="https://arxiv.org/pdf/2312.13299.pdf" target="_blank"
+                                       class="external-link button is-normal is-rounded is-dark is-disabled">
+										<span class="icon">
+											<i class="fas fa-file-pdf"></i>
+										</span>
+										<span>Paper</span>
+									</a>
+								</span> -->
+                            <!-- Github link -->
+                            <span class="link-block">
+									<a href="https://github.com/w-m/3dgs-compression-survey"
+                                       target="_blank" class="external-link button is-normal is-rounded is-dark">
+										<span class="icon">
+											<i class="fab fa-github"></i>
+										</span>
+										<span>Github</span>
+									</a>
+								</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero is-small">
+    <div class="hero-body">
+        <div class="container">
+            <h2 class="title is-3">Survey Table</h2>
+
+            <!-- TABLE -->
+            <div id="results-table">
+                <!-- Content from results.html will be loaded here -->
+            
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+
+<!-- RESPONSIVENESS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+
+<!-- COL REORDER -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.min.js"></script>
+
+<!-- FIXED COLS (always show left col) -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/5.0.1/css/fixedColumns.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/5.0.1/js/dataTables.fixedColumns.min.js"></script>
+
+
+
+<script>
+    function loadHTML() {
+        fetch('results.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('results-table').innerHTML = data;
+                // Initialize DataTables after content has been loaded
+                new DataTable('#results', {
+                    columnDefs: [
+                        { targets: '_all', orderSequence: ['desc', 'asc', ''] }
+                    ],
+                    "lengthChange": false, // Removes the "entries per page" dropdown
+                    "searching": false,    // Removes the search box
+                    "info": false,         // Removes the information display (e.g., "Showing 1 to 3 of 3 entries")
+                    "paging": false,        // Removes the pagination controls
+                    "scrollX": true,        // Enables horizontal scrolling
+                    // "responsive": true,     // Enables responsive design
+                    "colReorder": true,     // Enables column reordering with drag and drop
+                    "fixedColumns": true    // Always show first / "Methods" column
+                });
+            })
+            .catch(error => console.error('Error loading the content:', error));
+    }
+
+    window.onload = loadHTML;
+</script>
+
+
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p>
+                        This page was built using the
+                        <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                           target="_blank">Academic
+                            Project
+                            Page Template</a>. <br/>
+                        This website is licensed under a
+                        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"
+                           target="_blank">Creative
+                            Commons
+                            Attribution-ShareAlike 4.0 International
+                            License</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+<!-- End of Statcounter Code -->
+</body>
+</html>
