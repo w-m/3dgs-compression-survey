@@ -95,7 +95,8 @@ def load_methods_summaries():
             summaries.append({
                 'name': file.split('.')[0],
                 'summary': summary,
-                'title': title
+                'title': title,
+                "image": f"static/images/{file.split('.')[0]}.png"
             })
     return summaries
 

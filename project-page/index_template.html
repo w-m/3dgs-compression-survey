@@ -189,11 +189,15 @@
                     <p>
                         {{ paper.summary }}
                     </p>
+                    <div style="display: flex; justify-content: center; align-items: center">
+                        <img src="{{ paper.image }}" alt="" style="max-height: 250px;">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <div style="height: 20px;"></div> <!-- Spacer div -->
 {% endfor %}
 
