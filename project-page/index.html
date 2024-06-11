@@ -396,14 +396,14 @@
 
 <script>
     $(document).ready(function() {
-        var nanBottom = $.fn.dataTable.absoluteOrder({
+        var nanBottom = $.fn.dataTable.absoluteOrderNumber({
             value: '', position: 'bottom'
         });
 
         new DataTable('#results', {
             columnDefs: [
-                { targets: '_all', orderSequence: ['desc', 'asc'] },
-                { targets: '_all', type: nanBottom }
+            { targets: '_all', orderSequence: ['desc', 'asc'] },
+            { targets: '_all', type: nanBottom },
             ],
             "lengthChange": false, // Removes the "entries per page" dropdown
             "searching": false,    // Removes the search box
