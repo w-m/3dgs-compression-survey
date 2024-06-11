@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import bibtexparser
 from jinja2 import Environment, FileSystemLoader
+import re
 
 def get_shortnames():
     #get shortnames from bibtex
@@ -46,10 +47,36 @@ def combine_tables_to_html():
     
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
-    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
-                                       justify="center", border=0, escape=False)
+
+    #color the top 3 values in each column
+    def add_top_3_classes(df):
+        colors = ['rgba(255, 215, 0, 0.5)', 'rgba(192, 192, 192, 0.5)', 'rgba(205, 127, 50, 0.5)']  # Gold, Silver, Bronze with reduced opacity
+        for col in df.select_dtypes(include=[float, int]).columns:
+            if 'size' in col[1].lower():
+                top_3 = df[col].nsmallest(3)
+            else:
+                top_3 = df[col].nlargest(3)
+            for i, val in enumerate(top_3):
+                df.loc[df[col] == val, col] = f'<td style="background-color: {colors[i]}">{val}</td>'
+        return df
     
-    return html_string
+    multi_col_df = add_top_3_classes(multi_col_df)
+
+
+
+    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
+                                      justify="center", border=0, escape=False)
+
+    # Function to clean up nested <td> elements using regex
+    def clean_nested_td(html):
+        pattern = re.compile(r'<td><td([^>]*)>([^<]*)<\/td><\/td>')
+        cleaned_html = pattern.sub(r'<td\1>\2</td>', html)
+        return cleaned_html
+
+    # Clean the HTML string
+    cleaned_html_string = clean_nested_td(html_string)
+    
+    return cleaned_html_string
 
 def load_methods_summaries():
     # Load the summaries of the methods
