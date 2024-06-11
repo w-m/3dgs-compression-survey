@@ -223,31 +223,6 @@ def df_to_results_csv(pd_tables, sources_file):
         #save table to csv
         result_tables[dataset].to_csv("results/" + dataset + ".csv", index=False)
 
-def combine_tables_to_html():
-    dfs = []
-    for file in os.listdir('results'):
-        #read csvs
-        df = pd.read_csv(f'results/{file}')
-        df.set_index("Method", inplace=True)
-        #remove colum "Data Source"
-        df.drop(columns=["Data Source"], inplace=True)
-        df.drop(columns=["Comment"], inplace=True)
-
-        #change Size [Bytes] to Size [MB] and round
-        if "Size [Bytes]" in df.columns:
-            df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
-            df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
-            df.drop(columns=["Size [Bytes]"], inplace=True)
-
-        dfs.append((file.split(".")[0], df))
-    
-    multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
-    multi_col_df.reset_index(inplace=True)
-    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], justify="center", border=0)
-    
-    with open("project-page/results.html", "w") as f:
-        f.write(html_string)
-
 
 
 if __name__ == "__main__":
@@ -260,4 +235,3 @@ if __name__ == "__main__":
     tables = get_tables(sources_file)
     pd_tables = tex_to_pd(tables, sources_file)
     df_to_results_csv(pd_tables, sources_file)
-    combine_tables_to_html()
