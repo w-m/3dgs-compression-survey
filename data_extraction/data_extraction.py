@@ -137,7 +137,7 @@ def parse_table_to_df(table, rotated=False):
         print("TODO (rotated)")
         return 
     else:
-        print("TODO (not multicol)")
+        #print("TODO (not multicol)")
         return 
 
     #remove unneccecary rows and colums, last row if it is end of table, single entry rows
@@ -243,7 +243,7 @@ def combine_tables_to_html():
     
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
-    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results")
+    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], justify="center", border=0)
     
     with open("project-page/results.html", "w") as f:
         f.write(html_string)
