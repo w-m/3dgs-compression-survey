@@ -26,9 +26,11 @@ def combine_tables_to_html():
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
 
         #combine Method and Submethods colum into new Method column, replace method name with shortname+submethod
-        df["Method"] = df["Method"].apply(lambda x: shortnames[x])
-        df["Method"] = df["Method"] + df["Submethod"]
-        df.drop(columns=["Submethod"], inplace=True)
+        df["NewMethod"] = df["Method"].apply(lambda x: shortnames[x])
+        df["NewMethod"] = df["NewMethod"] + df["Submethod"]
+        # make Method column a link to the method summary
+        df["Method"] = '<a href="#' + df["Method"] + '">' + df["NewMethod"] + '</a>'
+        df.drop(columns=["Submethod", "NewMethod"], inplace=True)
         df.set_index("Method", inplace=True)
         #remove colums "Data Source" and "Comment"
         df.drop(columns=["Data Source"], inplace=True)
@@ -44,16 +46,35 @@ def combine_tables_to_html():
     
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
-    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], justify="center", border=0)
+    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
+                                       justify="center", border=0, escape=False)
     
-    with open("project-page/results.html", "w") as f:
-        f.write(html_string)
     return html_string
 
-
+def load_methods_summaries():
+    # Load the summaries of the methods
+    summaries = []
+    files = sorted(os.listdir('methods'))
+    for file in files:
+        with open(f'methods/{file}', 'r') as f:
+            file_content = f.read()
+            # markdown files, extarct title and summary
+            title = file_content.split('\n')[0]
+            if title.startswith('### '):
+                title = title[4:]
+            elif title == '':
+                continue
+            summary = file_content.split('\n', 1)[1].strip()
+            summaries.append({
+                'name': file.split('.')[0],
+                'summary': summary,
+                'title': title
+            })
+    return summaries
 
 if __name__ == "__main__":
     results_table = combine_tables_to_html()
+    summaries = load_methods_summaries()
 
     # Pfad zu deinem Template-Ordner
     file_loader = FileSystemLoader('project-page')
@@ -64,7 +85,8 @@ if __name__ == "__main__":
 
     # Daten, die in das Template eingefügt werden sollen
     data = {
-        'results_table': results_table
+        'results_table': results_table,
+        'summaries': summaries
     }
 
     # Render das Template mit den Daten
