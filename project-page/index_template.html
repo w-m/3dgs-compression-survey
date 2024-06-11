@@ -151,13 +151,19 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/5.0.1/css/fixedColumns.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/5.0.1/js/dataTables.fixedColumns.min.js"></script>
 
-
+<!-- ABSOLUTE ORDER (empty cells at the end) -->
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/2.0.8/sorting/absolute.js"></script>
 
 <script>
     $(document).ready(function() {
+        var nanBottom = $.fn.dataTable.absoluteOrder({
+            value: '', position: 'bottom'
+        });
+
         new DataTable('#results', {
             columnDefs: [
-                { targets: '_all', orderSequence: ['desc', 'asc', ''] }
+                { targets: '_all', orderSequence: ['desc', 'asc'] },
+                { targets: '_all', type: nanBottom }
             ],
             "lengthChange": false, // Removes the "entries per page" dropdown
             "searching": false,    // Removes the search box
