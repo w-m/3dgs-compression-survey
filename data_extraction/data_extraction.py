@@ -171,11 +171,11 @@ def df_to_results_csv(pd_tables, sources_file):
     #load csv files
     result_tables = {}
     for file in os.listdir("results"):
-        method_name = file.split(".")[0]
-        result_tables[method_name] = pd.read_csv("results/" + file)
-        result_tables[method_name]['Data Source'] = result_tables[method_name]['Data Source'].astype('string')
-        result_tables[method_name]['Size [Bytes]'] = result_tables[method_name]['Size [Bytes]'].astype('Int64')
-    
+        dataset_name = file.split(".")[0]
+        result_tables[dataset_name] = pd.read_csv("results/" + file)
+        result_tables[dataset_name]['Data Source'] = result_tables[dataset_name]['Data Source'].astype('string')
+        result_tables[dataset_name]['Size [Bytes]'] = result_tables[dataset_name]['Size [Bytes]'].astype('Int64')
+        result_tables[dataset_name]['Submethod'] = result_tables[dataset_name]['Submethod'].astype('string').fillna('').replace('<NA>', '')
 
     for source in pd_tables:
         print("Source: ", source)
@@ -185,10 +185,8 @@ def df_to_results_csv(pd_tables, sources_file):
         #find "ours" column
         for row in range(len(pd_tables[source])):
             if "ours" in pd_tables[source]["Method"][row].lower():
-                #filter out name
-                new_name = re.search(r'(?i)ours[^}]*', pd_tables[source]["Method"][row]).group(0)
-                #replace ours with method name
-                new_name = re.sub(r'(?i)ours', source, new_name)
+                # filter out submethods, everything after "ours", "" if only "ours"
+                submethod = re.search(r'(?i)ours([^}]*)', pd_tables[source]["Method"][row]).group(1)
                 #iterate through all columns and transfer values
                 for column in pd_tables[source].columns:
                     try:
@@ -207,13 +205,23 @@ def df_to_results_csv(pd_tables, sources_file):
                             value = float(value)
                         else:
                             continue
+
+                        # add "Submethod" column to result_tables right after "Method" if it does not exist
+                        if "Submethod" not in result_tables[dataset_name].columns:
+                            result_tables[dataset_name].insert(1, "Submethod", None)
                         
-                        row_index = result_tables[dataset_name].index[result_tables[dataset_name]["Method"] == new_name]
+                        # row index for method and submethod
+                        row_index = result_tables[dataset_name].index[
+                            (result_tables[dataset_name]["Method"] == source) & 
+                            (result_tables[dataset_name]["Submethod"] == submethod)
+                        ]
                         if len(row_index) == 0:
                             #"Method","PSNR","SSIM","LPIPS","Size [Bytes]","Data Source","Comment"
-                            result_tables[dataset_name].loc[len(result_tables[dataset_name])] = {"Method": new_name} #, "PSNR": None, "SSIM": None, "LPIPS": None, "Size [Bytes]": None, "Data Source": sources_file[source]["url"], "Comment": None}
-                            row_index = result_tables[dataset_name].index[result_tables[dataset_name]["Method"] == new_name]
-                       
+                            result_tables[dataset_name].loc[len(result_tables[dataset_name])] = {"Method": source, "Submethod": submethod, "PSNR": None, "SSIM": None, "LPIPS": None, "Size [Bytes]": None, "Data Source": None, "Comment": None}
+                            row_index = result_tables[dataset_name].index[
+                                (result_tables[dataset_name]["Method"] == source) & 
+                                (result_tables[dataset_name]["Submethod"] == submethod)
+                            ]                       
                         result_tables[dataset_name].loc[row_index, metric] = value
                         result_tables[dataset_name].loc[row_index, "Data Source"] = sources_file[source]["url"]
 
@@ -232,6 +240,6 @@ if __name__ == "__main__":
         except yaml.YAMLError as exc:
             print(exc)
 
-    tables = get_tables(sources_file)
+    tables = get_tables(sources_file, local=1)
     pd_tables = tex_to_pd(tables, sources_file)
     df_to_results_csv(pd_tables, sources_file)

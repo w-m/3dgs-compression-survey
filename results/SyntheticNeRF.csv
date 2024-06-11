@@ -1,9 +1,9 @@
-Method,PSNR,SSIM,LPIPS,Size [Bytes],Data Source,Comment
-chen2024hac-highrate,33.71,0.968,0.034,1950351,https://arxiv.org/src/2403.14530,
-chen2024hac-lowrate,33.24,0.967,0.037,1237319,https://arxiv.org/src/2403.14530,
-fan2024lightgaussian,,,,,,
-lee2024compact,,,,,,
-morgenstern2024compact,33.7,,0.031,4299161,https://arxiv.org/src/2312.13299,
-morgenstern2024compact w/o SH,31.75,,0.04,2097152,https://arxiv.org/src/2312.13299,
-niedermayr2024compressed,,,,,,
-papantonakis2024reducing,,,,,,
+Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],Data Source,Comment
+chen2024hac,-lowrate,33.24,0.967,0.037,1237319,https://arxiv.org/src/2403.14530,
+chen2024hac,-highrate,33.71,0.968,0.034,1950351,https://arxiv.org/src/2403.14530,
+fan2024lightgaussian,,,,,,,
+lee2024compact,,,,,,,
+morgenstern2024compact,,33.7,,0.031,4299161,https://arxiv.org/src/2312.13299,
+morgenstern2024compact, w/o SH,31.75,,0.04,2097152,https://arxiv.org/src/2312.13299,
+niedermayr2024compressed,,,,,,,
+papantonakis2024reducing,,,,,,,
