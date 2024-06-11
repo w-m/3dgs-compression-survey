@@ -424,7 +424,7 @@
     <div class="container is-max-desktop" id="chen2024hac">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">Compressed 3D Gaussian Splatting for Accelerated Novel View Synthesis</h2>
+                <h2 class="title is-3"><a href="https://yihangchen-ee.github.io/project_hac/" target="_blank">Compressed 3D Gaussian Splatting for Accelerated Novel View Synthesis</a></h2>
                 <div class="content has-text-justified">
                     <p>
                         This approach aims to reduce the memory consumption and rendering efficency of 3D Gaussian splat representations. The authors propose a compressed
@@ -446,7 +446,7 @@ Furthermore, a renderer for the compressed scenes utilizing GPU-based sorting an
     <div class="container is-max-desktop" id="fan2024lightgaussian">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">LightGaussian: Unbounded 3D Gaussian Compression with 15x Reduction and 200+ FPS</h2>
+                <h2 class="title is-3"><a href="https://lightgaussian.github.io/" target="_blank">LightGaussian: Unbounded 3D Gaussian Compression with 15x Reduction and 200+ FPS</a></h2>
                 <div class="content has-text-justified">
                     <p>
                         LightGaussian aims to transform 3D Gaussians to a more efficient and compact form, avoiding the scalablity issues that arrises from the large number of SfM (Structure from Motion) points for unbounded scenes. Inspired by Network Pruning, the method identifies Gaussians that minimally contribute to scene reconstruction and employs a pruning and recovery process, thereby efficiently reducing redundancy in Gaussian counts while maintaining visual effects. Additionally, LightGaussian utilizes knowledge distillation and pseudo-view augmentation to transfer spherical harmonics efficients to a lower degree. Furthermore, the authors propose a Gaussian Vector Quantization based on the global significance of Gaussians to quantize all redundant attributes, achieving lower bitwidth representations with minimal accuracy losses.
@@ -466,7 +466,7 @@ Furthermore, a renderer for the compressed scenes utilizing GPU-based sorting an
     <div class="container is-max-desktop" id="lee2024compact">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">Compact 3D Gaussian Representation for Radiance Field</h2>
+                <h2 class="title is-3"><a href="https://maincold2.github.io/c3dgs/" target="_blank">Compact 3D Gaussian Representation for Radiance Field</a></h2>
                 <div class="content has-text-justified">
                     <p>
                         This approach aims to reduce the number of Gaussian points neccecary for 3D Gaussian splat representations without sacrificing performance, and to compresse the Gaussian attributes, such as view-dependent color and covariance. The authors observe current densification algorithm to produces
@@ -487,7 +487,7 @@ many redundant and unnecessary Gaussians, resulting in high memory and storage r
     <div class="container is-max-desktop" id="morgenstern2024compact">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">Compact 3D Scene Representation via Self-Organizing Gaussian Grids</h2>
+                <h2 class="title is-3"><a href="https://fraunhoferhhi.github.io/Self-Organizing-Gaussians/" target="_blank">Compact 3D Scene Representation via Self-Organizing Gaussian Grids</a></h2>
                 <div class="content has-text-justified">
                     <p>
                         3D data is awkward to compress. But there's plenty of solutions for compressing 2D data (images!). So let's organize our 3D data into a 2D grid, where grid neighbors are also close in 3D. That's a hard problem, but we can leverage novel assignment algorithms with GPU power for parallelizing that, to get the sorting done in a few seconds.
@@ -507,7 +507,7 @@ many redundant and unnecessary Gaussians, resulting in high memory and storage r
     <div class="container is-max-desktop" id="navaneet2023compact3d">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">Compact3D: Compressing Gaussian Splat Radiance Field Models with Vector Quantization</h2>
+                <h2 class="title is-3"><a href="https://ucdvision.github.io/compact3d/" target="_blank">Compact3D: Compressing Gaussian Splat Radiance Field Models with Vector Quantization</a></h2>
                 <div class="content has-text-justified">
                     <p>
                         This approach introduces a vector quantization method based on the K-means algorithm to quantize the Gaussian parameters in 3D Gaussian splatting, as many Gaussians may share similar parmeters. Only a small codebook is stored along with the index of the code for each Gaussian, resulting in a large reduction in the storage of the learned radiance fields and a reduction of the memory footprint at rendering time. Additionally, the representation is further compressed by sorting the Gaussians based on one of the quantized parameters and storing the indices using the Run-Length-Encoding (RLE) method.

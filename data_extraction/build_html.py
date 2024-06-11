@@ -17,6 +17,19 @@ def get_shortnames():
                 print(f"Shortname not found for {entry['ID']}, using ID instead")
     return shortnames
 
+def get_links():
+    #get links from bibtex
+    links = {}
+    with open("methods.bib") as bibtex_file:
+        bib_database = bibtexparser.load(bibtex_file)
+        for entry in bib_database.entries:
+            if "url" in entry:
+                links[entry["ID"]] = entry["url"]
+            else:
+                links[entry["ID"]] = ""
+                print(f"Link not found for {entry['ID']}")
+    return links
+
 
 def combine_tables_to_html():
     dfs = []
@@ -81,6 +94,7 @@ def combine_tables_to_html():
 def load_methods_summaries():
     # Load the summaries of the methods
     summaries = []
+    links = get_links()
     files = sorted(os.listdir('methods'))
     for file in files:
         with open(f'methods/{file}', 'r') as f:
@@ -91,6 +105,9 @@ def load_methods_summaries():
                 title = title[4:]
             elif title == '':
                 continue
+            #include link to project page in title
+            #<a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">title</a>
+            title = f'<a href="{links[file.split(".")[0]]}" target="_blank">{title}</a>'
             summary = file_content.split('\n', 1)[1].strip()
             summaries.append({
                 'name': file.split('.')[0],
