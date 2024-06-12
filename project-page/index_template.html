@@ -162,6 +162,7 @@
 
         new DataTable('#results', {
             columnDefs: [
+            { targets: [3,4,7,8,11,12,15,16], orderSequence: ['asc', 'desc'] },
             { targets: '_all', orderSequence: ['desc', 'asc'] },
             { targets: '_all', type: nanBottom },
             ],

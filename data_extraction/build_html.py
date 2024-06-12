@@ -65,7 +65,7 @@ def combine_tables_to_html():
     def add_top_3_classes(df):
         colors = ['rgba(255, 215, 0, 0.5)', 'rgba(192, 192, 192, 0.5)', 'rgba(205, 127, 50, 0.5)']  # Gold, Silver, Bronze with reduced opacity
         for col in df.select_dtypes(include=[float, int]).columns:
-            if 'size' in col[1].lower():
+            if any(keyword in col[1].lower() for keyword in ['size', 'lpips']):
                 top_3 = df[col].nsmallest(3)
             else:
                 top_3 = df[col].nlargest(3)
