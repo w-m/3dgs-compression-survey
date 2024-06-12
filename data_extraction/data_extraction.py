@@ -82,6 +82,8 @@ def get_tables(sources_file, local=False):
 def parse_table_to_df(table, rotated=False):
     """ Parse LaTeX table to CSV format, ignoring commands and focusing on content. """
     # Remove LaTeX commands
+    table = table.replace('\\\\ (', '')
+    table = table.replace('\\\\ T', '') # remove for new paper to avoid false linebreaks
     #replace all "\\\\" with "NEWLINE"
     table = table.replace('\\\\', 'NEWLINE')
     table = table.replace('\\n', '')
@@ -196,7 +198,7 @@ def df_to_results_csv(pd_tables, sources_file):
                         continue
                     if dataset_name in result_tables:
                         value = pd_tables[source][column][row]
-                        if metric in ["SIZE", "STORAGE"]:
+                        if any(val in metric for val in ["SIZE", "STORAGE", "MEM", "MB", "Mem"]):
                             value = value.replace(" MB", "").replace("MB", "") #expect MB
                             #convert to Bytes
                             value = int(float(value) * 1024 * 1024)
@@ -240,6 +242,6 @@ if __name__ == "__main__":
         except yaml.YAMLError as exc:
             print(exc)
 
-    tables = get_tables(sources_file, local=1)
+    tables = get_tables(sources_file)
     pd_tables = tex_to_pd(tables, sources_file)
     df_to_results_csv(pd_tables, sources_file)

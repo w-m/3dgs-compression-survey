@@ -1,9 +1,9 @@
 Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],Data Source,Comment
 chen2024hac,-lowrate,33.24,0.967,0.037,1237319,https://arxiv.org/src/2403.14530,
 chen2024hac,-highrate,33.71,0.968,0.034,1950351,https://arxiv.org/src/2403.14530,
-fan2024lightgaussian,,32.725,0.965,0.0370,8218738688,https://arxiv.org/pdf/2311.17245,"Taken from Table 6, avg of per-scene results"
+fan2024lightgaussian,,32.725,0.965,0.037,8218738688,https://arxiv.org/pdf/2311.17245,"Taken from Table 6, avg of per-scene results"
 lee2024compact,,,,,,,
 morgenstern2024compact,,33.7,0.969,0.031,4299161,https://arxiv.org/src/2312.13299,
-morgenstern2024compact," w/o SH",31.75,0.961,0.04,2097152,https://arxiv.org/src/2312.13299,
+morgenstern2024compact, w/o SH,31.75,0.961,0.04,2097152,https://arxiv.org/src/2312.13299,
 niedermayr2024compressed,,32.936,0.967,0.033,3858760,https://arxiv.org/pdf/2401.02436,
 papantonakis2024reducing,,,,,,,

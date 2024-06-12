@@ -17,7 +17,7 @@ navaneet2023compact3d:
   is_csv: False
   table_names: 
     - tab:comp_sota 
-  filename: "arxiv_main.tex"
+  filename: "arxiv.tex"
 
 fan2024lightgaussian:
   url: "https://arxiv.org/src/2311.17245"
