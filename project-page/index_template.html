@@ -186,16 +186,14 @@
 {% for paper in summaries %}
 <section class="section hero">
     <div class="container is-max-desktop" id="{{ paper.name }}">
-        <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-                <h2 class="title is-3">{{ paper.title }}</h2>
-                <div class="content has-text-justified">
-                    <p>
-                        {{ paper.summary }}
-                    </p>
-                    <div style="display: flex; justify-content: center; align-items: center">
-                        <img src="{{ paper.image }}" alt="" style="max-height: 250px;">
-                    </div>
+        <div class="column is-centered has-text-centered">
+            <h2 class="title is-3">{{ paper.title }}</h2>
+            <div class="content has-text-justified">
+                <p>
+                    {{ paper.summary }}
+                </p>
+                <div style="display: flex; justify-content: center; align-items: center">
+                    <img src="{{ paper.image }}" alt="" style="max-height: 250px;">
                 </div>
             </div>
         </div>
