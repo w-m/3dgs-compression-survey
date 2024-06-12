@@ -69,14 +69,14 @@ def combine_tables_to_html():
 
     #color the top 3 values in each column
     def add_top_3_classes(df):
-        colors = ['rgba(255, 215, 0, 0.5)', 'rgba(192, 192, 192, 0.5)', 'rgba(205, 127, 50, 0.5)']  # Gold, Silver, Bronze with reduced opacity
+        colors = ['first', 'second', 'third']
         for col in df.select_dtypes(include=[float, int]).columns:
             if any(keyword in col[1].lower() for keyword in ['size', 'lpips']):
                 top_3 = df[col].nsmallest(3)
             else:
                 top_3 = df[col].nlargest(3)
             for i, val in enumerate(top_3):
-                df.loc[df[col] == val, col] = f'<td style="background-color: {colors[i]}">{val}</td>'
+                df.loc[df[col] == val, col] = f'<td class="{colors[i]}">{val}</td>'
         return df
     
     multi_col_df = add_top_3_classes(multi_col_df)

@@ -8,3 +8,15 @@
   border-radius: 5px;
 
 }
+
+.first {
+  background-color: rgba(255, 215, 0, 0.5)
+}
+
+.second {
+  background-color: rgba(192, 192, 192, 0.5)
+}
+
+.third {
+  background-color: rgba(205, 127, 50, 0.5)
+}
