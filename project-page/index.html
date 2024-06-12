@@ -186,8 +186,8 @@
       <td>0.846</td>
       <td style="background-color: rgba(192, 192, 192, 0.5)">0.187</td>
       <td style="background-color: rgba(255, 215, 0, 0.5)">8.1</td>
-      <td style="background-color: rgba(205, 127, 50, 0.5)">33.24</td>
-      <td style="background-color: rgba(205, 127, 50, 0.5)">0.967</td>
+      <td>33.24</td>
+      <td>0.967</td>
       <td>0.037</td>
       <td style="background-color: rgba(255, 215, 0, 0.5)">1.2</td>
       <td>29.98</td>
@@ -224,10 +224,10 @@
       <td>0.831</td>
       <td>0.201</td>
       <td>39.4</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td style="background-color: rgba(205, 127, 50, 0.5)">33.33</td>
+      <td style="background-color: rgba(192, 192, 192, 0.5)">0.968</td>
+      <td style="background-color: rgba(205, 127, 50, 0.5)">0.034</td>
+      <td>5.5</td>
       <td>29.79</td>
       <td>0.901</td>
       <td>0.258</td>
@@ -339,7 +339,7 @@
       <td>0.194</td>
       <td>17.3</td>
       <td>32.936</td>
-      <td style="background-color: rgba(205, 127, 50, 0.5)">0.967</td>
+      <td>0.967</td>
       <td style="background-color: rgba(192, 192, 192, 0.5)">0.033</td>
       <td>3.7</td>
       <td>29.381</td>
@@ -527,6 +527,52 @@ many redundant and unnecessary Gaussians, resulting in high memory and storage r
                     </p>
                     <div style="display: flex; justify-content: center; align-items: center">
                         <img src="static/images/navaneet2023compact3d.png" alt="" style="max-height: 250px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<hr class="divider"> <!-- Horizontal line between papers -->
+
+<!-- <div style="height: 15px;"></div> Spacer div -->
+
+<section class="section hero">
+    <div class="container is-max-desktop" id="niedermayr2024compressed">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3"><a href="https://keksboter.github.io/c3dgs/" target="_blank">Compressed 3D Gaussian Splatting for Accelerated Novel View Synthesis</a></h2>
+                <div class="content has-text-justified">
+                    <p>
+                        The authors proposes a compressed 3D Gaussian splat representation that utilizes sensitivity-aware vector clustering with quantization-aware training to compress directional colors and Gaussian parameters. A up to 31x compression with minimal visula quality loss and up to 4x higher frame rates are achieved. The approach is demonstrated to be suitable for applications requiring network streaming and rendering on low-power devices. This is achieved by significantly reducing memory consumption and enabling efficient rendering with hardware rasterization on lightweight GPUs.
+                    </p>
+                    <div style="display: flex; justify-content: center; align-items: center">
+                        <img src="static/images/niedermayr2024compressed.png" alt="" style="max-height: 250px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<hr class="divider"> <!-- Horizontal line between papers -->
+
+<!-- <div style="height: 15px;"></div> Spacer div -->
+
+<section class="section hero">
+    <div class="container is-max-desktop" id="papantonakis2024reducing">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3"><a href="https://repo-sam.inria.fr/fungraph/reduced_3dgs/" target="_blank">Reducing the Memory Footprint of 3D Gaussian Splatting</a></h2>
+                <div class="content has-text-justified">
+                    <p>
+                        The authors reduce the memory requirements of 3D Gaussian Splatting for novel view synthesis by implementing an efficient resolution-aware primitive pruning approach, adaptive adjustment of spherical harmonics coefficients, and codebook-based quantization. The authors achieve a 27x reduction in memory size and a 1.7x increase in rendering speed with minimal impact on visual quality.
+                    </p>
+                    <div style="display: flex; justify-content: center; align-items: center">
+                        <img src="static/images/papantonakis2024reducing.png" alt="" style="max-height: 250px;">
                     </div>
                 </div>
             </div>
