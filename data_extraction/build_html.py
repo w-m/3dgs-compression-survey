@@ -34,7 +34,13 @@ def get_links():
 def combine_tables_to_html():
     dfs = []
     shortnames = get_shortnames()
-    for file in os.listdir('results'):
+    #move SyntheticNeRF.csv to the end because of many missing values
+    result_files = os.listdir('results')
+    if "SyntheticNeRF.csv" in result_files:
+        result_files.remove("SyntheticNeRF.csv")
+        result_files.append("SyntheticNeRF.csv") 
+        
+    for file in result_files:
         #read csvs
         df = pd.read_csv(f'results/{file}')
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
