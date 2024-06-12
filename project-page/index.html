@@ -366,7 +366,6 @@
 </table>
             
             </div>
-
         </div>
     </div>
 </section>
@@ -397,6 +396,7 @@
                 { targets: [3,4,7,8,11,12,15,16], orderSequence: ['asc', 'desc'] },
                 { targets: '_all', orderSequence: ['desc', 'asc'] },
                 { targets: '_all', type: nanBottom },
+                { targets: "_all", className: "has-text-right" }
             ],
             "lengthChange": false, // Removes the "entries per page" dropdown
             "searching": false,    // Removes the search box
@@ -405,7 +405,7 @@
             "scrollX": true,        // Enables horizontal scrolling
             "colReorder": true,     // Enables column reordering with drag and drop
             "fixedColumns": true,    // Always show first / "Methods" column
-            "cell-border": false,
+            // "cell-border": false,
             "stripe": true,
             "fnInitComplete": function(oSettings) {
                 $( window ).resize();
