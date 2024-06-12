@@ -1,0 +1,3 @@
+### Reducing the Memory Footprint of 3D Gaussian Splatting
+
+The authors reduce the memory requirements of 3D Gaussian Splatting for novel view synthesis by implementing an efficient resolution-aware primitive pruning approach, adaptive adjustment of spherical harmonics coefficients, and codebook-based quantization. The authors achieve a 27x reduction in memory size and a 1.7x increase in rendering speed with minimal impact on visual quality. 
