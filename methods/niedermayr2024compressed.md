@@ -1,0 +1,3 @@
+### Compressed 3D Gaussian Splatting for Accelerated Novel View Synthesis
+
+The authors proposes a compressed 3D Gaussian splat representation that utilizes sensitivity-aware vector clustering with quantization-aware training to compress directional colors and Gaussian parameters. A up to 31x compression with minimal visula quality loss and up to 4x higher frame rates are achieved. The approach is demonstrated to be suitable for applications requiring network streaming and rendering on low-power devices. This is achieved by significantly reducing memory consumption and enabling efficient rendering with hardware rasterization on lightweight GPUs.
