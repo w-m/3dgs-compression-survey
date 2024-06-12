@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
     <meta charset="utf-8"/>
     <meta name="description"
           content="A survey comparing state of the art 3D Gaussian splatting compression methods, made by researchers at Fraunhofer Heinrich Hertz Institute HHI and Humboldt University of Berlin."/>
@@ -120,7 +119,7 @@
 
 <section class="hero is-small">
     <div class="hero-body">
-        <div class="container">
+        <div class="container is-fluid">
             <!-- TABLE -->
             <div id="results-table">
                 <!-- Content from results.html will be loaded here -->
@@ -395,23 +394,33 @@
 
         new DataTable('#results', {
             columnDefs: [
-            { targets: [3,4,7,8,11,12,15,16], orderSequence: ['asc', 'desc'] },
-            { targets: '_all', orderSequence: ['desc', 'asc'] },
-            { targets: '_all', type: nanBottom },
+                { targets: [3,4,7,8,11,12,15,16], orderSequence: ['asc', 'desc'] },
+                { targets: '_all', orderSequence: ['desc', 'asc'] },
+                { targets: '_all', type: nanBottom },
             ],
             "lengthChange": false, // Removes the "entries per page" dropdown
             "searching": false,    // Removes the search box
             "info": false,         // Removes the information display (e.g., "Showing 1 to 3 of 3 entries")
             "paging": false,        // Removes the pagination controls
             "scrollX": true,        // Enables horizontal scrolling
-            // "responsive": true,     // Enables responsive design
             "colReorder": true,     // Enables column reordering with drag and drop
             "fixedColumns": true,    // Always show first / "Methods" column
-            // "cell-border": false,
+            "cell-border": false,
             "stripe": true,
+            "fnInitComplete": function(oSettings) {
+                $( window ).resize();
+            },
+            "fnDrawCallback": function(oSettings) {
+                $( window ).trigger('resize');
+            },
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bScrollCollapse": true,
             "orderClasses": false
         });
     });
+
+
 </script>
 
 
