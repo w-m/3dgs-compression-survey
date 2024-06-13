@@ -119,7 +119,7 @@
 
 <section class="hero is-small">
     <div class="hero-body">
-        <div class="container is-fluid">
+        <div class="container">
             <!-- TABLE -->
             <div id="results-table">
                 <!-- Content from results.html will be loaded here -->
@@ -146,40 +146,73 @@
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/2.0.8/sorting/absolute.js"></script>
 
 <script>
-    $(document).ready(function() {
-        var nanBottom = $.fn.dataTable.absoluteOrderNumber({
-            value: '', position: 'bottom'
-        });
+    var setSmall = false;
+    var setLarge = false;
+    let table = null;
 
-        new DataTable('#results', {
-            columnDefs: [
-                { targets: [3,4,7,8,11,12,15,16], orderSequence: ['asc', 'desc'] },
-                { targets: '_all', orderSequence: ['desc', 'asc'] },
-                { targets: '_all', type: nanBottom },
-                { targets: "_all", className: "has-text-right" }
-            ],
-            "lengthChange": false, // Removes the "entries per page" dropdown
-            "searching": false,    // Removes the search box
-            "info": false,         // Removes the information display (e.g., "Showing 1 to 3 of 3 entries")
-            "paging": false,        // Removes the pagination controls
-            "scrollX": true,        // Enables horizontal scrolling
-            "colReorder": true,     // Enables column reordering with drag and drop
-            "fixedColumns": true,    // Always show first / "Methods" column
-            // "cell-border": false,
-            "stripe": true,
-            "fnInitComplete": function(oSettings) {
-                $( window ).resize();
-            },
-            "fnDrawCallback": function(oSettings) {
-                $( window ).trigger('resize');
-            },
-            "sScrollX": "100%",
-            "sScrollXInner": "100%",
-            "bScrollCollapse": true,
-            "orderClasses": false
-        });
+    var nanBottom = $.fn.dataTable.absoluteOrderNumber({
+        value: '', position: 'bottom'
     });
+    var tableOptions = {
+        columnDefs: [
+            { targets: [3,4,7,8,11,12,15,16], orderSequence: ['asc', 'desc'] },
+            { targets: '_all', orderSequence: ['desc', 'asc'] },
+            { targets: '_all', type: nanBottom },
+            { targets: "_all", className: "has-text-right" }
+        ],
+        "lengthChange": false, // Removes the "entries per page" dropdown
+        "searching": false,    // Removes the search box
+        "info": false,         // Removes the information display (e.g., "Showing 1 to 3 of 3 entries")
+        "paging": false,        // Removes the pagination controls
+        "scrollX": true,        // Enables horizontal scrolling
+        "colReorder": true,     // Enables column reordering with drag and drop
+        "fixedColumns": true,    // Always show first / "Methods" column
+        // "cell-border": false,
+        "stripe": true,
+        /*
+        "fnInitComplete": function(oSettings) {
+            $( window ).resize();
+        },
+        "fnDrawCallback": function(oSettings) {
+            $( window ).trigger('resize');
+        },
+        "sScrollX": "100%",
+        "sScrollXInner": "100%",
+        "bScrollCollapse": true,
+        */
 
+        "orderClasses": false
+    }
+
+
+    function reportWindowSize() {
+        if (window.innerWidth < 1500) {
+            if (!setSmall) {
+                setSmall = true
+                setLarge = false
+                if (table != null) {
+                    table.destroy();
+                }
+                tableOptions.scrollX = true;
+                table = new DataTable('#results', tableOptions);
+                console.log("small")
+            }
+        } else {
+            if (!setLarge) {
+                setLarge = true
+                setSmall = false
+                if (table != null) {
+                    table.destroy();
+                }
+                tableOptions.scrollX = false;
+                table = new DataTable('#results', tableOptions);
+                console.log("large")
+
+            }
+        }
+    }
+    $(document).ready(reportWindowSize);
+    window.onresize = reportWindowSize;
 
 </script>
 
