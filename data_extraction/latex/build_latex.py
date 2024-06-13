@@ -102,6 +102,7 @@ def generate_tex_table():
     multi_col_df.to_latex(buf=buffer, na_rep="", index=False, float_format="%.3g")
 
     lines = buffer.getvalue().strip().split("\n")
+    lines[0] = "\\begin{tabular}{lllll|llll|llll|llll}"
     lines[3] = (
         lines[3]
         .replace("&", "& \\tiny")
@@ -132,7 +133,7 @@ def generate_section(paper_title: str, paper_text: str, paper_id: str, figure: s
 
 table = tex_table.replace("<table>", generate_tex_table())
 
-tex_content = "\\section*{Contribution Summaries}\n\n"
+tex_content = "\\section*{Contribution Summaries}\n\n The following sections provide brief summaries of the current contributions. For more detailed insights, please refer to the cited papers."
 for filename in markdown_files:
     with open(os.path.join(methodsdir, filename), "r") as file:
         title, text = extract_title_and_text(file.read())
