@@ -64,11 +64,14 @@
                     <div class="is-size-5 publication-authors">
                         <!-- Paper authors -->
                         <span class="author-block">
+                            <a href="https://www.hhi.fraunhofer.de/en/departments/vit/research-groups/computer-vision-graphics/team/milena-bagdasarian.html"
+                               target="_blank">Milena Bagdasarian</a><sup><small>1</small></sup>,</span>
+                        <span class="author-block">
                             <a>
                                 Paul Knoll</a><sup><small>1</small></sup>,</span>
                         <span class="author-block">
-                            <a href=""
-                               target="_blank">Milena Bagdasarian</a><sup><small>1</small></sup>,</span>
+								<a href="https://florian-barthel.github.io/" target="_blank">
+									Florian Barthel</a><sup><small>1,2</small></sup>,</span>
                         <span class="author-block">
 								<a href="https://www.hhi.fraunhofer.de/en/departments/vit/research-groups/computer-vision-graphics/team/morgenstern.html"
                                    target="_blank">Wieland Morgenstern</a><sup><small>1</small></sup></span>
@@ -79,8 +82,8 @@
 							<span class="author-block">
 								<sup><small>1 </small></sup>Fraunhofer Heinrich Hertz
 								Institute, HHI <br/>
-								<!-- <sup><small>2 </small></sup>Humboldt University of Berlin
-								<br/> -->
+								<sup><small>2 </small></sup>Humboldt University of Berlin
+								<br/>
                                 <!-- Conferance name and year -->
 							</span>
                     </div>
@@ -515,7 +518,8 @@ many redundant and unnecessary Gaussians, resulting in high memory and storage r
             <h2 class="title is-3"><a href="https://fraunhoferhhi.github.io/Self-Organizing-Gaussians/" target="_blank">Compact 3D Scene Representation via Self-Organizing Gaussian Grids</a></h2>
             <div class="content has-text-justified">
                 <p>
-                    3D data is awkward to compress. But there's plenty of solutions for compressing 2D data (images!). So let's organize our 3D data into a 2D grid, where grid neighbors are also close in 3D. That's a hard problem, but we can leverage novel assignment algorithms with GPU power for parallelizing that, to get the sorting done in a few seconds.
+                    Compressing 3D data is challenging, but many effective solutions exist for compressing 2D data (such as images). The authors propose a new method to organize 3DGS parameters into a 2D grid, drastically reducing storage requirements without compromising visual quality. This organization exploits perceptual redundancies in natural scenes. They introduce a highly parallel sorting algorithm, PLAS, which arranges Gaussian parameters into a 2D grid, maintaining local neighborhood structure and ensuring smoothness. This solution is particularly innovative because no existing method efficiently handles a 2D grid with millions of points. During training, a smoothness loss is applied to enforce local smoothness in the 2D grid, enhancing the compressibility of the data. 
+The key insight is that smoothness needs to be enforced during training to enable efficient compression.
                 </p>
                 <div style="display: flex; justify-content: center; align-items: center">
                     <img src="static/images/morgenstern2024compact.png" alt="" style="max-height: 250px;">
