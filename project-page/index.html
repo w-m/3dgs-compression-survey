@@ -409,17 +409,6 @@
         "fixedColumns": true,    // Always show first / "Methods" column
         // "cell-border": false,
         "stripe": true,
-        /*
-        "fnInitComplete": function(oSettings) {
-            $( window ).resize();
-        },
-        "fnDrawCallback": function(oSettings) {
-            $( window ).trigger('resize');
-        },
-        "sScrollX": "100%",
-        "sScrollXInner": "100%",
-        "bScrollCollapse": true,
-        */
 
         "orderClasses": false
     }
@@ -435,7 +424,6 @@
                 }
                 tableOptions.scrollX = true;
                 table = new DataTable('#results', tableOptions);
-                console.log("small")
             }
         } else {
             if (!setLarge) {
@@ -446,8 +434,6 @@
                 }
                 tableOptions.scrollX = false;
                 table = new DataTable('#results', tableOptions);
-                console.log("large")
-
             }
         }
     }
