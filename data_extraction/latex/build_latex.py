@@ -151,16 +151,18 @@ with open("3dgs_compression_survey.tex", "w") as file:
 
 # Step 4: Compile LaTeX Document
 subprocess.run(["pdflatex", "3dgs_compression_survey.tex"])
+# name of generated .bbl must match name of .tex file for arxiv submisisons
 subprocess.run(["bibtex", "3dgs_compression_survey"])
 subprocess.run(["pdflatex", "3dgs_compression_survey.tex"])
 subprocess.run(["pdflatex", "3dgs_compression_survey.tex"])
 subprocess.run(["open", "3dgs_compression_survey.pdf"])
 
+# Delete all unnecessary files
 subprocess.run(
     [
         "rm",
         "3dgs_compression_survey.aux",
-        "3dgs_compression_survey.bbl",
+        # "3dgs_compression_survey.bbl", # .bbl file needed for arxiv submission
         "3dgs_compression_survey.blg",
         "3dgs_compression_survey.log",
         "3dgs_compression_survey.out",
