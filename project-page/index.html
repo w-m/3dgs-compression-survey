@@ -50,6 +50,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="static/css/index.css"/>
     <link rel="stylesheet" href="static/css/style.css"/>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 
 <body>
@@ -444,6 +447,94 @@
     window.onresize = reportWindowSize;
 
 </script>
+
+<br>
+<!-- PLOTS -->
+<div class="interactive-plots-container">
+    
+    <div class="plot-container">
+        <div class="tab-buttons">
+            <button id="button01" class="active" onclick="showTab('tab01', 'button01')">PSNR</button>
+            <button id="button02" onclick="showTab('tab02', 'button02')">SSIM</button>
+            <button id="button03" onclick="showTab('tab03', 'button03')">LPIPS</button>
+        </div>
+
+        <div id="tab01" class="tab tab-active">
+            <div id="plot01" class="plot-content"></div>
+        </div>
+        <div id="tab02" class="tab">
+            <div id="plot02" class="plot-content"></div>
+        </div>
+        <div id="tab03" class="tab">
+            <div id="plot03" class="plot-content"></div>
+        </div>
+    </div>
+    
+    <div class="plot-container">
+        <div class="tab-buttons">
+            <button id="button11" class="active" onclick="showTab('tab11', 'button11')">PSNR</button>
+            <button id="button12" onclick="showTab('tab12', 'button12')">SSIM</button>
+            <button id="button13" onclick="showTab('tab13', 'button13')">LPIPS</button>
+        </div>
+
+        <div id="tab11" class="tab tab-active">
+            <div id="plot11" class="plot-content"></div>
+        </div>
+        <div id="tab12" class="tab">
+            <div id="plot12" class="plot-content"></div>
+        </div>
+        <div id="tab13" class="tab">
+            <div id="plot13" class="plot-content"></div>
+        </div>
+    </div>
+    
+    <div class="plot-container">
+        <div class="tab-buttons">
+            <button id="button21" class="active" onclick="showTab('tab21', 'button21')">PSNR</button>
+            <button id="button22" onclick="showTab('tab22', 'button22')">SSIM</button>
+            <button id="button23" onclick="showTab('tab23', 'button23')">LPIPS</button>
+        </div>
+
+        <div id="tab21" class="tab tab-active">
+            <div id="plot21" class="plot-content"></div>
+        </div>
+        <div id="tab22" class="tab">
+            <div id="plot22" class="plot-content"></div>
+        </div>
+        <div id="tab23" class="tab">
+            <div id="plot23" class="plot-content"></div>
+        </div>
+    </div>
+    
+    <div class="plot-container">
+        <div class="tab-buttons">
+            <button id="button31" class="active" onclick="showTab('tab31', 'button31')">PSNR</button>
+            <button id="button32" onclick="showTab('tab32', 'button32')">SSIM</button>
+            <button id="button33" onclick="showTab('tab33', 'button33')">LPIPS</button>
+        </div>
+
+        <div id="tab31" class="tab tab-active">
+            <div id="plot31" class="plot-content"></div>
+        </div>
+        <div id="tab32" class="tab">
+            <div id="plot32" class="plot-content"></div>
+        </div>
+        <div id="tab33" class="tab">
+            <div id="plot33" class="plot-content"></div>
+        </div>
+    </div>
+    
+
+    <div class="legend-container">
+        <div class="legend" id="legend"></div>
+    </div>
+</div>
+
+<script>
+    var plotData = [{"plot1": {"title": "<b>DeepBlending</b>: PSNR / Size", "xaxis": "Size (MB)", "yaxis": "PSNR", "points": [{"x": 6.3, "y": 30.34, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 4.3, "y": 29.98, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": NaN, "y": NaN, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 43.2, "y": 29.79, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 23.8, "y": 29.73, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 16.8, "y": 30.35, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 5.5, "y": 30.5, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 12.0, "y": 29.9, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 13.0, "y": 29.9, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 25.3, "y": 29.381, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 18.0, "y": 29.63, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot2": {"title": "<b>DeepBlending</b>: SSIM / Size", "xaxis": "Size (MB)", "yaxis": "SSIM", "points": [{"x": 6.3, "y": 0.906, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 4.3, "y": 0.902, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": NaN, "y": NaN, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 43.2, "y": 0.901, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 23.8, "y": 0.9, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 16.8, "y": 0.909, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 5.5, "y": 0.908, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 12.0, "y": 0.906, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 13.0, "y": 0.907, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 25.3, "y": 0.898, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 18.0, "y": 0.902, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot3": {"title": "<b>DeepBlending</b>: LPIPS / Size", "xaxis": "Size (MB)", "yaxis": "LPIPS", "points": [{"x": 6.3, "y": 0.258, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 4.3, "y": 0.269, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": NaN, "y": NaN, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 43.2, "y": 0.258, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 23.8, "y": 0.258, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 16.8, "y": 0.258, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 5.5, "y": 0.261, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 12.0, "y": 0.252, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 13.0, "y": 0.251, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 25.3, "y": 0.253, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 18.0, "y": 0.249, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}}, {"plot1": {"title": "<b>MipNeRF360</b>: PSNR / Size", "xaxis": "Size (MB)", "yaxis": "PSNR", "points": [{"x": 21.9, "y": 27.77, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 15.3, "y": 27.53, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 42.0, "y": 27.28, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 48.8, "y": 27.08, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 29.1, "y": 27.03, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 40.3, "y": 27.64, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 16.7, "y": 27.02, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 18.0, "y": 27.03, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 19.0, "y": 27.12, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 28.8, "y": 26.981, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 29.0, "y": 27.1, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot2": {"title": "<b>MipNeRF360</b>: SSIM / Size", "xaxis": "Size (MB)", "yaxis": "SSIM", "points": [{"x": 21.9, "y": 0.811, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 15.3, "y": 0.807, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 42.0, "y": 0.805, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 48.8, "y": 0.798, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 29.1, "y": 0.797, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 40.3, "y": 0.814, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 16.7, "y": 0.803, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 18.0, "y": 0.804, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 19.0, "y": 0.806, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 28.8, "y": 0.801, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 29.0, "y": 0.809, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot3": {"title": "<b>MipNeRF360</b>: LPIPS / Size", "xaxis": "Size (MB)", "yaxis": "LPIPS", "points": [{"x": 21.9, "y": 0.23, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 15.3, "y": 0.238, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 42.0, "y": 0.243, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 48.8, "y": 0.247, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 29.1, "y": 0.247, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 40.3, "y": 0.22, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 16.7, "y": 0.232, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 18.0, "y": 0.243, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 19.0, "y": 0.24, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 28.8, "y": 0.238, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 29.0, "y": 0.226, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}}, {"plot1": {"title": "<b>SyntheticNeRF</b>: PSNR / Size", "xaxis": "Size (MB)", "yaxis": "PSNR", "points": [{"x": 1.2, "y": 33.24, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 1.9, "y": 33.71, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 7.8, "y": 32.725, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 5.5, "y": 33.33, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 4.1, "y": 33.7, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 2.0, "y": 31.75, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 3.7, "y": 32.936, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": NaN, "y": NaN, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot2": {"title": "<b>SyntheticNeRF</b>: SSIM / Size", "xaxis": "Size (MB)", "yaxis": "SSIM", "points": [{"x": 1.2, "y": 0.967, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 1.9, "y": 0.968, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 7.8, "y": 0.965, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 5.5, "y": 0.968, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 4.1, "y": 0.969, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 2.0, "y": 0.961, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 3.7, "y": 0.967, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": NaN, "y": NaN, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot3": {"title": "<b>SyntheticNeRF</b>: LPIPS / Size", "xaxis": "Size (MB)", "yaxis": "LPIPS", "points": [{"x": 1.2, "y": 0.037, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 1.9, "y": 0.034, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 7.8, "y": 0.037, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 5.5, "y": 0.034, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 4.1, "y": 0.031, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 2.0, "y": 0.04, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 3.7, "y": 0.033, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": NaN, "y": NaN, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}}, {"plot1": {"title": "<b>TanksAndTemples</b>: PSNR / Size", "xaxis": "Size (MB)", "yaxis": "PSNR", "points": [{"x": 11.2, "y": 24.4, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 8.1, "y": 24.04, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 22.0, "y": 23.11, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 39.4, "y": 23.32, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 20.9, "y": 23.32, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 21.4, "y": 25.63, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 8.2, "y": 25.27, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 12.0, "y": 23.39, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 13.0, "y": 23.44, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 17.3, "y": 23.324, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 14.0, "y": 23.57, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot2": {"title": "<b>TanksAndTemples</b>: SSIM / Size", "xaxis": "Size (MB)", "yaxis": "SSIM", "points": [{"x": 11.2, "y": 0.853, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 8.1, "y": 0.846, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 22.0, "y": 0.817, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 39.4, "y": 0.831, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 20.9, "y": 0.831, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 21.4, "y": 0.864, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 8.2, "y": 0.857, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 12.0, "y": 0.836, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 13.0, "y": 0.838, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 17.3, "y": 0.832, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 14.0, "y": 0.84, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}, "plot3": {"title": "<b>TanksAndTemples</b>: LPIPS / Size", "xaxis": "Size (MB)", "yaxis": "LPIPS", "points": [{"x": 11.2, "y": 0.177, "label": "HAC-highrate", "group": "HAC", "group_id": 2}, {"x": 8.1, "y": 0.187, "label": "HAC-lowrate", "group": "HAC", "group_id": 2}, {"x": 22.0, "y": 0.231, "label": "LightGaussian", "group": "LightGaussian", "group_id": 3}, {"x": 39.4, "y": 0.201, "label": "Compact3DGS", "group": "Compact3DGS", "group_id": 0}, {"x": 20.9, "y": 0.202, "label": "Compact3DGS+PP", "group": "Compact3DGS", "group_id": 0}, {"x": 21.4, "y": 0.208, "label": "Morgenstern et al.", "group": "Morgenstern et al.", "group_id": 4}, {"x": 8.2, "y": 0.217, "label": "Morgenstern et al. w/o SH", "group": "Morgenstern et al.", "group_id": 4}, {"x": 12.0, "y": 0.2, "label": "Navaneet et al. 16K", "group": "Navaneet et al.", "group_id": 5}, {"x": 13.0, "y": 0.198, "label": "Navaneet et al. 32K", "group": "Navaneet et al.", "group_id": 5}, {"x": 17.3, "y": 0.194, "label": "Compressed3D", "group": "Compressed3D", "group_id": 1}, {"x": 14.0, "y": 0.188, "label": "Reduced3DGS", "group": "Reduced3DGS", "group_id": 6}], "lines": []}}];
+</script>
+<script src="static/js/scripts.js"></script>
+<br>
 
 
 <section class="section hero">

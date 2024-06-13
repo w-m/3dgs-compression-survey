@@ -3,6 +3,7 @@ import pandas as pd
 import bibtexparser
 from jinja2 import Environment, FileSystemLoader
 import re
+import json
 
 def get_shortnames():
     #get shortnames from bibtex
@@ -123,9 +124,71 @@ def load_methods_summaries():
             })
     return summaries
 
+def get_plot_data(): 
+    dfs = {}
+    shortnames = get_shortnames()
+
+    result_files = os.listdir('results')
+        
+    for file in result_files:
+        #read csvs
+        df = pd.read_csv(f'results/{file}')
+        df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
+        df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
+        df["NewMethod"] = df["Shortname"] + df["Submethod"]
+        
+        #change Size [Bytes] to Size [MB] and round
+        if "Size [Bytes]" in df.columns:
+            df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
+            df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
+            df.drop(columns=["Size [Bytes]"], inplace=True)
+
+        dfs[file.split(".")[0]] = df
+
+    shortnames = sorted(shortnames.values())
+
+    data = []
+    for dataset in dfs:
+        df = dfs[dataset]
+
+        psnr_size = []
+        ssim_size = []
+        lpips_size = []
+        for method in df.index:
+            psnr_size.append({"x": df.loc[method, "Size [MB]"], "y": df.loc[method, "PSNR"], "label": df.loc[method, "NewMethod"], "group": df.loc[method, "Shortname"], "group_id": shortnames.index(df.loc[method, "Shortname"])})
+            ssim_size.append({"x": df.loc[method, "Size [MB]"], "y": df.loc[method, "SSIM"], "label": df.loc[method, "NewMethod"], "group": df.loc[method, "Shortname"], "group_id": shortnames.index(df.loc[method, "Shortname"])})
+            lpips_size.append({"x": df.loc[method, "Size [MB]"], "y": df.loc[method, "LPIPS"], "label": df.loc[method, "NewMethod"], "group": df.loc[method, "Shortname"], "group_id": shortnames.index(df.loc[method, "Shortname"])})
+
+        data.append({
+            'plot1': {
+                "title": f"<b>{dataset}</b>: PSNR / Size",
+                "xaxis": "Size (MB)",
+                "yaxis": "PSNR",
+                'points': psnr_size,
+                'lines': []
+            },
+            'plot2': {
+                "title": f"<b>{dataset}</b>: SSIM / Size",
+                "xaxis": "Size (MB)",
+                "yaxis": "SSIM",
+                'points': ssim_size,
+                'lines': []
+            },
+            'plot3': {
+                "title": f"<b>{dataset}</b>: LPIPS / Size",
+                "xaxis": "Size (MB)",
+                "yaxis": "LPIPS",
+                'points': lpips_size,
+                'lines': []
+            } 
+        })
+        
+    return data
+
 if __name__ == "__main__":
     results_table = combine_tables_to_html()
     summaries = load_methods_summaries()
+    plot_data = get_plot_data()
 
     # Pfad zu deinem Template-Ordner
     file_loader = FileSystemLoader('project-page')
@@ -137,7 +200,8 @@ if __name__ == "__main__":
     # Daten, die in das Template eingefügt werden sollen
     data = {
         'results_table': results_table,
-        'summaries': summaries
+        'summaries': summaries,
+        'plot_data':json.dumps(plot_data)
     }
 
     # Render das Template mit den Daten

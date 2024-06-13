@@ -50,6 +50,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="static/css/index.css"/>
     <link rel="stylesheet" href="static/css/style.css"/>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 
 <body>
@@ -204,6 +207,40 @@
     window.onresize = reportWindowSize;
 
 </script>
+
+<br>
+<!-- PLOTS -->
+<div class="interactive-plots-container">
+    {% for i in range(4) %}
+    <div class="plot-container">
+        <div class="tab-buttons">
+            <button id="button{{ i }}1" class="active" onclick="showTab('tab{{ i }}1', 'button{{ i }}1')">PSNR</button>
+            <button id="button{{ i }}2" onclick="showTab('tab{{ i }}2', 'button{{ i }}2')">SSIM</button>
+            <button id="button{{ i }}3" onclick="showTab('tab{{ i }}3', 'button{{ i }}3')">LPIPS</button>
+        </div>
+
+        <div id="tab{{ i }}1" class="tab tab-active">
+            <div id="plot{{ i }}1" class="plot-content"></div>
+        </div>
+        <div id="tab{{ i }}2" class="tab">
+            <div id="plot{{ i }}2" class="plot-content"></div>
+        </div>
+        <div id="tab{{ i }}3" class="tab">
+            <div id="plot{{ i }}3" class="plot-content"></div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="legend-container">
+        <div class="legend" id="legend"></div>
+    </div>
+</div>
+
+<script>
+    var plotData = {{ plot_data | safe }};
+</script>
+<script src="static/js/scripts.js"></script>
+<br>
 
 {% for paper in summaries %}
 <section class="section hero">

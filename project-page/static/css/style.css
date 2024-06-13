@@ -21,3 +21,109 @@
 .third {
   background: radial-gradient(circle at 0% 0%, rgba(230, 170, 100, 65%) 0%, rgba(205, 127, 50, 65%) 80%);
 }
+
+
+.interactive-plots-container {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  margin: 0 20px;
+  padding: 0;
+  box-sizing: border-box;
+  justify-content: space-between;
+  background-color: #fff;
+  gap: 10px; 
+}
+
+.plot-container {
+  flex: 1 1 calc(25% - 10px);
+  box-sizing: border-box;
+  margin: 10px 0; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 0;
+  height: 400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+  border-radius: 8px 8px 0 0;
+}
+
+.tab-buttons button {
+  flex: 1;
+  padding: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #f1f1f1;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.tab-buttons button.active {
+  background-color: #ccc;
+  border-radius: 8px 8px 0 0;
+}
+
+.tab-buttons button:hover {
+  background-color: #e1e1e1;
+  border-radius: 8px; 
+}
+
+.tab {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 35px;
+  left: 0;
+}
+
+.tab-active {
+  display: block;
+}
+
+.plot-content {
+  width: 100%;
+  height: calc(100% - 20px);
+}
+
+.legend-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 40px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.legend-item {
+  margin: 5px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.legend-color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border-radius: 4px;
+}
