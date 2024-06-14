@@ -5,6 +5,8 @@ from jinja2 import Environment, FileSystemLoader
 import re
 import json
 
+dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
+
 def get_shortnames():
     #get shortnames from bibtex
     shortnames = {}
@@ -37,13 +39,13 @@ def combine_tables_to_html():
     shortnames = get_shortnames()
     #move SyntheticNeRF.csv to the end because of many missing values
     result_files = os.listdir('results')
-    if "SyntheticNeRF.csv" in result_files:
-        result_files.remove("SyntheticNeRF.csv")
-        result_files.append("SyntheticNeRF.csv") 
+    # if "SyntheticNeRF.csv" in result_files:
+    #     result_files.remove("SyntheticNeRF.csv")
+    #     result_files.append("SyntheticNeRF.csv") 
         
-    for file in result_files:
+    for dataset in dataset_order:
         #read csvs
-        df = pd.read_csv(f'results/{file}')
+        df = pd.read_csv(f'results/{dataset}.csv')
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
 
         #combine Method and Submethods colum into new Method column, replace method name with shortname+submethod
@@ -63,7 +65,7 @@ def combine_tables_to_html():
             df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
             df.drop(columns=["Size [Bytes]"], inplace=True)
 
-        dfs.append((file.split(".")[0], df))
+        dfs.append((dataset, df))
     
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
@@ -148,7 +150,7 @@ def get_plot_data():
     shortnames = sorted(shortnames.values())
 
     data = []
-    for dataset in dfs:
+    for dataset in dataset_order:
         df = dfs[dataset]
 
         psnr_size = []
