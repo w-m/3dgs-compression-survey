@@ -53,6 +53,7 @@
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+
 </head>
 
 <body>
@@ -127,18 +128,20 @@
     <div class="hero-body">
         <div class="container">
             <!-- TABLE -->
-            <div id="results-table">
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
                 <!-- Content from results.html will be loaded here -->
                 <table class="dataframe display cell-border" id="results">
   <thead>
     <tr>
       <th>Method</th>
+      <th>Score</th>
       <th colspan="4" halign="left">TanksAndTemples</th>
       <th colspan="4" halign="left">MipNeRF360</th>
       <th colspan="4" halign="left">DeepBlending</th>
       <th colspan="4" halign="left">SyntheticNeRF</th>
     </tr>
     <tr>
+      <th></th>
       <th></th>
       <th>PSNR</th>
       <th>SSIM</th>
@@ -161,6 +164,7 @@
   <tbody>
     <tr>
       <td><a href="#chen2024hac">HAC-highrate</a></td>
+      <td class="second">25.0</td>
       <td class="third">24.4</td>
       <td class="third">0.853</td>
       <td class="first">0.177</td>
@@ -180,6 +184,7 @@
     </tr>
     <tr>
       <td><a href="#chen2024hac">HAC-lowrate</a></td>
+      <td class="first">26.3</td>
       <td>24.04</td>
       <td>0.846</td>
       <td class="second">0.187</td>
@@ -199,6 +204,7 @@
     </tr>
     <tr>
       <td><a href="#fan2024lightgaussian">LightGaussian</a></td>
+      <td></td>
       <td>23.11</td>
       <td>0.817</td>
       <td>0.231</td>
@@ -218,6 +224,7 @@
     </tr>
     <tr>
       <td><a href="#lee2024compact">Compact3DGS</a></td>
+      <td>6.5</td>
       <td>23.32</td>
       <td>0.831</td>
       <td>0.201</td>
@@ -237,6 +244,7 @@
     </tr>
     <tr>
       <td><a href="#lee2024compact">Compact3DGS+PP</a></td>
+      <td>9.6</td>
       <td>23.32</td>
       <td>0.831</td>
       <td>0.202</td>
@@ -256,6 +264,7 @@
     </tr>
     <tr>
       <td><a href="#morgenstern2024compact">Morgenstern et al.</a></td>
+      <td>18.9</td>
       <td class="first">25.63</td>
       <td class="first">0.864</td>
       <td>0.208</td>
@@ -275,6 +284,7 @@
     </tr>
     <tr>
       <td><a href="#morgenstern2024compact">Morgenstern et al. w/o SH</a></td>
+      <td class="third">24.0</td>
       <td class="second">25.27</td>
       <td class="second">0.857</td>
       <td>0.217</td>
@@ -294,6 +304,7 @@
     </tr>
     <tr>
       <td><a href="#navaneet2023compact3d">Navaneet et al. 16K</a></td>
+      <td>20.0</td>
       <td>23.39</td>
       <td>0.836</td>
       <td>0.2</td>
@@ -313,6 +324,7 @@
     </tr>
     <tr>
       <td><a href="#navaneet2023compact3d">Navaneet et al. 32K</a></td>
+      <td>20.6</td>
       <td>23.44</td>
       <td>0.838</td>
       <td>0.198</td>
@@ -332,6 +344,7 @@
     </tr>
     <tr>
       <td><a href="#niedermayr2024compressed">Compressed3D</a></td>
+      <td>12.4</td>
       <td>23.324</td>
       <td>0.832</td>
       <td>0.194</td>
@@ -351,6 +364,7 @@
     </tr>
     <tr>
       <td><a href="#papantonakis2024reducing">Reduced3DGS</a></td>
+      <td>18.2</td>
       <td>23.57</td>
       <td>0.84</td>
       <td class="third">0.188</td>

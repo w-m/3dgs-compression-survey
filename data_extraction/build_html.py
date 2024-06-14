@@ -66,6 +66,21 @@ def combine_tables_to_html():
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
 
+    #calculate score for each method: oints for inverse ranks in PSNR, SSIM and LPIPS and size, (PSNR score + SSIM score + LPIPS score) / 6 + size score / 2
+    #add new score col right after the method name
+    multi_col_df.insert(1, "Score", 0)
+
+    for dataset in [d for d in dataset_order if d != "SyntheticNeRF"]: # SyntheticNeRF has many missing values
+        for metric in ["PSNR", "SSIM", "LPIPS", "Size [MB]"]:
+            if metric == "Size [MB]":
+                multi_col_df["Score"] += multi_col_df[(dataset, metric)].rank(ascending=False)  / 2 # .fillna(0) removed for now, as methods with missing values should not be ranked
+            elif metric == "LPIPS":
+                multi_col_df["Score"] += multi_col_df[(dataset, metric)].rank(ascending=False)  / 6
+            else:
+                multi_col_df["Score"] += multi_col_df[(dataset, metric)].rank(ascending=True) / 6
+            
+    multi_col_df["Score"] = multi_col_df["Score"].apply(lambda x: round(x, 1))
+
     #color the top 3 values in each column
     def add_top_3_classes(df):
         colors = ['first', 'second', 'third']
