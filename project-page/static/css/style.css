@@ -28,12 +28,13 @@
   display: flex;
   flex-wrap: wrap;
   overflow-x: hidden;
-  margin: 0 20px;
-  padding: 0;
   box-sizing: border-box;
   justify-content: space-between;
   background-color: #fff;
   gap: 10px; 
+  max-width: 1900px;  /* Specify your desired maximum width */
+  margin: 0 auto;  
+  padding: 0 20px;  
 }
 
 .plot-container {
