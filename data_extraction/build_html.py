@@ -163,21 +163,21 @@ def get_plot_data():
 
         data.append({
             'plot1': {
-                "title": f"<b>{dataset}</b>: PSNR / Size",
+                "title": f"<b>{dataset}</b>", #: PSNR / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "PSNR",
                 'points': psnr_size,
                 'lines': []
             },
             'plot2': {
-                "title": f"<b>{dataset}</b>: SSIM / Size",
+                "title": f"<b>{dataset}</b>", #: SSIM / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "SSIM",
                 'points': ssim_size,
                 'lines': []
             },
             'plot3': {
-                "title": f"<b>{dataset}</b>: LPIPS / Size",
+                "title": f"<b>{dataset}</b>", #: LPIPS / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "LPIPS",
                 'points': lpips_size,
