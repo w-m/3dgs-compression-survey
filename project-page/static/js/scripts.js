@@ -84,6 +84,11 @@ plotData.forEach((plotSet, i) => {
             },
             showlegend: false
         };
+
+        // Invert y-axis for the third tab
+        if (j === 2) {
+            layout.yaxis.autorange = 'reversed';
+        }
         
         Plotly.newPlot(`plot${i}${j + 1}`, data, layout);
     });
