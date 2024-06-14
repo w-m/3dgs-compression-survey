@@ -102,7 +102,8 @@ Object.keys(groupNames).forEach(group => {
     colorBox.className = 'legend-color-box';
     colorBox.style.backgroundColor = groupNames[group];
 
-    var labelText = document.createElement('span');
+    var labelText = document.createElement('a');
+    labelText.href = groupLinks[group];
     labelText.innerText = group;
 
     legendItem.appendChild(colorBox);

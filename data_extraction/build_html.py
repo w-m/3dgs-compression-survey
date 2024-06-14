@@ -16,8 +16,9 @@ def get_shortnames():
             if "shortname" in entry:
                 shortnames[entry["ID"]] = entry["shortname"]
             else:
-                shortnames[entry["ID"]] = entry["ID"]
-                print(f"Shortname not found for {entry['ID']}, using ID instead")
+                pass
+                #shortnames[entry["ID"]] = entry["ID"]
+                #print(f"Shortname not found for {entry['ID']}, using ID instead")
     return shortnames
 
 def get_links():
@@ -37,12 +38,7 @@ def get_links():
 def combine_tables_to_html():
     dfs = []
     shortnames = get_shortnames()
-    #move SyntheticNeRF.csv to the end because of many missing values
-    result_files = os.listdir('results')
-    # if "SyntheticNeRF.csv" in result_files:
-    #     result_files.remove("SyntheticNeRF.csv")
-    #     result_files.append("SyntheticNeRF.csv") 
-        
+
     for dataset in dataset_order:
         #read csvs
         df = pd.read_csv(f'results/{dataset}.csv')
@@ -84,8 +80,6 @@ def combine_tables_to_html():
     
     multi_col_df = add_top_3_classes(multi_col_df)
 
-
-
     html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
                                       justify="center", border=0, escape=False)
 
@@ -115,7 +109,6 @@ def load_methods_summaries():
             elif title == '':
                 continue
             #include link to project page in title
-            #<a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">title</a>
             title = f'<a href="{links[file.split(".")[0]]}" target="_blank">{title}</a>'
             summary = file_content.split('\n', 1)[1].strip()
             summaries.append({
@@ -184,13 +177,18 @@ def get_plot_data():
                 'lines': []
             } 
         })
-        
-    return data
+
+    group_links = {}
+    shortnames = get_shortnames()
+    for method in shortnames:
+        group_links[shortnames[method]] = "#"+method
+
+    return data, group_links
 
 if __name__ == "__main__":
     results_table = combine_tables_to_html()
     summaries = load_methods_summaries()
-    plot_data = get_plot_data()
+    plot_data, group_links = get_plot_data()
 
     # Pfad zu deinem Template-Ordner
     file_loader = FileSystemLoader('project-page')
@@ -203,7 +201,8 @@ if __name__ == "__main__":
     data = {
         'results_table': results_table,
         'summaries': summaries,
-        'plot_data':json.dumps(plot_data)
+        'plot_data': json.dumps(plot_data),
+        'group_links': json.dumps(group_links)
     }
 
     # Render das Template mit den Daten
