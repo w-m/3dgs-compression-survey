@@ -19,7 +19,7 @@
 }
 
 .third {
-  background: radial-gradient(circle at 0% 0%, rgba(230, 170, 100, 65%) 0%, rgba(205, 127, 50, 65%) 80%);
+  background: radial-gradient(circle at 0% 0%, rgba(230, 170, 100, 0.24) 0%, rgba(205, 127, 50, 0.48) 80%);
 }
 
 
