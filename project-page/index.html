@@ -575,12 +575,10 @@
 <section class="section hero">
     <div class="container is-max-desktop" id="chen2024hac">
         <div class="column is-centered has-text-centered">
-            <h2 class="title is-3"><a href="https://yihangchen-ee.github.io/project_hac/" target="_blank">Compressed 3D Gaussian Splatting for Accelerated Novel View Synthesis</a></h2>
+            <h2 class="title is-3"><a href="https://yihangchen-ee.github.io/project_hac/" target="_blank">HAC: Hash-grid Assisted Context for 3D Gaussian Splatting Compression</a></h2>
             <div class="content has-text-justified">
                 <p>
-                    This approach aims to reduce the memory consumption and rendering efficency of 3D Gaussian splat representations. The authors propose a compressed
-3D Gaussian splat representation consisting of three main steps: 1. sensitivity-aware clustering, where scene parameters are measured according to their contribution to the training images and encoded into compact codebooks via sensitivity-aware vector quantization; 2. quantization-aware fine-tuning, which recovers lost information by fine-tuning parameters at reduced bit-rates using quantization-aware training; and 3. entropy encoding, which exploits spatial coherence through entropy and run-length encoding by linearizing 3D Gaussians along a space-filling curve.
-Furthermore, a renderer for the compressed scenes utilizing GPU-based sorting and rasterization is proposed, enabling real-time novel view synthesis on low-end devices.
+                    The paper proposes a Hash-grid Assisted Context (HAC) framework for compressing 3D Gaussian Splatting (3DGS) models by leveraging the mutual information between attributes of unorganized 3D Gaussians (anchors) and hash grid features. Using Scaffold-GS as a base model, HAC queries the hash grid by anchor location to predict anchor attribute distributions for efficient entropy coding. The framework introduces an Adaptive Quantization Module (AQM) to dynamically adjust quantization step sizes and employs adaptive offset masking with learnable masks to prune unnecessary data for further compression. Extensive experiments show that HAC achieves significant compression ratios while maintaining or improving rendering fidelity.
                 </p>
                 <div style="display: flex; justify-content: center; align-items: center">
                     <img src="static/images/chen2024hac.png" alt="" style="max-height: 250px;">
@@ -687,7 +685,9 @@ The key insight is that smoothness needs to be enforced during training to enabl
             <h2 class="title is-3"><a href="https://keksboter.github.io/c3dgs/" target="_blank">Compressed 3D Gaussian Splatting for Accelerated Novel View Synthesis</a></h2>
             <div class="content has-text-justified">
                 <p>
-                    The authors proposes a compressed 3D Gaussian splat representation that utilizes sensitivity-aware vector clustering with quantization-aware training to compress directional colors and Gaussian parameters. A up to 31x compression with minimal visula quality loss and up to 4x higher frame rates are achieved. The approach is demonstrated to be suitable for applications requiring network streaming and rendering on low-power devices. This is achieved by significantly reducing memory consumption and enabling efficient rendering with hardware rasterization on lightweight GPUs.
+                    This approach aims to reduce the memory consumption and rendering efficency of 3D Gaussian splat representations. The authors propose a compressed
+3D Gaussian splat representation consisting of three main steps: 1. sensitivity-aware clustering, where scene parameters are measured according to their contribution to the training images and encoded into compact codebooks via sensitivity-aware vector quantization; 2. quantization-aware fine-tuning, which recovers lost information by fine-tuning parameters at reduced bit-rates using quantization-aware training; and 3. entropy encoding, which exploits spatial coherence through entropy and run-length encoding by linearizing 3D Gaussians along a space-filling curve.
+Furthermore, a renderer for the compressed scenes utilizing GPU-based sorting and rasterization is proposed, enabling real-time novel view synthesis on low-end devices.
                 </p>
                 <div style="display: flex; justify-content: center; align-items: center">
                     <img src="static/images/niedermayr2024compressed.png" alt="" style="max-height: 250px;">
