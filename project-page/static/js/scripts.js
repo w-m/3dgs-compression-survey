@@ -14,6 +14,20 @@ function showTab(tabId, buttonId) {
     });
 }
 
+// Function to resize all plots
+function resizePlots() {
+    document.querySelectorAll('.plot-content').forEach(plotContent => {
+        Plotly.Plots.resize(plotContent);
+        Plotly.relayout(plotContent, {
+            width: plotContent.clientWidth,
+            height: plotContent.clientHeight
+        });
+    });
+}
+
+// Add event listener for window resize
+window.addEventListener('resize', resizePlots);
+
 var groupColors = Plotly.d3.scale.category20().range();
 
 var legendContainer = document.getElementById('legend');
