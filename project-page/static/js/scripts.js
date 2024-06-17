@@ -78,7 +78,7 @@ plotData.forEach((plotSet, i) => {
             margin: {
                 l: 65,
                 r: 30,
-                b: 10,
+                b: 70,
                 t: 60,
                 pad: 0
             },
