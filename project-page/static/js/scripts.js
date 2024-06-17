@@ -4,7 +4,14 @@ function showTab(tabId, buttonId) {
     container.querySelectorAll('.tab-buttons button').forEach(button => button.classList.remove('active'));
     document.getElementById(tabId).classList.add('tab-active');
     document.getElementById(buttonId).classList.add('active');
-    Plotly.Plots.resize(document.getElementById(tabId).querySelector('.plot-content'));
+    
+    // Force a resize after loading tab to avoid resize artifacts
+    var plotContent = document.getElementById(tabId).querySelector('.plot-content');
+    Plotly.Plots.resize(plotContent);
+    Plotly.relayout(plotContent, {
+        width: plotContent.clientWidth,
+        height: plotContent.clientHeight
+    });
 }
 
 var groupColors = Plotly.d3.scale.category20().range();
