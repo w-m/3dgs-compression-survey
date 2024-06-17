@@ -120,19 +120,12 @@
 <section class="hero is-small">
     <div class="hero-body">
         <div class="container">
-            <!-- TABLE -->
-            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-                <!-- Content from results.html will be loaded here -->
+            <div class="tablecontainer">
                 {{results_table | safe}}
-            
             </div>
         </div>
     </div>
 </section>
-
-<!-- RESPONSIVENESS -->
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.min.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script> -->
 
 <!-- COL REORDER -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.dataTables.min.css">
@@ -170,7 +163,7 @@
         // "cell-border": false,
         "stripe": true,
         "orderClasses": false,
-        "order": [[1, 'asc']] // Sets the default ordering to score descending
+        "order": [[1, 'asc']] // Sets the default ordering to rank ascending
 
     }
 

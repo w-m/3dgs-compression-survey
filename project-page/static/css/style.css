@@ -22,6 +22,24 @@
   background: radial-gradient(circle at 0% 0%, rgba(230, 170, 100, 0.24) 0%, rgba(205, 127, 50, 0.48) 80%);
 }
 
+.tablecontainer {
+  width: 100%;
+}
+
+@media (max-width: 1499px) {
+  .tablecontainer {
+      overflow-x: auto;
+  }
+}
+
+@media (min-width: 1500px) {
+  .tablecontainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+}
+
 
 .interactive-plots-container {
   font-family: Arial, sans-serif;
