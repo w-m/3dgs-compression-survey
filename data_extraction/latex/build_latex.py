@@ -8,6 +8,7 @@ import io
 
 methodsdir = "../../methods"
 imagedir = "../../project-page/static/images/"
+# imagedir = "images/"
 
 # List of markdown files to combine
 markdown_files = os.listdir(methodsdir)
