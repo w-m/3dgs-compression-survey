@@ -4,6 +4,7 @@ import bibtexparser
 from jinja2 import Environment, FileSystemLoader
 import re
 import json
+from decimal import Decimal
 
 dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
 
@@ -41,7 +42,13 @@ def combine_tables_to_html():
 
     for dataset in dataset_order:
         #read csvs
-        df = pd.read_csv(f'results/{dataset}.csv')
+        df = pd.read_csv(f'results/{dataset}.csv', dtype={'PSNR': str, 'SSIM': str, 'LPIPS': str})
+        # parse all float columns to float and keep the exact numer of decimal places
+        df["PSNR"] = df["PSNR"].apply(lambda x: Decimal(x) if x != '' else None)
+        df["SSIM"] = df["SSIM"].apply(lambda x: Decimal(x) if x != '' else None)
+        df["LPIPS"] = df["LPIPS"].apply(lambda x: Decimal(x) if x != '' else None)
+
+
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
 
         #combine Method and Submethods colum into new Method column, replace method name with shortname+submethod
@@ -85,13 +92,21 @@ def combine_tables_to_html():
     #color the top 3 values in each column
     def add_top_3_classes(df):
         colors = ['first', 'second', 'third']
-        for col in df.select_dtypes(include=[float, int]).columns:
+        for col in df.columns:
+            try:
+                float_col = df[col].astype(float)
+            except ValueError:
+                continue
+
             if any(keyword in col[1].lower() for keyword in ['size', 'lpips']) or 'rank' in col[0].lower():
-                top_3 = df[col].nsmallest(3)
+                top_3 = pd.Series(float_col.unique()).nsmallest(3)
             else:
-                top_3 = df[col].nlargest(3)
+                top_3 = pd.Series(float_col.unique()).nlargest(3)
             for i, val in enumerate(top_3):
-                df.loc[df[col] == val, col] = f'<td class="{colors[i]}">{val}</td>'
+                matching_indices = float_col[float_col == val].index
+                for index in matching_indices:
+                    df.at[index, col] = f'<td class="{colors[i]}">{df.at[index, col]}</td>'
+                
         return df
     
     multi_col_df = add_top_3_classes(multi_col_df)
