@@ -204,7 +204,7 @@ def df_to_results_csv(pd_tables, sources_file):
                             value = int(float(value) * 1024 * 1024)
                             metric = "Size [Bytes]"
                         elif metric in ["PSNR","SSIM","LPIPS"]:
-                            value = float(value)
+                            pass
                         else:
                             continue
 
