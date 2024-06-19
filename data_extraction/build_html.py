@@ -74,20 +74,24 @@ def combine_tables_to_html():
     multi_col_df.reset_index(inplace=True)
 
     #calculate ranking for each method: points for ranks in PSNR, SSIM and LPIPS and size, 
-    #1/n_datensätze * sum über datensatz [ (1/3 PSNR-rank + 1/3 SSIM-rank + 1/3 LPIPS-rank) / 2 + Size-rank / 2]
     #add new ranking col right after the method name
     multi_col_df.insert(1, "Rank", 0)
 
-    for dataset in [d for d in dataset_order if d != "SyntheticNeRF"]: # SyntheticNeRF has many missing values
+    dataset_count = multi_col_df["Rank"].copy()
+    for dataset in dataset_order:
+        dataset_rank = multi_col_df["Rank"].copy() * 0
         for metric in ["PSNR", "SSIM", "LPIPS", "Size [MB]"]:
             if metric == "Size [MB]":
-                multi_col_df["Rank"] += multi_col_df[(dataset, metric)].rank(ascending=True)  / 2
+                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / 2
             elif metric == "LPIPS":
-                multi_col_df["Rank"] += multi_col_df[(dataset, metric)].rank(ascending=True)  / 6
+                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / 6
             else:
-                multi_col_df["Rank"] += multi_col_df[(dataset, metric)].rank(ascending=False) / 6
-            
-    multi_col_df["Rank"] = multi_col_df["Rank"].apply(lambda x: round(x/3, 1)) # divide by 3 datasets, round to 1 decimal
+                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=False) / 6
+        
+        multi_col_df["Rank"] += dataset_rank.fillna(0)
+        dataset_count += dataset_rank.notna()
+    
+    multi_col_df["Rank"] = (multi_col_df["Rank"] / dataset_count).apply(lambda x: round(x, 1))
 
     #color the top 3 values in each column
     def add_top_3_classes(df):
