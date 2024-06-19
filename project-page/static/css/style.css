@@ -146,6 +146,17 @@
   height: 20px;
   margin-right: 5px;
   border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.method-name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the left */
+  padding: 5px; /* Add some padding for better spacing */
+  white-space: nowrap;
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
 }
 
 /* Media queries for responsive design */

@@ -133,3 +133,21 @@ Object.keys(groupNames).forEach(group => {
     legendItem.appendChild(labelText);
     legendContainer.appendChild(legendItem);
 });
+
+var methodTable = document.getElementById('results');
+var methodRows = methodTable.getElementsByClassName('method-name');
+
+Array.from(methodRows).forEach(row => {
+    var methodName = row.getAttribute('data-method-name');
+    var color = groupNames[methodName];
+
+    if (color) {
+        var colorBox = document.createElement('div');
+        colorBox.className = 'legend-color-box';
+        colorBox.style.backgroundColor = color;
+        temp = row.innerHTML
+        row.innerHTML = ""; // Clear the row
+        row.appendChild(colorBox); // Add the color box
+        row.appendChild(document.createTextNode(temp)); // Add the method name
+    }
+});

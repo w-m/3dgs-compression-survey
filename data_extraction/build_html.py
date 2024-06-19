@@ -52,15 +52,15 @@ def combine_tables_to_html():
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
 
         #combine Method and Submethods colum into new Method column, replace method name with shortname+submethod
-        df["NewMethod"] = df["Method"].apply(lambda x: shortnames[x])
-        df["NewMethod"] = df["NewMethod"] + df["Submethod"]
+        df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
+        df["NewMethod"] = df["Shortname"] + df["Submethod"]
         # make Method column a link to the method summary
-        df["Method"] = '<a href="#' + df["Method"] + '">' + df["NewMethod"] + '</a>'
+        #df["Method"] = f'<a class="method-name '+ df["Method"] +'" href="#' + df["Method"] + '">' + df["NewMethod"] + '</a>'
+        df["Method"] = f'<a class="method-name" data-method-name="'+ df["Shortname"] +'" href="#' + df["Method"] + '">' + df["NewMethod"] + '</a>'
         df.drop(columns=["Submethod", "NewMethod"], inplace=True)
         df.set_index("Method", inplace=True)
         #remove colums "Data Source" and "Comment"
-        df.drop(columns=["Data Source"], inplace=True)
-        df.drop(columns=["Comment"], inplace=True)
+        df.drop(columns=["Data Source", "Comment", "Shortname"], inplace=True)
 
         #change Size [Bytes] to Size [MB] and round
         if "Size [Bytes]" in df.columns:
@@ -122,7 +122,7 @@ def combine_tables_to_html():
 
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
-    
+
     return cleaned_html_string
 
 def load_methods_summaries():
