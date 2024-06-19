@@ -146,17 +146,27 @@
   height: 20px;
   margin-right: 5px;
   border-radius: 4px;
-  display: inline-block;
-  vertical-align: middle;
+  flex-shrink: 0; 
 }
-.method-name {
+
+.legend-color-box-container {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Align items to the left */
-  padding: 5px; /* Add some padding for better spacing */
-  white-space: nowrap;
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  flex-wrap: nowrap;
+}
+
+.legend-color-box-methods {
+  width: 20px;
+  height: 20px;
+  margin-right: -10px;
+  border-radius: 4px;
+  flex-shrink: 0; 
+}
+
+.method-name {
+  display: flex; 
+  white-space: normal; 
+  text-align: left; 
 }
 
 /* Media queries for responsive design */

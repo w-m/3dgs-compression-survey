@@ -54,9 +54,9 @@ def combine_tables_to_html():
         #combine Method and Submethods colum into new Method column, replace method name with shortname+submethod
         df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
         df["NewMethod"] = df["Shortname"] + df["Submethod"]
-        # make Method column a link to the method summary
-        #df["Method"] = f'<a class="method-name '+ df["Method"] +'" href="#' + df["Method"] + '">' + df["NewMethod"] + '</a>'
-        df["Method"] = f'<a class="method-name" data-method-name="'+ df["Shortname"] +'" href="#' + df["Method"] + '">' + df["NewMethod"] + '</a>'
+        # make Method column a link to the method summary + add color box
+        df["Method"] = f'<a class="method-name" data-method-name="'+ df["Shortname"] +'" href="#' + df["Method"] + '"> <span class="legend-color-box-container"><span class="legend-color-box-methods"></span>' + df["NewMethod"] + '</span></a>'
+
         df.drop(columns=["Submethod", "NewMethod"], inplace=True)
         df.set_index("Method", inplace=True)
         #remove colums "Data Source" and "Comment"
