@@ -174,10 +174,17 @@ def df_to_results_csv(pd_tables, sources_file):
     result_tables = {}
     for file in os.listdir("results"):
         dataset_name = file.split(".")[0]
-        result_tables[dataset_name] = pd.read_csv("results/" + file)
-        result_tables[dataset_name]['Data Source'] = result_tables[dataset_name]['Data Source'].astype('string')
-        result_tables[dataset_name]['Size [Bytes]'] = result_tables[dataset_name]['Size [Bytes]'].astype('Int64')
-        result_tables[dataset_name]['Submethod'] = result_tables[dataset_name]['Submethod'].astype('string').fillna('').replace('<NA>', '')
+        result_tables[dataset_name] = pd.read_csv(
+            "results/" + file,
+            dtype={
+                'Data Source': 'string',
+                'Size [Bytes]': 'Int64',
+                'PSNR': 'string',
+                'SSIM': 'string',
+                'LPIPS': 'string',
+            }
+        )
+        result_tables[dataset_name]['Submethod'] = result_tables[dataset_name]['Submethod'].astype('string').replace(pd.NA, '')
 
     for source in pd_tables:
         print("Source: ", source)
@@ -219,13 +226,19 @@ def df_to_results_csv(pd_tables, sources_file):
                         ]
                         if len(row_index) == 0:
                             #"Method","PSNR","SSIM","LPIPS","Size [Bytes]","Data Source","Comment"
-                            result_tables[dataset_name].loc[len(result_tables[dataset_name])] = {"Method": source, "Submethod": submethod, "PSNR": None, "SSIM": None, "LPIPS": None, "Size [Bytes]": None, "Data Source": None, "Comment": None}
+                            print("Adding new row for ", source, " ", submethod)
+                            result_tables[dataset_name].loc[len(result_tables[dataset_name])] = {"Method": source, "Submethod": submethod, "PSNR": "", "SSIM": "", "LPIPS": "", "Size [Bytes]": pd.NA, "Data Source": "", "Comment": ""}
                             row_index = result_tables[dataset_name].index[
                                 (result_tables[dataset_name]["Method"] == source) & 
                                 (result_tables[dataset_name]["Submethod"] == submethod)
-                            ]                       
-                        result_tables[dataset_name].loc[row_index, metric] = value
-                        result_tables[dataset_name].loc[row_index, "Data Source"] = sources_file[source]["url"]
+                            ]         
+                        if result_tables[dataset_name].loc[row_index, metric].values[0] == value:
+                            # Value already correct
+                            pass
+                        else:
+                            print("Updating ", dataset_name, " ", source, " ", submethod, " ", metric, " to ", value)
+                            result_tables[dataset_name].loc[row_index, metric] = value
+                            result_tables[dataset_name].loc[row_index, "Data Source"] = sources_file[source]["url"]
 
     for dataset in result_tables:
         #sort by method name
