@@ -113,7 +113,8 @@ def combine_tables_to_html():
                 
         return df
     
-    multi_col_df = add_top_3_classes(multi_col_df)
+    #convert all columns to string to avoid FutureWarning, handle empty values/nans
+    multi_col_df = add_top_3_classes(multi_col_df.astype(str)).replace(['nan', 'NaN'], '')
 
     html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
                                       justify="center", border=0, escape=False)
