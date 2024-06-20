@@ -73,6 +73,9 @@ def combine_tables_to_html():
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
 
+    #remove sun2024f3dgs from table as its not clear if the method was tested correctly
+    multi_col_df = multi_col_df[~multi_col_df["Method"].str.contains("F-3DGS")]
+
     #calculate ranking for each method: points for ranks in PSNR, SSIM and LPIPS and size, 
     #add new ranking col right after the method name
     multi_col_df.insert(1, "Rank", 0)
@@ -177,6 +180,9 @@ def get_plot_data():
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
         df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
         df["NewMethod"] = df["Shortname"] + df["Submethod"]
+
+        #remove sun2024f3dgs from table as its not clear if the method was tested correctly
+        df = df[~df["Method"].str.contains("sun2024f3dgs")]
         
         #change Size [Bytes] to Size [MB] and round
         if "Size [Bytes]" in df.columns:
