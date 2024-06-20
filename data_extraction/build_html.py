@@ -143,14 +143,24 @@ def load_methods_summaries():
                 title = title[4:]
             elif title == '':
                 continue
-            #include link to project page in title
-            title = f'<a href="{links[file.split(".")[0]]}" target="_blank">{title}</a>'
+            #include link to project page in title, if available
+            if links[file.split(".")[0]] != '':
+                title = f'<a href="{links[file.split(".")[0]]}" target="_blank">{title}</a>'
             summary = file_content.split('\n', 1)[1].strip()
+
+            #get image path, png or jpg
+            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}.png"):
+                image = f"static/images/{file.split('.')[0]}.png"
+            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.jpg"):
+                image = f"static/images/{file.split('.')[0]}.jpg"
+            else:
+                image = ""
+            
             summaries.append({
                 'name': file.split('.')[0],
                 'summary': summary,
                 'title': title,
-                "image": f"static/images/{file.split('.')[0]}.png"
+                "image": image
             })
     return summaries
 
