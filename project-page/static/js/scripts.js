@@ -111,7 +111,7 @@ plotData.forEach((plotSet, i) => {
             layout.yaxis.autorange = 'reversed';
         }
         var config = {
-            displayModeBar: window.innerWidth >= 768 ? 'hover' : false
+            displayModeBar: false
         };
         Plotly.newPlot(`plot${i}${j + 1}`, data, layout, config);
     });
