@@ -3,11 +3,11 @@ import pandas as pd
 import yaml
 import os
 import re
-from urllib.request import urlopen
-from zipfile import ZipFile
 import tarfile
 import io
 import requests
+from io import StringIO
+
 
 
 dataset_names = {
@@ -23,6 +23,9 @@ def get_tables(sources_file, local=False):
         tables = {}
         for source in sources_file:
             print(source)
+            if sources_file[source]["is_csv"]:
+                print("read from csv")
+                continue
             url = sources_file[source]["url"]
             filename = sources_file.get(source, {}).get('filename', "main.tex")
             tables_names = sources_file[source]["table_names"]
@@ -153,8 +156,9 @@ def tex_to_pd(tables, sources_file):
     pd_tables = {}
     for source in sources_file:
         print("Source: ", source)
+        if not source in tables:
+            continue
         for table in tables[source]:
-
             latex_table = str(table)
             if latex_table:
                 df = parse_table_to_df(latex_table, rotated=sources_file.get(source, {}).get('table_rotated', False))
@@ -169,7 +173,58 @@ def tex_to_pd(tables, sources_file):
                 print("Table not found.")
     return pd_tables
 
-def df_to_results_csv(pd_tables, sources_file):
+def read_csvs(sources_file):
+    #read github csv files
+    csv_tables = {}
+    for source in sources_file:
+        if sources_file[source]["is_csv"]:
+            print("From cvs source: ", source)
+            url = sources_file[source]["url"]
+
+            # convert github url to raw url
+            url = url.replace("github.com", "raw.githubusercontent.com")
+            url = url.replace("/blob/", "/")
+            url = url.replace("/tree/", "/")
+            
+
+            for dataset in ['DeepBlending', 'SyntheticNeRF', 'TanksAndTemples', 'MipNeRF360']:
+                table = requests.get(url+'/'+dataset+'.csv').text
+                # if it worked
+                if table and table != '404: Not Found':
+                    print('Downloaded', dataset)
+                    data = StringIO(table)
+                    df = pd.read_csv(data,dtype={
+                        'Size [Bytes]': 'Int64',
+                        'PSNR': 'string',
+                        'SSIM': 'string',
+                        'LPIPS': 'string',
+                    })
+                    filled_rows = []
+            
+                    # Iterate over each row in the DataFrame
+                    for index, row in df.iterrows():
+                        filled_row = {
+                            "Method": source,
+                            "Submethod": row.get("Submethod", ""),
+                            "PSNR": row.get("PSNR", ""),
+                            "SSIM": row.get("SSIM", ""),
+                            "LPIPS": row.get("LPIPS", ""),
+                            "Size [Bytes]": row.get("Size [Bytes]", pd.NA),
+                            "Data Source": url,
+                            "Comment": ""
+                        }
+                        filled_rows.append(filled_row)
+                    
+                    # Convert the list of filled rows to a DataFrame
+                    filled_rows_df = pd.DataFrame(filled_rows)
+                    filled_rows_df["Submethod"] = filled_rows_df["Submethod"].astype('string').replace(pd.NA, '')
+                    if dataset in csv_tables:
+                        csv_tables[dataset] = pd.concat([csv_tables[dataset], filled_rows_df], ignore_index=True)
+                    else:
+                        csv_tables[dataset] = filled_rows_df
+    return csv_tables
+
+def df_to_results_csv(pd_tables, sources_file, csv_tables):
     #load csv files
     result_tables = {}
     for file in os.listdir("results"):
@@ -185,7 +240,27 @@ def df_to_results_csv(pd_tables, sources_file):
             }
         )
         result_tables[dataset_name]['Submethod'] = result_tables[dataset_name]['Submethod'].astype('string').replace(pd.NA, '')
+    #copy results from csv_tables
+    for dataset in csv_tables:
+        #iterate through all columns and transfer values
+        for i in range(len(csv_tables[dataset])):
+            method = csv_tables[dataset]["Method"][i]
+            submethod = csv_tables[dataset]["Submethod"][i]
 
+            #check if method and submethod is in result_tables
+            row_index = result_tables[dataset].index[
+                            (result_tables[dataset]["Method"] == method) & 
+                            (result_tables[dataset]["Submethod"] == submethod)
+                        ]
+            if len(row_index) == 0:
+                result_tables[dataset].loc[len(result_tables[dataset])] = csv_tables[dataset].iloc[i]
+            else:
+                result_tables[dataset].loc[row_index[0]] = csv_tables[dataset].iloc[i]
+            
+
+
+
+    #copy results from pd_tables
     for source in pd_tables:
         print("Source: ", source)
         #delete second "Method" column if it exists from concatenating tables
@@ -257,4 +332,5 @@ if __name__ == "__main__":
 
     tables = get_tables(sources_file)
     pd_tables = tex_to_pd(tables, sources_file)
-    df_to_results_csv(pd_tables, sources_file)
+    csv_tables = read_csvs(sources_file)
+    df_to_results_csv(pd_tables, sources_file, csv_tables)
