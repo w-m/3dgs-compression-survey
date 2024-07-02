@@ -1,9 +1,6 @@
 morgenstern2024compact:
-  url: "https://arxiv.org/src/2312.13299"
-  is_csv: False
-  table_names: 
-    - tab:experiments
-  filename: "sec/4_eval.tex"
+  url: "https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results"
+  is_csv: True
 
 lee2024compact:
   url: "https://arxiv.org/src/2311.13681"
