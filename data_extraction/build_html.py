@@ -203,7 +203,7 @@ def get_plot_data():
         df["NewMethod"] = df["Shortname"] + df["Submethod"]
 
         #remove from df if [N/P] in comment
-        df = df[~df["Comment"].astype(str).str.contains("[N/P]")]
+        df = df[~df['Comment'].str.contains(r'\[N/P\]', na=False)]
         
         #change Size [Bytes] to Size [MB] and round
         if "Size [Bytes]" in df.columns:
