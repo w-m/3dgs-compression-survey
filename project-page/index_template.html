@@ -261,6 +261,11 @@
     <div class="container is-max-desktop" id="{{ paper.name }}">
         <div class="column is-centered has-text-centered">
             <h2 class="title is-3">{{ paper.title }}</h2>
+            <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                    {{ paper.authors }}</span>
+            </div>
+            <br>
             <div class="content has-text-justified">
                 <p>
                     {{ paper.summary }}

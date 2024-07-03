@@ -35,6 +35,19 @@ def get_links():
                 print(f"Link not found for {entry['ID']}")
     return links
 
+def get_authors():
+    #get authors from bibtex
+    authors = {}
+    with open("methods.bib") as bibtex_file:
+        bib_database = bibtexparser.load(bibtex_file)
+        for entry in bib_database.entries:
+            if "author" in entry:
+                authors[entry["ID"]] = entry["author"]
+            else:
+                authors[entry["ID"]] = ""
+                print(f"Author not found for {entry['ID']}")
+    return authors
+
 
 def combine_tables_to_html():
     dfs = []
@@ -137,6 +150,7 @@ def load_methods_summaries():
     # Load the summaries of the methods
     summaries = []
     links = get_links()
+    authors = get_authors()
     files = sorted(os.listdir('methods'))
     for file in files:
         with open(f'methods/{file}', 'r') as f:
@@ -159,12 +173,19 @@ def load_methods_summaries():
                 image = f"static/images/{file.split('.')[0]}.jpg"
             else:
                 image = ""
-            
+            author = authors[file.split(".")[0]]
+            #replace all but the last " and " with ", "
+            if not "," in author:
+                parts = author.split(' and ')
+                # Join all parts except the last one with ", " and then add the last part prefixed with " and "
+                author = ', '.join(parts[:-1]) + ' and ' + parts[-1]
+
             summaries.append({
                 'name': file.split('.')[0],
                 'summary': summary,
                 'title': title,
-                "image": image
+                'authors': author,
+                'image': image
             })
     return summaries
 
