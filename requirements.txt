@@ -1,0 +1,8 @@
+beautifulsoup4
+bibtexparser
+Jinja2
+numpy
+pandas
+PyYAML
+requests
+TexSoup
