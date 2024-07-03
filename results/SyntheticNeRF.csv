@@ -1,9 +1,12 @@
 Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],Data Source,Comment
-chen2024hac,-lowrate,33.24,0.967,0.037,1237319,https://arxiv.org/src/2403.14530,
-chen2024hac,-highrate,33.71,0.968,0.034,1950351,https://arxiv.org/src/2403.14530,
+chen2024hac, λ4e-3,32.75,0.965,0.040,1006633,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac, λ3e-3,32.97,0.966,0.038,1101005,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac,-lowrate,33.24,0.967,0.037,1237319,https://arxiv.org/src/2403.14530,==λ2e-3
+chen2024hac, λ1e-3,33.53,0.968,0.035,1541407,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac,-highrate,33.71,0.968,0.034,1950351,https://arxiv.org/src/2403.14530,==λ5e-4
 fan2024lightgaussian,,32.725,0.965,0.037,8218739,https://arxiv.org/pdf/2311.17245,"Taken from Table 6, avg of per-scene results"
 lee2024compact,,33.33,0.968,0.034,5809111,https://arxiv.org/pdf/2403.14530,
 morgenstern2024compact,,33.70,0.969,0.031,4299161,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 morgenstern2024compact, w/o SH,31.75,0.961,0.040,2097152,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 niedermayr2024compressed,,32.936,0.967,0.033,3858760,https://arxiv.org/pdf/2401.02436,
-sun2024f3dgs,-CP-16,32.42,0.964,0.040,6354370,https://arxiv.org/pdf/2405.17083,PSNR 32.42 in Table 1 and 32.48 in Table 9
+sun2024f3dgs,-CP-16,32.42,0.964,0.040,6354370,https://arxiv.org/pdf/2405.17083,[N/T][N/P] PSNR 32.42 in Table 1 and 32.48 in Table 9

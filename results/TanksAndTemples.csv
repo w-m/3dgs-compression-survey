@@ -1,6 +1,9 @@
 Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],Data Source,Comment
-chen2024hac,-highrate,24.40,0.853,0.177,11785994,https://arxiv.org/src/2403.14530,
-chen2024hac,-lowrate,24.04,0.846,0.187,8493465,https://arxiv.org/src/2403.14530,
+chen2024hac,-lowrate,24.04,0.846,0.187,8493465,https://arxiv.org/src/2403.14530,==λ4e-3
+chen2024hac, λ3e-3,24.24,0.849,0.183,9122611,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac, λ2e-3,24.33,0.850,0.181,10380902,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac,-highrate,24.40,0.853,0.177,11785994,https://arxiv.org/src/2403.14530,==λ1e-3
+chen2024hac, λ5e-4,24.25,0.853,0.176,13799260,https://arxiv.org/pdf/2403.14530,[N/T]
 fan2024lightgaussian,,23.11,0.817,0.231,23068672,https://arxiv.org/src/2311.17245,
 girish2024eagles,,23.37,0.84,0.20,30408704,https://arxiv.org/pdf/2312.04564,
 girish2024eagles,-Small,23.1,0.82,0.22,19922944,https://arxiv.org/pdf/2312.04564,
@@ -12,4 +15,4 @@ navaneet2023compact3d, 16K,23.39,0.836,0.200,12582912,https://arxiv.org/src/2311
 navaneet2023compact3d, 32K,23.44,0.838,0.198,13631488,https://arxiv.org/src/2311.18159,
 niedermayr2024compressed,,23.324,0.832,0.194,18119393,https://arxiv.org/pdf/2401.02436,
 papantonakis2024reducing,,23.57,0.84,0.188,14680064,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
-sun2024f3dgs,-CP-16,30.29,0.957,0.061,11471421,https://arxiv.org/pdf/2405.17083,
+sun2024f3dgs,-CP-16,30.29,0.957,0.061,11471421,https://arxiv.org/pdf/2405.17083,[N/T][N/P]

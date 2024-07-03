@@ -1,6 +1,9 @@
 Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],Data Source,Comment
-chen2024hac,-highrate,30.34,0.906,0.258,6658457,https://arxiv.org/src/2403.14530,
-chen2024hac,-lowrate,29.98,0.902,0.269,4561305,https://arxiv.org/src/2403.14530,
+chen2024hac,-lowrate,29.98,0.902,0.269,4561305,https://arxiv.org/src/2403.14530,==λ4e-3
+chen2024hac, λ3e-3,30.14,0.903,0.265,4917821,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac, λ2e-3,30.17,0.905,0.262,5578424,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac,-highrate,30.34,0.906,0.258,6658457,https://arxiv.org/src/2403.14530,==λ1e-3
+chen2024hac, λ5e-4,30.21,0.906,0.257,7948206,https://arxiv.org/pdf/2403.14530,[N/T]
 fan2024lightgaussian,,,,,,,
 girish2024eagles,,29.86,0.91,0.25,54525952,https://arxiv.org/pdf/2312.04564,
 girish2024eagles,-Small,29.92,0.90,0.25,34603008,https://arxiv.org/pdf/2312.04564,
