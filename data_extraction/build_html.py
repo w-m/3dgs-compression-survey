@@ -56,6 +56,9 @@ def combine_tables_to_html():
     for dataset in dataset_order:
         #read csvs
         df = pd.read_csv(f'results/{dataset}.csv', dtype={'PSNR': str, 'SSIM': str, 'LPIPS': str})
+        #drop columns if [N/T] in Comment
+        df = df[~df['Comment'].str.contains(r'\[N/T\]', na=False)]
+
         # parse all float columns to float and keep the exact numer of decimal places
         df["PSNR"] = df["PSNR"].apply(lambda x: Decimal(x) if x != '' else None)
         df["SSIM"] = df["SSIM"].apply(lambda x: Decimal(x) if x != '' else None)
@@ -85,9 +88,6 @@ def combine_tables_to_html():
     
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
-
-    #remove sun2024f3dgs from table as its not clear if the method was tested correctly
-    multi_col_df = multi_col_df[~multi_col_df["Method"].str.contains("F-3DGS")]
 
     #calculate ranking for each method: points for ranks in PSNR, SSIM and LPIPS and size, 
     #add new ranking col right after the method name
@@ -202,8 +202,8 @@ def get_plot_data():
         df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
         df["NewMethod"] = df["Shortname"] + df["Submethod"]
 
-        #remove sun2024f3dgs from table as its not clear if the method was tested correctly
-        df = df[~df["Method"].str.contains("sun2024f3dgs")]
+        #remove from df if [N/P] in comment
+        df = df[~df["Comment"].astype(str).str.contains("[N/P]")]
         
         #change Size [Bytes] to Size [MB] and round
         if "Size [Bytes]" in df.columns:
@@ -282,5 +282,5 @@ if __name__ == "__main__":
     output = template.render(data)
 
     # Speichere das gerenderte HTML in einer Datei
-    with open('project-page/index.html', 'w') as f:
+    with open('project-page/index.html', 'w', encoding='utf-8') as f:
         f.write(output)
