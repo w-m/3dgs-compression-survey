@@ -1,5 +1,5 @@
-# 3dgs-compression-survey
-This repository contains a comprehensive survey of 3D Gaussian Splatting (3DGS) compression methods. You can view the full survey table and comparison plots [here](https://www.survey.3dgs.zip/).
+# 3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods
+This repository contains a comprehensive survey of 3D Gaussian Splatting (3DGS) compression methods. You can view the full survey table and comparison plots at [w-m.github.io/3dgs-compression-survey/](https://w-m.github.io/3dgs-compression-survey/).
 
 ## Installation
 To run the scripts in this repository, ensure you have all necessary dependencies installed. You can install them using the following command:
