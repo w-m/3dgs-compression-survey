@@ -83,6 +83,8 @@ plotData.forEach((plotSet, i) => {
             }
         });
 
+        var horizontalLineHeight = plotInfo.lineHeight;
+
         var layout = {
             title: plotInfo.title,
             xaxis: {
@@ -103,8 +105,26 @@ plotData.forEach((plotSet, i) => {
                 t: 60,
                 pad: 0
             },
+            shapes: [],
             showlegend: false
         };
+
+        if (horizontalLineHeight !== null) {
+            layout.shapes.push({
+                type: 'line',
+                x0: 0,
+                x1: 1,
+                y0: horizontalLineHeight,
+                y1: horizontalLineHeight,
+                xref: 'paper',
+                yref: 'y',
+                line: {
+                    color: 'rgba(100, 100, 100, 0.75)',
+                    width: 2,
+                    dash: 'dash'
+                }
+            });
+        }
 
         // Invert y-axis for the third tab
         if (j === 2) {
@@ -116,6 +136,24 @@ plotData.forEach((plotSet, i) => {
         Plotly.newPlot(`plot${i}${j + 1}`, data, layout, config);
     });
 });
+
+// Add the legend item for 3DGS with a dashed line
+var legendItem3DGS = document.createElement('div');
+legendItem3DGS.className = 'legend-item';
+
+var dashedLine = document.createElement('div');
+dashedLine.style.width = '20px';
+dashedLine.style.height = '0';
+dashedLine.style.borderTop = '2px dashed rgba(100, 100, 100, 0.75)';
+dashedLine.style.marginRight = '5px';
+
+var labelText3DGS = document.createElement('p');
+labelText3DGS.innerText = '3DGS-30K';
+labelText3DGS.style.color = '#000000';
+
+legendItem3DGS.appendChild(dashedLine);
+legendItem3DGS.appendChild(labelText3DGS);
+legendContainer.appendChild(legendItem3DGS);
 
 Object.keys(groupNames).forEach(group => {
     var legendItem = document.createElement('div');

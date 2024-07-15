@@ -215,6 +215,13 @@ def get_plot_data():
 
     shortnames = sorted(shortnames.values())
 
+    org_3dgs = {
+        "TanksAndTemples": [23.14, 0.841, 0.183] ,
+        "MipNeRF360": [27.21, 0.815, 0.214],
+        "DeepBlending": [29.41, 0.903, 0.243],
+        "SyntheticNeRF": [33.32, None, None],
+    }
+
     data = []
     for dataset in dataset_order:
         df = dfs[dataset]
@@ -233,21 +240,24 @@ def get_plot_data():
                 "xaxis": "Size (MB)",
                 "yaxis": "PSNR",
                 'points': psnr_size,
-                'lines': []
+                'lines': [],
+                'lineHeight': org_3dgs[dataset][0],
             },
             'plot2': {
                 "title": f"<b>{dataset}</b>", #: SSIM / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "SSIM",
                 'points': ssim_size,
-                'lines': []
+                'lines': [],
+                'lineHeight': org_3dgs[dataset][1],
             },
             'plot3': {
                 "title": f"<b>{dataset}</b>", #: LPIPS / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "LPIPS",
                 'points': lpips_size,
-                'lines': []
+                'lines': [],
+                'lineHeight': org_3dgs[dataset][2],
             } 
         })
 
