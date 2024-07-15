@@ -38,7 +38,7 @@ def get_links():
 def get_authors():
     #get authors from bibtex
     authors = {}
-    with open("methods.bib") as bibtex_file:
+    with open("methods.bib", encoding='utf-8') as bibtex_file:
         bib_database = bibtexparser.load(bibtex_file)
         for entry in bib_database.entries:
             if "author" in entry:
