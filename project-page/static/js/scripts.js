@@ -89,14 +89,16 @@ plotData.forEach((plotSet, i) => {
             title: plotInfo.title,
             xaxis: {
                 title: plotInfo.xaxis,
-                automargin: true
+                automargin: true,
+                zeroline: false,
+                rangemode: "tozero",
             },
             yaxis: {
                 title: {
                     text: plotInfo.yaxis,
                     // standoff: 5  // only applies to tab 1...?
                 },
-                automargin: true
+                automargin: true,
             },
             margin: {
                 l: 65,
