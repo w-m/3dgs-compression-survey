@@ -109,6 +109,16 @@ def combine_tables_to_html():
     
     multi_col_df["Rank"] = (multi_col_df["Rank"] / dataset_count).apply(lambda x: round(x, 1))
 
+    ranks = {}
+    i = 0
+    #ranks for order of plot legend and summaries
+    for index, row in multi_col_df.sort_values("Rank").iterrows():
+        for shortname in shortnames.values():
+            if shortname in row["Method"][0] and shortname not in ranks:
+                ranks[shortname] = i
+                i += 1
+                break
+
     #color the top 3 values in each column
     def add_top_3_classes(df):
         colors = ['first', 'second', 'third']
@@ -144,15 +154,22 @@ def combine_tables_to_html():
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
 
-    return cleaned_html_string
+    return cleaned_html_string, ranks
 
-def load_methods_summaries():
+def load_methods_summaries(ranks):
     # Load the summaries of the methods
     summaries = []
     links = get_links()
     authors = get_authors()
-    files = sorted(os.listdir('methods'))
-    for file in files:
+
+    #sort here by rank to determine order of method summaries
+    shortnames = get_shortnames()
+    for name in shortnames.values(): #also include non ranked methods
+        if name not in ranks:
+            ranks[name] = 1000
+
+    for shortname in ranks.keys():
+        file = [key for key, value in shortnames.items() if value == shortname][0] + '.md'
         with open(f'methods/{file}', 'r') as f:
             file_content = f.read()
             # markdown files, extarct title and summary
@@ -189,7 +206,7 @@ def load_methods_summaries():
             })
     return summaries
 
-def get_plot_data(): 
+def get_plot_data(ranks): 
     dfs = {}
     shortnames = get_shortnames()
 
@@ -212,6 +229,8 @@ def get_plot_data():
             df.drop(columns=["Size [Bytes]"], inplace=True)
 
         dfs[file.split(".")[0]] = df
+        #sort with ranks as lambda key
+        df.sort_values(by="Shortname", key=lambda x: x.map(ranks), inplace=True)
 
     shortnames = sorted(shortnames.values())
 
@@ -277,9 +296,9 @@ def get_plot_data():
     return data, group_links, checkbox_states
 
 if __name__ == "__main__":
-    results_table = combine_tables_to_html()
-    summaries = load_methods_summaries()
-    plot_data, group_links, checkbox_states = get_plot_data()
+    results_table, ranks = combine_tables_to_html()
+    summaries = load_methods_summaries(ranks)
+    plot_data, group_links, checkbox_states = get_plot_data(ranks)
 
     # Pfad zu deinem Template-Ordner
     file_loader = FileSystemLoader('project-page')
