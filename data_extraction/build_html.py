@@ -266,12 +266,20 @@ def get_plot_data():
     for method in shortnames:
         group_links[shortnames[method]] = "#"+method
 
-    return data, group_links
+    checkbox_states = {}
+    for method in shortnames.values():
+        if method in ["Scaffold-GS"]:
+            checkbox_states[method] = False
+        else:
+            checkbox_states[method] = True
+
+
+    return data, group_links, checkbox_states
 
 if __name__ == "__main__":
     results_table = combine_tables_to_html()
     summaries = load_methods_summaries()
-    plot_data, group_links = get_plot_data()
+    plot_data, group_links, checkbox_states = get_plot_data()
 
     # Pfad zu deinem Template-Ordner
     file_loader = FileSystemLoader('project-page')
@@ -285,7 +293,8 @@ if __name__ == "__main__":
         'results_table': results_table,
         'summaries': summaries,
         'plot_data': json.dumps(plot_data),
-        'group_links': json.dumps(group_links)
+        'group_links': json.dumps(group_links),
+        'checkbox_states': json.dumps(checkbox_states)
     }
 
     # Render das Template mit den Daten

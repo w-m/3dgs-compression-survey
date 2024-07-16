@@ -161,6 +161,15 @@ Object.keys(groupNames).forEach(group => {
     var legendItem = document.createElement('div');
     legendItem.className = 'legend-item';
 
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = checkboxStates[group];
+    checkbox.dataset.group = group;
+    checkbox.style.marginLeft = '5px';
+    checkbox.style.width = '14px'; 
+    checkbox.style.height = '14px';
+    checkbox.addEventListener('change', updatePlotVisibility);
+
     var colorBox = document.createElement('div');
     colorBox.className = 'legend-color-box';
     colorBox.style.backgroundColor = groupNames[group];
@@ -171,8 +180,28 @@ Object.keys(groupNames).forEach(group => {
 
     legendItem.appendChild(colorBox);
     legendItem.appendChild(labelText);
+    legendItem.appendChild(checkbox);
     legendContainer.appendChild(legendItem);
 });
+
+// Call updatePlotVisibility for each checkbox to set initial visibility
+Object.keys(checkboxStates).forEach(group => {
+    updatePlotVisibility({target: {dataset: {group: group}, checked: checkboxStates[group]}});
+});
+
+function updatePlotVisibility(event) {
+    var group = event.target.dataset.group;
+    var visible = event.target.checked;
+
+    document.querySelectorAll('.plot-content').forEach(plotContent => {
+        plotContent.data.forEach((trace, index) => {
+            if (trace.name === group || (trace.line && trace.line.color === groupNames[group])) {
+                Plotly.restyle(plotContent, { visible: visible }, [index]);
+            }
+        });
+    });
+}
+
 
 var methodTable = document.getElementById('results');
 var methodRows = methodTable.getElementsByClassName('method-name');
