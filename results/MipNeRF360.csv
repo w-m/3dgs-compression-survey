@@ -15,3 +15,4 @@ navaneet2023compact3d, 16K,27.03,0.804,0.243,18874368,https://arxiv.org/src/2311
 navaneet2023compact3d, 32K,27.12,0.806,0.240,19922944,https://arxiv.org/src/2311.18159,
 niedermayr2024compressed,,26.981,0.801,0.238,30198989,https://arxiv.org/pdf/2401.02436,
 papantonakis2024reducing,,27.1,0.809,0.226,30408704,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
+lu2023scaffoldgsstructured3dgaussians,,28.84,0.848,0.220,163577856,https://arxiv.org/pdf/2312.00109,

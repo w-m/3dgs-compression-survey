@@ -120,3 +120,14 @@
       shortname={F-3DGS},
 }
 
+@misc{lu2023scaffoldgsstructured3dgaussians,
+      title={Scaffold-GS: Structured 3D Gaussians for View-Adaptive Rendering}, 
+      author={Tao Lu and Mulin Yu and Linning Xu and Yuanbo Xiangli and Limin Wang and Dahua Lin and Bo Dai},
+      year={2023},
+      eprint={2312.00109},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      abstract={Neural rendering methods have significantly advanced photo-realistic 3D scene rendering in various academic and industrial applications. The recent 3D Gaussian Splatting method has achieved the state-of-the-art rendering quality and speed combining the benefits of both primitive-based representations and volumetric representations. However, it often leads to heavily redundant Gaussians that try to fit every training view, neglecting the underlying scene geometry. Consequently, the resulting model becomes less robust to significant view changes, texture-less area and lighting effects. We introduce Scaffold-GS, which uses anchor points to distribute local 3D Gaussians, and predicts their attributes on-the-fly based on viewing direction and distance within the view frustum. Anchor growing and pruning strategies are developed based on the importance of neural Gaussians to reliably improve the scene coverage. We show that our method effectively reduces redundant Gaussians while delivering high-quality rendering. We also demonstrates an enhanced capability to accommodate scenes with varying levels-of-detail and view-dependent observations, without sacrificing the rendering speed.},
+      url={https://city-super.github.io/scaffold-gs/}, 
+      shortname={Scaffold-GS},
+}
