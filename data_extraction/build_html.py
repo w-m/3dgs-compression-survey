@@ -221,6 +221,10 @@ def get_plot_data(ranks):
         df = pd.read_csv(f'results/{file}')
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
         df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
+
+        #filter out "Baseline" keyword from Submethod
+        df['Submethod'] = df['Submethod'].str.replace('Baseline', ' baseline')
+
         df["NewMethod"] = df["Shortname"] + df["Submethod"]
 
         #remove from df if [N/P] in comment
