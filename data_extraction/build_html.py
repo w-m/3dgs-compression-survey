@@ -56,8 +56,12 @@ def combine_tables_to_html():
     for dataset in dataset_order:
         #read csvs
         df = pd.read_csv(f'results/{dataset}.csv', dtype={'PSNR': str, 'SSIM': str, 'LPIPS': str})
-        #drop columns if [N/T] in Comment
+        #drop rows if [N/T] in Comment
         df = df[~df['Comment'].str.contains(r'\[N/T\]', na=False)]
+        #drop all rows with empty Submethod
+        df = df[df['Submethod'].notna()]
+        #filter out "Baseline" keyword from Submethod
+        df['Submethod'] = df['Submethod'].str.replace('Baseline', '')
 
         # parse all float columns to float and keep the exact numer of decimal places
         df["PSNR"] = df["PSNR"].apply(lambda x: Decimal(x) if x != '' else None)

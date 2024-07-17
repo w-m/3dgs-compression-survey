@@ -20,4 +20,4 @@ You can fetch the results automatically by running:
 
 This script attempts to fetch data from the relevant papers and update the tables in the `results` folder. To add a new paper, create an entry in `data_extraction/data_source.yaml`. 
 
-It is recommended to the authors to include their results in their Github repository, to ensure that the data is fetched correctly. You can view the expected format [here](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results).
+It is recommended to the authors to include their results in their Github repository, to ensure that the data is fetched correctly. You can view the expected format [here](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results). Please provide a submethod name for up to two results per dataset to be displayed in the survey table. Results without a submethod name will only be shown in the plots. Use the keyword "Baseline" to ensure only the name of your approach is shown in the table for these results.

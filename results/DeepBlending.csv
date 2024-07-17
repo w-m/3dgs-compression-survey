@@ -1,19 +1,19 @@
 Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],Data Source,Comment
 chen2024hac,-lowrate,29.98,0.902,0.269,4561305,https://arxiv.org/src/2403.14530,==λ4e-3
-chen2024hac, λ3e-3,30.14,0.903,0.265,4917821,https://arxiv.org/pdf/2403.14530,[N/T]
-chen2024hac, λ2e-3,30.17,0.905,0.262,5578424,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac,,30.14,0.903,0.265,4917821,https://arxiv.org/pdf/2403.14530,
+chen2024hac,,30.17,0.905,0.262,5578424,https://arxiv.org/pdf/2403.14530,
 chen2024hac,-highrate,30.34,0.906,0.258,6658457,https://arxiv.org/src/2403.14530,==λ1e-3
-chen2024hac, λ5e-4,30.21,0.906,0.257,7948206,https://arxiv.org/pdf/2403.14530,[N/T]
+chen2024hac,,30.21,0.906,0.257,7948206,https://arxiv.org/pdf/2403.14530,
 fan2024lightgaussian,,,,,,,
-girish2024eagles,,29.86,0.91,0.25,54525952,https://arxiv.org/pdf/2312.04564,
+girish2024eagles,Baseline,29.86,0.91,0.25,54525952,https://arxiv.org/pdf/2312.04564,
 girish2024eagles,-Small,29.92,0.90,0.25,34603008,https://arxiv.org/pdf/2312.04564,
-lee2024compact,,29.79,0.901,0.258,45298483,https://arxiv.org/src/2311.13681,
+lee2024compact,Baseline,29.79,0.901,0.258,45298483,https://arxiv.org/src/2311.13681,
 lee2024compact,+PP,29.73,0.900,0.258,24956108,https://arxiv.org/src/2311.13681,
-morgenstern2024compact,,30.35,0.909,0.258,17616076,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
+morgenstern2024compact,Baseline,30.35,0.909,0.258,17616076,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 morgenstern2024compact, w/o SH,30.50,0.908,0.261,5767168,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 navaneet2023compact3d, 16K,29.90,0.906,0.252,12582912,https://arxiv.org/src/2311.18159,
 navaneet2023compact3d, 32K,29.90,0.907,0.251,13631488,https://arxiv.org/src/2311.18159,
-niedermayr2024compressed,,29.381,0.898,0.253,26528973,https://arxiv.org/pdf/2401.02436,
-papantonakis2024reducing,,29.63,0.902,0.249,18874368,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
-lu2023scaffoldgsstructured3dgaussians,,30.21,0.906,0.254,69206016,https://arxiv.org/pdf/2312.00109,
+niedermayr2024compressed,Baseline,29.381,0.898,0.253,26528973,https://arxiv.org/pdf/2401.02436,
+papantonakis2024reducing,Baseline,29.63,0.902,0.249,18874368,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
+lu2023scaffoldgsstructured3dgaussians,Baseline,30.21,0.906,0.254,69206016,https://arxiv.org/pdf/2312.00109,
 
