@@ -118,7 +118,7 @@
       shortname={F-3DGS},
 }
 
-@misc{lu2023scaffoldgsstructured3dgaussians,
+@misc{lu2024scaffold,
       title={Scaffold-GS: Structured 3D Gaussians for View-Adaptive Rendering}, 
       author={Tao Lu and Mulin Yu and Linning Xu and Yuanbo Xiangli and Limin Wang and Dahua Lin and Bo Dai},
       year={2024},
@@ -127,4 +127,14 @@
       abstract={Neural rendering methods have significantly advanced photo-realistic 3D scene rendering in various academic and industrial applications. The recent 3D Gaussian Splatting method has achieved the state-of-the-art rendering quality and speed combining the benefits of both primitive-based representations and volumetric representations. However, it often leads to heavily redundant Gaussians that try to fit every training view, neglecting the underlying scene geometry. Consequently, the resulting model becomes less robust to significant view changes, texture-less area and lighting effects. We introduce Scaffold-GS, which uses anchor points to distribute local 3D Gaussians, and predicts their attributes on-the-fly based on viewing direction and distance within the view frustum. Anchor growing and pruning strategies are developed based on the importance of neural Gaussians to reliably improve the scene coverage. We show that our method effectively reduces redundant Gaussians while delivering high-quality rendering. We also demonstrates an enhanced capability to accommodate scenes with varying levels-of-detail and view-dependent observations, without sacrificing the rendering speed.},
       url={https://city-super.github.io/scaffold-gs/}, 
       shortname={Scaffold-GS},
+}
+
+@misc{wang2024endtoendratedistortionoptimized3d,
+      title={End-to-End Rate-Distortion Optimized 3D Gaussian Representation}, 
+      author={Henan Wang and Hanxin Zhu and Tianyu He and Runsen Feng and Jiajun Deng and Jiang Bian and Zhibo Chen},
+      year={2024},
+      eprint={2406.01597},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2406.01597}, 
 }
