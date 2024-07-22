@@ -272,6 +272,13 @@
                 <span class="author-block">
                     {{ paper.authors }}</span>
             </div>
+            <!-- if publsihed_at != arXiv: -->
+            {% if paper.published_at != "arXiv" %}
+            <div class="is-size-6 publication-authors" style="color: grey;">
+                <span class="author-block">
+                    <b>Published in: </b>{{ paper.published_at }}</span>
+            </div>
+            {% endif %}
             <br>
             <div class="content has-text-justified">
                 <p>

@@ -160,11 +160,25 @@ def combine_tables_to_html():
 
     return cleaned_html_string, ranks
 
+def get_published_at():
+    published_at = {}
+    with open("methods.bib", encoding='utf-8') as bibtex_file:
+        bib_database = bibtexparser.load(bibtex_file)
+        for entry in bib_database.entries:
+            if "booktitle" in entry:
+                published_at[entry["ID"]] = entry["booktitle"] + ", " + entry["year"]
+            elif "journal" in entry:
+                published_at[entry["ID"]] = entry["journal"] + ", " + entry["year"]
+            else:
+                published_at[entry["ID"]] = "arXiv"
+    return published_at
+
 def load_methods_summaries(ranks):
     # Load the summaries of the methods
     summaries = []
     links = get_links()
     authors = get_authors()
+    published_at = get_published_at()
 
     #sort here by rank to determine order of method summaries
     shortnames = get_shortnames()
@@ -194,7 +208,7 @@ def load_methods_summaries(ranks):
                 image = f"static/images/{file.split('.')[0]}.jpg"
             else:
                 image = ""
-            author = authors[file.split(".")[0]]
+            author = authors[file.split(".")[0]] 
             #replace all but the last " and " with ", "
             if not "," in author:
                 parts = author.split(' and ')
@@ -206,7 +220,8 @@ def load_methods_summaries(ranks):
                 'summary': summary,
                 'title': title,
                 'authors': author,
-                'image': image
+                'image': image,
+                'published_at': published_at[file.split(".")[0]]
             })
     return summaries
 
