@@ -151,7 +151,7 @@ dashedLine.style.marginRight = '5px';
 
 var labelText3DGS = document.createElement('p');
 labelText3DGS.innerText = '3DGS-30K';
-labelText3DGS.style.color = '#000000';
+labelText3DGS.style.color = '#333333';
 
 legendItem3DGS.appendChild(dashedLine);
 legendItem3DGS.appendChild(labelText3DGS);
