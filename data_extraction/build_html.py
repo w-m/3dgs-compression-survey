@@ -5,6 +5,7 @@ from jinja2 import Environment, FileSystemLoader
 import re
 import json
 from decimal import Decimal
+from PIL import Image
 
 dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
 
@@ -223,6 +224,12 @@ def load_methods_summaries(ranks):
                 image = f"static/images/{file.split('.')[0]}.jpg"
             else:
                 image = ""
+
+            #get width and height of image
+            if image != "":
+                with Image.open(f"project-page/{image}") as img:
+                    width, height = img.size
+
             author = authors[file.split(".")[0]] 
             #replace all but the last " and " with ", "
             if not "," in author:
@@ -236,6 +243,8 @@ def load_methods_summaries(ranks):
                 'title': title,
                 'authors': author,
                 'image': image,
+                'imwidth': width,
+                'imheight': height,
                 'published_at': published_at[file.split(".")[0]]
             })
     return summaries
