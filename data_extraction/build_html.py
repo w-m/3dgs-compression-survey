@@ -217,8 +217,10 @@ def load_methods_summaries(ranks):
                 title = f'<a href="{links[file.split(".")[0]]}" target="_blank">{title}</a>'
             summary = file_content.split('\n', 1)[1].strip()
 
-            #get image path, png or jpg
-            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}.png"):
+            #get image path, webp, png or jpg
+            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}.webp"):
+                image = f"static/images/{file.split('.')[0]}.webp"
+            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.png"):
                 image = f"static/images/{file.split('.')[0]}.png"
             elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.jpg"):
                 image = f"static/images/{file.split('.')[0]}.jpg"
