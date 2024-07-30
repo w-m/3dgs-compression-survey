@@ -126,7 +126,9 @@
 <section class="hero is-small">
     <div class="hero-body">
         <div class="container">
-            <div class="tablecontainer">
+            <div id="table-placeholder" style="height: 1700px;">
+            </div>
+            <div class="tablecontainer" style="display:none;">
                 {{results_table | safe}}
             </div>
         </div>
@@ -195,6 +197,8 @@
                 table = new DataTable('#results', tableOptions);
             }
         }
+        $('#table-placeholder').hide();
+        $('.tablecontainer').show();
     }
     $(document).ready(reportWindowSize);
     window.onresize = reportWindowSize;
