@@ -53,6 +53,19 @@ def combine_tables_to_html():
     dfs = []
     shortnames = get_shortnames()
 
+    groupcolors = {}
+    # group_colors = plotly.colors.qualitative.Prism
+    colors = [
+    "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78",
+    "#2ca02c", "#98df8a", "#d62728", "#ff9896",
+    "#9467bd", "#c5b0d5", "#8c564b", "#c49c94",
+    "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
+    "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"
+    ]
+    for name in shortnames.values():
+        if name not in ["F-3DGS", "RDO-Gaussian"]:
+            groupcolors[name] = colors.pop(0)
+
     for dataset in dataset_order:
         #read csvs
         df = pd.read_csv(f'results/{dataset}.csv', dtype={'PSNR': str, 'SSIM': str, 'LPIPS': str})
@@ -75,7 +88,7 @@ def combine_tables_to_html():
         df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
         df["NewMethod"] = df["Shortname"] + df["Submethod"]
         # make Method column a link to the method summary + add color box
-        df["Method"] = f'<a class="method-name" data-method-name="'+ df["Shortname"] +'" href="#' + df["Method"] + '"> <span class="legend-color-box-container"><span class="legend-color-box-methods"></span>' + df["NewMethod"] + '</span></a>'
+        df["Method"] = '<a class="method-name" href="#' + df["Method"] + '"> <span class="legend-color-box-container"><span class="legend-color-box" style=background-color:'+df["Shortname"].map(groupcolors)+'></span><span class="legend-color-box-methods"></span>' + df["NewMethod"] + '</span></a>'
 
         df.drop(columns=["Submethod", "NewMethod"], inplace=True)
         df.set_index("Method", inplace=True)
@@ -122,6 +135,8 @@ def combine_tables_to_html():
                 ranks[shortname] = i
                 i += 1
                 break
+    #sort group colors by rank for correct roder in legend
+    groupcolors = {k: v for k, v in sorted(groupcolors.items(), key=lambda item: ranks[item[0]])}
 
     #color the top 3 values in each column
     def add_top_3_classes(df):
@@ -158,7 +173,7 @@ def combine_tables_to_html():
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
 
-    return cleaned_html_string, ranks
+    return cleaned_html_string, ranks, groupcolors
 
 def get_published_at():
     published_at = {}
@@ -252,8 +267,6 @@ def get_plot_data(ranks):
             df.drop(columns=["Size [Bytes]"], inplace=True)
 
         dfs[file.split(".")[0]] = df
-        #sort with ranks as lambda key
-        df.sort_values(by="Shortname", key=lambda x: x.map(ranks), inplace=True)
 
     shortnames = sorted(shortnames.values())
 
@@ -319,7 +332,7 @@ def get_plot_data(ranks):
     return data, group_links, checkbox_states
 
 if __name__ == "__main__":
-    results_table, ranks = combine_tables_to_html()
+    results_table, ranks, groupcolors = combine_tables_to_html()
     summaries = load_methods_summaries(ranks)
     plot_data, group_links, checkbox_states = get_plot_data(ranks)
 
@@ -336,7 +349,8 @@ if __name__ == "__main__":
         'summaries': summaries,
         'plot_data': json.dumps(plot_data),
         'group_links': json.dumps(group_links),
-        'checkbox_states': json.dumps(checkbox_states)
+        'checkbox_states': json.dumps(checkbox_states),
+        'groupcolors': json.dumps(groupcolors)
     }
 
     # Render das Template mit den Daten
