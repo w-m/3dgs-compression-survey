@@ -233,7 +233,9 @@ def load_methods_summaries(ranks):
             summary = file_content.split('\n', 1)[1].strip()
 
             #get image path, webp, png or jpg
-            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}.webp"):
+            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_small.webp"):
+                image = f"static/images/{file.split('.')[0]}_small.webp"
+            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.webp"):
                 image = f"static/images/{file.split('.')[0]}.webp"
             elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.png"):
                 image = f"static/images/{file.split('.')[0]}.png"
