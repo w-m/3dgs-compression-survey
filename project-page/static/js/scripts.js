@@ -29,113 +29,78 @@ var legendContainer = document.getElementById('legend');
 
 function drawPlots(plotData, allowedKeys, allowedDatasets) {
     plotData.forEach((plotSet, i) => {
-        if (allowedDatasets.includes(i)) {
-        
+        if (!allowedDatasets.includes(i)) return;
+
         Object.keys(plotSet).forEach((key, j) => {
-            if (allowedKeys.includes(key)) {
-                var plotInfo = plotSet[key];
-                var points = plotInfo.points;
+            if (!allowedKeys.includes(key)) return;
 
-                var groups = {};
-                points.forEach(point => {
-                    if (!groups[point.group]) {
-                        groups[point.group] = [];
-                    }
-                    groups[point.group].push(point);
+            const plotInfo = plotSet[key];
+            const groupData = plotInfo.groupData;
+
+            const data = [];
+            for (const [group, { x, y, text }] of Object.entries(groupData)) {
+                const color = groupColors[group];
+                const visible = checkboxStates[group];
+
+                data.push({
+                    x,
+                    y,
+                    mode: 'markers',
+                    text,
+                    marker: {
+                        symbol: 'triangle-up',
+                        color,
+                        size: 12
+                    },
+                    name: group,
+                    showlegend: false,
+                    visible
                 });
 
-                var data = [];
-                Object.keys(groups).forEach(group => {
-                    var groupPoints = groups[group];
-
+                if (x.length > 1) {
                     data.push({
-                        x: groupPoints.map(p => p.x),
-                        y: groupPoints.map(p => p.y),
-                        mode: 'markers',
-                        text: groupPoints.map(p => p.label),
-                        marker: {
-                            symbol: 'triangle-up',
-                            color: groupColors[group],
-                            size: 12
-                        },
-                        name: group,
+                        x,
+                        y,
+                        mode: 'lines',
+                        line: { color },
                         showlegend: false,
-                        visible: checkboxStates[group],
-                    });
-
-                    if (groupPoints.length > 1) {
-                        data.push({
-                            x: groupPoints.map(p => p.x),
-                            y: groupPoints.map(p => p.y),
-                            mode: 'lines',
-                            line: {
-                                color: groupColors[group]
-                            },
-                            showlegend: false,
-                            hoverinfo: 'none',
-                            visible: checkboxStates[group],
-                        });
-                    }
-                });
-
-                var horizontalLineHeight = plotInfo.lineHeight;
-
-                var layout = {
-                    title: plotInfo.title,
-                    xaxis: {
-                        title: plotInfo.xaxis,
-                        automargin: true,
-                        zeroline: false,
-                        // rangemode: "tozero",
-                    },
-                    yaxis: {
-                        title: {
-                            text: plotInfo.yaxis,
-                            // standoff: 5  // only applies to tab 1...?
-                        },
-                        automargin: true,
-                    },
-                    margin: {
-                        l: 65,
-                        r: 30,
-                        b: 70,
-                        t: 60,
-                        pad: 0
-                    },
-                    shapes: [],
-                    showlegend: false
-                };
-
-                if (horizontalLineHeight !== null) {
-                    layout.shapes.push({
-                        type: 'line',
-                        x0: 0,
-                        x1: 1,
-                        y0: horizontalLineHeight,
-                        y1: horizontalLineHeight,
-                        xref: 'paper',
-                        yref: 'y',
-                        line: {
-                            color: 'rgba(100, 100, 100, 0.75)',
-                            width: 2,
-                            dash: 'dash'
-                        }
+                        hoverinfo: 'none',
+                        visible
                     });
                 }
-
-                // Invert y-axis for the third tab
-                if (j === 2) {
-                    layout.yaxis.autorange = 'reversed';
-                }
-                var config = {
-                    displayModeBar: false
-                };
-                Plotly.newPlot(`plot${i}${j + 1}`, data, layout, config);
             }
+
+            const layout = {
+                title: plotInfo.title,
+                xaxis: {
+                    title: plotInfo.xaxis,
+                    automargin: true,
+                    zeroline: false
+                },
+                yaxis: {
+                    title: { text: plotInfo.yaxis },
+                    automargin: true,
+                    autorange: j === 2 ? 'reversed' : true
+                },
+                margin: { l: 65, r: 30, b: 70, t: 60, pad: 0 },
+                shapes: plotInfo.lineHeight !== null ? [{
+                    type: 'line',
+                    x0: 0,
+                    x1: 1,
+                    y0: plotInfo.lineHeight,
+                    y1: plotInfo.lineHeight,
+                    xref: 'paper',
+                    yref: 'y',
+                    line: { color: 'rgba(100, 100, 100, 0.75)', width: 2, dash: 'dash' }
+                }] : [],
+                showlegend: false
+            };
+
+            Plotly.newPlot(`plot${i}${j + 1}`, data, layout, { displayModeBar: false });
         });
-    }
     });
 }
+
 
 function drawLegend() {
 

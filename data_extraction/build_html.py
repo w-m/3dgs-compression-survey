@@ -307,20 +307,37 @@ def get_plot_data(ranks):
     for dataset in dataset_order:
         df = dfs[dataset]
 
-        psnr_size = []
-        ssim_size = []
-        lpips_size = []
+        psnr_groupData = {}
+        ssim_groupData = {}
+        lpips_groupData = {}
+
         for method in df.index:
-            psnr_size.append({"x": df.loc[method, "Size [MB]"], "y": df.loc[method, "PSNR"], "label": df.loc[method, "NewMethod"], "group": df.loc[method, "Shortname"], "group_id": shortnames.index(df.loc[method, "Shortname"])})
-            ssim_size.append({"x": df.loc[method, "Size [MB]"], "y": df.loc[method, "SSIM"], "label": df.loc[method, "NewMethod"], "group": df.loc[method, "Shortname"], "group_id": shortnames.index(df.loc[method, "Shortname"])})
-            lpips_size.append({"x": df.loc[method, "Size [MB]"], "y": df.loc[method, "LPIPS"], "label": df.loc[method, "NewMethod"], "group": df.loc[method, "Shortname"], "group_id": shortnames.index(df.loc[method, "Shortname"])})
+            if psnr_groupData.get(df.loc[method, "Shortname"]) is None:
+                psnr_groupData[df.loc[method, "Shortname"]] = {"x": [], "y": [], "text": []}
+            if ssim_groupData.get(df.loc[method, "Shortname"]) is None:
+                ssim_groupData[df.loc[method, "Shortname"]] = {"x": [], "y": [], "text": []}
+            if lpips_groupData.get(df.loc[method, "Shortname"]) is None:
+                lpips_groupData[df.loc[method, "Shortname"]] = {"x": [], "y": [], "text": []}
+            
+            psnr_groupData[df.loc[method, "Shortname"]]["x"].append(df.loc[method, "Size [MB]"])
+            psnr_groupData[df.loc[method, "Shortname"]]["y"].append(df.loc[method, "PSNR"])
+            psnr_groupData[df.loc[method, "Shortname"]]["text"].append(df.loc[method, "NewMethod"])
+
+            ssim_groupData[df.loc[method, "Shortname"]]["x"].append(df.loc[method, "Size [MB]"])
+            ssim_groupData[df.loc[method, "Shortname"]]["y"].append(df.loc[method, "SSIM"])
+            ssim_groupData[df.loc[method, "Shortname"]]["text"].append(df.loc[method, "NewMethod"])
+
+            lpips_groupData[df.loc[method, "Shortname"]]["x"].append(df.loc[method, "Size [MB]"])
+            lpips_groupData[df.loc[method, "Shortname"]]["y"].append(df.loc[method, "LPIPS"])
+            lpips_groupData[df.loc[method, "Shortname"]]["text"].append(df.loc[method, "NewMethod"])   
+
 
         data.append({
             'plot1': {
                 "title": f"<b>{dataset}</b>", #: PSNR / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "PSNR",
-                'points': psnr_size,
+                'groupData': psnr_groupData,
                 'lines': [],
                 'lineHeight': org_3dgs[dataset][0],
             },
@@ -328,7 +345,7 @@ def get_plot_data(ranks):
                 "title": f"<b>{dataset}</b>", #: SSIM / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "SSIM",
-                'points': ssim_size,
+                'groupData': ssim_groupData,
                 'lines': [],
                 'lineHeight': org_3dgs[dataset][1],
             },
@@ -336,7 +353,7 @@ def get_plot_data(ranks):
                 "title": f"<b>{dataset}</b>", #: LPIPS / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "LPIPS",
-                'points': lpips_size,
+                'groupData': lpips_groupData,
                 'lines': [],
                 'lineHeight': org_3dgs[dataset][2],
             } 
