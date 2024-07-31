@@ -240,22 +240,23 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
             }
         )
         result_tables[dataset_name]['Submethod'] = result_tables[dataset_name]['Submethod'].astype('string').replace(pd.NA, '')
+        
     #copy results from csv_tables
     for dataset in csv_tables:
+        #get unique method names
+        unique_methods = csv_tables[dataset]["Method"].unique()
+        #delete all entries for unique method names in result_tables
+        row_index = result_tables[dataset][result_tables[dataset]["Method"].isin(unique_methods)].index
+        result_tables[dataset] = result_tables[dataset].drop(row_index)
+
         #iterate through all columns and transfer values
         for i in range(len(csv_tables[dataset])):
             method = csv_tables[dataset]["Method"][i]
             submethod = csv_tables[dataset]["Submethod"][i]
 
-            #check if method and submethod is in result_tables
-            row_index = result_tables[dataset].index[
-                            (result_tables[dataset]["Method"] == method) & 
-                            (result_tables[dataset]["Submethod"] == submethod)
-                        ]
-            if len(row_index) == 0:
-                result_tables[dataset].loc[len(result_tables[dataset])] = csv_tables[dataset].iloc[i]
-            else:
-                result_tables[dataset].loc[row_index[0]] = csv_tables[dataset].iloc[i]
+            #append new entry
+            result_tables[dataset] = result_tables[dataset]._append(csv_tables[dataset].iloc[i], ignore_index=True)
+
             
 
 
