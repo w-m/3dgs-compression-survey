@@ -182,11 +182,26 @@ def get_published_at():
         bib_database = bibtexparser.load(bibtex_file)
         for entry in bib_database.entries:
             if "booktitle" in entry:
-                published_at[entry["ID"]] = entry["booktitle"] + ", " + entry["year"]
+                pub = entry["booktitle"]
             elif "journal" in entry:
-                published_at[entry["ID"]] = entry["journal"] + ", " + entry["year"]
+                pub = entry["journal"] 
             else:
-                published_at[entry["ID"]] = "arXiv"
+                pub = "arXiv"
+            
+            if pub != "arXiv":
+                if "Conference on Computer Vision and Pattern Recognition" in pub:
+                    pub = "CVPR"
+                elif "European Conference on Computer Vision" in pub:
+                    pub = "ECCV"
+                elif "ACM on Computer Graphics and Interactive Techniques" in pub:
+                    pub = "PACMCGIT"
+                elif "ACM Transactions on Graphics" in pub:
+                    pub = "TOG"
+                
+                pub = pub + " '" + entry["year"]
+
+            published_at[entry["ID"]] = pub
+            
     return published_at
 
 def load_methods_summaries(ranks):

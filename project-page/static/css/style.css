@@ -1,3 +1,15 @@
+.rounded-bullet {
+  display: inline-block;
+  background-color: #8B0000;
+  color: white;
+  padding: 7px 13px;
+  border-radius: 20px;
+  margin: 8px 0; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.rounded-bullet:hover {
+  background-color: #A52A2A;
+}
 
 .video-container {
   aspect-ratio: 1;
