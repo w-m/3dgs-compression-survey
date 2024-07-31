@@ -10,3 +10,7 @@ morgenstern2024compact,Baseline,33.70,0.969,0.031,4299161,https://raw.githubuser
 morgenstern2024compact, w/o SH,31.75,0.961,0.040,2097152,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 niedermayr2024compressed,Baseline,32.936,0.967,0.033,3858760,https://arxiv.org/pdf/2401.02436,
 sun2024f3dgs,-CP-16,32.42,0.964,0.040,6354370,https://arxiv.org/pdf/2405.17083,[N/T][N/P] PSNR 32.42 in Table 1 and 32.48 in Table 9
+wang2024end,Baseline,33.12,0.967,0.034,2314380,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
+wang2024end,,32.97,0.966,0.035,1838842,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
+wang2024end,,32.56,0.964,0.038,1331576,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
+wang2024end,,32.01,0.961,0.042,1016378,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,

@@ -64,7 +64,7 @@ def combine_tables_to_html():
     "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"
     ]
     for name in shortnames.values():
-        if name not in ["F-3DGS", "RDO-Gaussian"]:
+        if name not in ["F-3DGS"]:
             groupcolors[name] = colors.pop(0)
 
     for dataset in dataset_order:

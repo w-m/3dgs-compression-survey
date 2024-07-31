@@ -37,3 +37,7 @@ niedermayr2024compressed:
   table_rotated: True
   filename: "sec/4_method.tex"
 
+wang2024end:
+  url: "https://github.com/USTC-IMCL/RDO-Gaussian/tree/main/results"
+  is_csv: True
+
