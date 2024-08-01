@@ -198,7 +198,7 @@ def get_published_at():
                 elif "ACM Transactions on Graphics" in pub:
                     pub = "TOG"
                 
-                pub = pub + " '" + entry["year"]
+                pub = pub + " '" + entry["year"][-2:]
 
             published_at[entry["ID"]] = pub
             
