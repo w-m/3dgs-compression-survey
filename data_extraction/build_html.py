@@ -204,7 +204,7 @@ def get_published_at():
             
     return published_at
 
-def load_methods_summaries(ranks):
+def load_methods_summaries(ranks, groupcolors):
     # Load the summaries of the methods
     summaries = []
     links = get_links()
@@ -229,7 +229,11 @@ def load_methods_summaries(ranks):
                 continue
             #include link to project page in title, if available
             if links[file.split(".")[0]] != '':
-                title = f'<a href="{links[file.split(".")[0]]}" target="_blank">{title}</a>'
+                try:
+                    color = groupcolors[shortnames[file.split(".")[0]]]
+                except KeyError:
+                    color = "#ffffff"
+                title = f'<a href="{links[file.split(".")[0]]}" target="_blank" class="title-link" style="--title-box-color: {color}">{title}</a>'
             summary = file_content.split('\n', 1)[1].strip()
 
             #get image path, webp, png or jpg
@@ -378,7 +382,7 @@ def get_plot_data(ranks):
 
 if __name__ == "__main__":
     results_table, ranks, groupcolors = combine_tables_to_html()
-    summaries = load_methods_summaries(ranks)
+    summaries = load_methods_summaries(ranks, groupcolors)
     plot_data, group_links, checkbox_states = get_plot_data(ranks)
 
     # Pfad zu deinem Template-Ordner

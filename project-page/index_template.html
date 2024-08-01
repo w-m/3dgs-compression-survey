@@ -24,7 +24,7 @@
 
     <title>3D Gaussian Splatting Compression Survey</title>
     <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"/>
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
 
     <!-- STYLE -->
     <link rel="stylesheet" href="static/css/bulma.min.css"/>
@@ -40,7 +40,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js" defer></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js" type="text/javascript"></script>
-    
+
     <!-- COL REORDER -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.dataTables.min.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.min.js"></script>
@@ -266,12 +266,13 @@
 <section class="section hero">
     <div class="container is-max-desktop" id="{{ paper.name }}">
         <div class="column is-centered has-text-centered">
-            <h2 class="title is-3">{{ paper.title }}</h2>
+            <h2 class="title is-3">
+                {{ paper.title }}
+              </h2>
             <div class="is-size-5 publication-authors">
                 <span class="author-block">
                     {{ paper.authors }}</span>
             </div>
-            <!-- if publsihed_at != arXiv: -->
             {% if paper.published_at != "arXiv" %}
             <span class="rounded-bullet">{{ paper.published_at }}</span>
             {% endif %}
@@ -281,7 +282,7 @@
                     {{ paper.summary }}
                 </p>
                 <div style="display: flex; justify-content: center; align-items: center">
-                    <img src="{{ paper.image }}" alt="" width="{{ paper.imwidth }}px" height="{{ paper.imheight }}px">
+                    <img src="{{ paper.image }}" alt="" width="{{ paper.imwidth }}px" height="{{ paper.imheight }}px" loading="lazy">
                 </div>
             </div>
         </div>

@@ -1,3 +1,19 @@
+.title-link {
+  position: relative;
+}
+
+.title-link::before {
+  content: '';
+  position: absolute;
+  right: 100%; 
+  top: 3px;
+  width: 30px; 
+  height: 30px;  
+  border-radius: 8px;
+  background-color: var(--title-box-color, #000000);
+  margin-right: 10px; 
+}
+
 .rounded-bullet {
   display: inline-block;
   background-color: #8B0000;
