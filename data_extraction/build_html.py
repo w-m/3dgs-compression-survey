@@ -194,7 +194,7 @@ def get_published_at():
                 elif "European Conference on Computer Vision" in pub:
                     pub = "ECCV"
                 elif "ACM on Computer Graphics and Interactive Techniques" in pub:
-                    pub = "PACMCGIT"
+                    pub = "I3D"
                 elif "ACM Transactions on Graphics" in pub:
                     pub = "TOG"
                 
