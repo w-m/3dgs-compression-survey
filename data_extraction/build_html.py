@@ -82,6 +82,8 @@ def combine_tables_to_html():
         df["SSIM"] = df["SSIM"].apply(lambda x: Decimal(x) if x != '' else None)
         df["LPIPS"] = df["LPIPS"].apply(lambda x: Decimal(x) if x != '' else None)
 
+        #round psnr to max 2 decimal places
+        df["PSNR"] = df["PSNR"].apply(lambda x: round(x, 2) if x is not None else None)
 
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
 
