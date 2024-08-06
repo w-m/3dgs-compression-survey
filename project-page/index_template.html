@@ -24,19 +24,16 @@
 
     <title>3D Gaussian Splatting Compression Survey</title>
     <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"/>
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
 
     <!-- STYLE -->
     <link rel="stylesheet" href="static/css/bulma.min.css"/>
     <link rel="stylesheet" href="static/css/bulma-carousel.min.css"/>
     <link rel="stylesheet" href="static/css/bulma-slider.min.css"/>
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="static/css/index.css"/>
     <link rel="stylesheet" href="static/css/style.css"/>
 
     <script defer src="static/js/fontawesome.all.min.js"></script>
-    <script src="static/js/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
     <script src="https://cdn.plot.ly/plotly-1.58.5.min.js" defer></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js" type="text/javascript"></script>
@@ -130,9 +127,7 @@
 <section class="hero is-small">
     <div class="hero-body">
         <div class="container">
-            <div id="table-placeholder" style="height: 1700px;">
-            </div>
-            <div class="tablecontainer" style="display:none;">
+            <div class="tablecontainer">
                 {{results_table | safe}}
             </div>
         </div>
@@ -191,10 +186,8 @@
                 table = new DataTable('#results', tableOptions);
             }
         }
-        $('#table-placeholder').hide();
-        $('.tablecontainer').show();
     }
-    $(document).ready(reportWindowSize);
+    reportWindowSize();
     window.onresize = reportWindowSize;
 
 </script>
@@ -204,7 +197,6 @@
     <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <!-- <h2 class="title is-3">Abstract</h2> -->
                 <div class="content has-text-justified">
                     <p>
                         The best methods in each category are highlighted with 
@@ -292,7 +284,7 @@
 {% if not loop.last %}
 <hr class="divider"> <!-- Horizontal line between papers -->
 {% endif %}
-<!-- <div style="height: 15px;"></div> Spacer div -->
+
 {% endfor %}
 
 <!--BibTex citation -->
