@@ -167,9 +167,25 @@ function updatePlotVisibility(event) {
 
 
 window.addEventListener('load', () => {
-    drawPlots(plotData, ["plot1"], [0,1,2,3]);
-    setTimeout(() => {drawPlots(plotData, ["plot2", "plot3"], [0,1,2,3]);}, 2000);
+    const plots = ["plot1", "plot2", "plot3"];
+    const shortDelay = 20; // ms to wait between plot drawings
+
+    async function drawPlotsSequentially() {
+        for (const plot of plots) {
+            for (let i = 0; i < 4; i += 1) {
+                await new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        drawPlots(plotData, [plot], [i]);
+                        setTimeout(resolve, shortDelay);
+                    });
+                });
+            }
+        }
+    }
+
     drawLegend();
+
+    drawPlotsSequentially();
 
     // Add event listener for window resize
     window.addEventListener('resize', resizePlots);
