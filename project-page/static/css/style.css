@@ -150,22 +150,33 @@
   display: block;
 }
 
+.legend label {
+  display: flex;
+  align-items: center;
+  margin-right: 15px; /* Add some space between the labels */
+}
+.column-toggle {
+  margin-left: 5px; /* Space between checkbox and text */
+}
+
 .legend-container {
-  width: 100%;
+  display: block; /* Ensure it's a block-level element */
+  width: max-content; /* Adjust width to fit content */
   padding: 20px;
   box-sizing: border-box;
-  margin-top: 40px;
+  margin: 40px auto 0 auto; /* Center horizontally with automatic margins */
   background-color: #f5f5f5;
   color: rgba(0, 0, 0, .7);
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  text-align: center; /* Center content inside */
 }
 
 .legend {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; /* Center content inside */
 }
 
 .legend-item {

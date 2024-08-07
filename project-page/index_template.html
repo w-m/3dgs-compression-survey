@@ -54,8 +54,7 @@
                             <a href="https://www.hhi.fraunhofer.de/en/departments/vit/research-groups/computer-vision-graphics/team/milena-bagdasarian.html"
                                target="_blank">Milena Bagdasarian</a><sup><small>1</small></sup>,</span>
                         <span class="author-block">
-                            <a>
-                                Paul Knoll</a><sup><small>1</small></sup>,</span>
+                            <span style="color: hsl(204, 86%, 53%);">Paul Knoll</span><sup><small>1</small></sup>,</span>
                         <span class="author-block">
 								<a href="https://florian-barthel.github.io/" target="_blank">
 									Florian Barthel</a><sup><small>1,2</small></sup>,</span>
@@ -123,6 +122,18 @@
     </div>
 </section>
 
+<div class="legend-container", style="margin-top: -30px;">
+    <div class="legend">
+        <label><input type="checkbox" class="column-toggle" data-columns="2,8,14,20" checked> PSNR</label>
+        <label><input type="checkbox" class="column-toggle" data-columns="3,9,15,21" checked> SSIM</label>
+        <label><input type="checkbox" class="column-toggle" data-columns="4,10,16,22" checked> LPIPS</label>
+        <label><input type="checkbox" class="column-toggle" data-columns="5,11,17,23" checked> Size</label>
+        <label><input type="checkbox" class="column-toggle" data-columns="6,12,18,24" > Number of Gaussians</label>
+        <label><input type="checkbox" class="column-toggle" data-columns="7,13,19,25" > Bits per Gaussian</label>
+    </div>
+</div>
+<br>
+
 <script>
     var setSmall = false;
     var setLarge = false;
@@ -133,11 +144,12 @@
     });
     var tableOptions = {
         columnDefs: [
-            { targets: [1,4,5,8,9,12,13,16,17], orderSequence: ['asc', 'desc'] },
+            { targets: [1,4,5,6,7,10,11,12,13,16,17,18,19,22,23,24,25], orderSequence: ['asc', 'desc'] },
             { targets: '_all', orderSequence: ['desc', 'asc'] },
             { targets: '_all', type: nanBottom },
             { targets: "_all", className: "has-text-right" },
-            { targets: [0], orderable: false}
+            { targets: [0], orderable: false},
+            // { targets: [6,7,12,13,18,19,24,25], visible: false },
         ],
         "lengthChange": false, // Removes the "entries per page" dropdown
         "searching": false,    // Removes the search box
@@ -174,7 +186,27 @@
                 tableOptions.scrollX = false;
                 table = new DataTable('#results', tableOptions);
             }
-        }
+        } 
+        
+        // Handle checkbox change
+        $('.column-toggle').on('change', function() {
+            var columns = $(this).data('columns').split(',').map(Number);
+            var visible = $(this).is(':checked');
+
+            columns.forEach(function(index) {
+                table.column(index).visible(visible);
+            });
+        });
+
+        // Initialize visibility based on checkbox state
+        $('.column-toggle').each(function() {
+            var columns = $(this).data('columns').split(',').map(Number);
+            var visible = $(this).is(':checked');
+
+            columns.forEach(function(index) {
+                table.column(index).visible(visible);
+            });
+        });
     }
     reportWindowSize();
     window.onresize = reportWindowSize;
