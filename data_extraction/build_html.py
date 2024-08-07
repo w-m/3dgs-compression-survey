@@ -6,6 +6,7 @@ import re
 import json
 from decimal import Decimal
 from PIL import Image
+import numpy as np
 
 dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
 
@@ -64,7 +65,7 @@ def combine_tables_to_html():
     "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"
     ]
     for name in shortnames.values():
-        if name not in ["F-3DGS"]:
+        if name not in ["F-3DGS", "MesonGS"]:
             groupcolors[name] = colors.pop(0)
 
     for dataset in dataset_order:
@@ -93,16 +94,18 @@ def combine_tables_to_html():
         # make Method column a link to the method summary + add color box
         df["Method"] = '<a class="method-name" href="#' + df["Method"] + '"> <span class="legend-color-box-container"><span class="legend-color-box" style=background-color:'+df["Shortname"].map(groupcolors)+'></span><span class="legend-color-box-methods"></span>' + df["NewMethod"] + '</span></a>'
 
-        df.drop(columns=["Submethod", "NewMethod"], inplace=True)
-        df.set_index("Method", inplace=True)
-        #remove colums "Data Source" and "Comment"
-        df.drop(columns=["Data Source", "Comment", "Shortname"], inplace=True)
-
         #change Size [Bytes] to Size [MB] and round
-        if "Size [Bytes]" in df.columns:
-            df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
-            df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
-            df.drop(columns=["Size [Bytes]"], inplace=True)
+        df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
+        df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
+
+        #divide by 1000 and add "k" to the number, empty string if nan
+        df["#Gauss"] = df["#Gaussians"].apply(lambda x: f"{int(x/1000)}k" if not pd.isna(x) else "")
+        #calculate bits per gaussian
+        df["b/G"] = (df["Size [Bytes]"] * 8 / df["#Gaussians"]).round().astype('Int64')
+
+        df.set_index("Method", inplace=True)
+        #drop columns
+        df.drop(columns=["Submethod", "NewMethod", "Data Source", "Comment", "Shortname", "#Gaussians", "Size [Bytes]"], inplace=True)
 
         dfs.append((dataset, df))
     
@@ -150,7 +153,7 @@ def combine_tables_to_html():
             except ValueError:
                 continue
 
-            if any(keyword in col[1].lower() for keyword in ['size', 'lpips']) or 'rank' in col[0].lower():
+            if any(keyword in col[1].lower() for keyword in ['size', 'lpips', 'gauss']) or 'rank' in col[0].lower():
                 top_3 = pd.Series(float_col.unique()).nsmallest(3)
             else:
                 top_3 = pd.Series(float_col.unique()).nlargest(3)
