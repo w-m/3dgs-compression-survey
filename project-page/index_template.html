@@ -161,7 +161,7 @@
             { targets: '_all', type: nanBottom },
             { targets: "_all", className: "has-text-right" },
             { targets: [0], orderable: false},
-            // { targets: [6,7,12,13,18,19,24,25], visible: false },
+            { targets: [6,7,12,13,18,19,24,25], visible: false },
         ],
         "lengthChange": false, // Removes the "entries per page" dropdown
         "searching": false,    // Removes the search box
@@ -248,15 +248,6 @@
         updateColumnVisibility();
     });
 
-    // Initialize visibility based on checkbox state
-    $('.column-toggle').each(function() {
-        var columns = $(this).data('columns').split(',').map(Number);
-        var visible = $(this).is(':checked');
-
-        columns.forEach(function(index) {
-            table.column(index).visible(visible);
-        });
-    });
     }
     reportWindowSize();
     window.onresize = reportWindowSize;
