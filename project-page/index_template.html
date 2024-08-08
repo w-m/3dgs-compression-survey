@@ -248,8 +248,15 @@
         updateColumnVisibility();
     });
 
-    // Initialize visibility based on checkbox states
-    updateColumnVisibility();
+    // Initialize visibility based on checkbox state
+    $('.column-toggle').each(function() {
+        var columns = $(this).data('columns').split(',').map(Number);
+        var visible = $(this).is(':checked');
+
+        columns.forEach(function(index) {
+            table.column(index).visible(visible);
+        });
+    });
     }
     reportWindowSize();
     window.onresize = reportWindowSize;
