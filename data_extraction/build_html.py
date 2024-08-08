@@ -99,9 +99,10 @@ def combine_tables_to_html():
         df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
 
         #divide by 1000 and add "k" to the number, empty string if nan
-        df["#Gauss"] = df["#Gaussians"].apply(lambda x: f"{int(x/1000)}k" if not pd.isna(x) else "")
+        df["#Gauss"] = df["#Gaussians"].apply(lambda x: str(int(x)) if not pd.isna(x) else np.nan) #.apply(lambda x: f"{int(x/1000)}k" if not pd.isna(x) else "")
         #calculate bits per gaussian
-        df["b/G"] = (df["Size [Bytes]"] * 8 / df["#Gaussians"]).round().astype('Int64')
+        df["b/G"] = (df["Size [Bytes]"] * 8 / df["#Gaussians"]).round()
+        df["b/G"] = df["b/G"].apply(lambda x: str(int(x)) if not pd.isna(x) else np.nan)
 
         df.set_index("Method", inplace=True)
         #drop columns
@@ -153,7 +154,7 @@ def combine_tables_to_html():
             except ValueError:
                 continue
 
-            if any(keyword in col[1].lower() for keyword in ['size', 'lpips', 'gauss']) or 'rank' in col[0].lower():
+            if any(keyword in col[1].lower() for keyword in ['size', 'lpips', 'gauss', "b/g"]) or 'rank' in col[0].lower():
                 top_3 = pd.Series(float_col.unique()).nsmallest(3)
             else:
                 top_3 = pd.Series(float_col.unique()).nlargest(3)

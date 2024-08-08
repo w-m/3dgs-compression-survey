@@ -133,8 +133,6 @@ function drawLegend() {
         checkbox.checked = checkboxStates[group];
         checkbox.dataset.group = group;
         checkbox.style.marginLeft = '5px';
-        checkbox.style.width = '14px'; 
-        checkbox.style.height = '14px';
         checkbox.addEventListener('change', updatePlotVisibility);
 
         var colorBox = document.createElement('div');

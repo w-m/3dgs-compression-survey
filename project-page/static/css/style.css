@@ -83,7 +83,7 @@
   justify-content: space-between;
   background-color: #fff;
   gap: 10px; 
-  max-width: 1900px;  /* Specify your desired maximum width */
+  max-width: 1900px; 
   margin: 0 auto;  
   padding: 0 20px;  
 }
@@ -100,12 +100,17 @@
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); 
-  aspect-ratio: 1 / 1; /* Maintain a 1:1 aspect ratio */
+  aspect-ratio: 1 / 1;
 }
 
 .plot-content {
   width: 100%;
   height: 100%;
+}
+
+input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
 }
 
 .tab-buttons {
@@ -153,30 +158,30 @@
 .legend label {
   display: flex;
   align-items: center;
-  margin-right: 15px; /* Add some space between the labels */
+  margin-right: 15px; 
 }
 .column-toggle {
-  margin-left: 5px; /* Space between checkbox and text */
+  margin-left: 5px; 
 }
 
 .legend-container {
-  display: block; /* Ensure it's a block-level element */
-  width: max-content; /* Adjust width to fit content */
+  display: block; 
+  width: max-content; 
   padding: 20px;
   box-sizing: border-box;
-  margin: 40px auto 0 auto; /* Center horizontally with automatic margins */
+  margin: 40px auto 0 auto; 
   background-color: #f5f5f5;
   color: rgba(0, 0, 0, .7);
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  text-align: center; /* Center content inside */
+  text-align: center; 
 }
 
 .legend {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center content inside */
+  justify-content: center;
 }
 
 .legend-item {

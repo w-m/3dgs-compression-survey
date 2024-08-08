@@ -122,16 +122,28 @@
     </div>
 </section>
 
-<div class="legend-container", style="margin-top: -30px;">
+<div class="legend-container" style="margin-top: -30px;">
     <div class="legend">
+      <div>
+        <b style="margin-bottom: 5px; display: inline-block;">Attributes:</b>
         <label><input type="checkbox" class="column-toggle" data-columns="2,8,14,20" checked> PSNR</label>
         <label><input type="checkbox" class="column-toggle" data-columns="3,9,15,21" checked> SSIM</label>
         <label><input type="checkbox" class="column-toggle" data-columns="4,10,16,22" checked> LPIPS</label>
         <label><input type="checkbox" class="column-toggle" data-columns="5,11,17,23" checked> Size</label>
         <label><input type="checkbox" class="column-toggle" data-columns="6,12,18,24" > Number of Gaussians</label>
         <label><input type="checkbox" class="column-toggle" data-columns="7,13,19,25" > Bits per Gaussian</label>
+      </div>
+      <br>
+      <div>
+        <b style="margin-bottom: 5px; display: inline-block;">Datasets:</b>
+        <label><input type="checkbox" class="column-toggle-datasets" data-columns="2,3,4,5,6,7" checked> Tanks and Temples</label>
+        <label><input type="checkbox" class="column-toggle-datasets" data-columns="8,9,10,11,12,13" checked> Mip-NeRF 360</label>
+        <label><input type="checkbox" class="column-toggle-datasets" data-columns="14,15,16,17,18,19" checked> Deep Blending</label>
+        <label><input type="checkbox" class="column-toggle-datasets" data-columns="20,21,22,23,24,25" checked> Synthetic NeRF</label>
+      </div>
     </div>
-</div>
+  </div>
+
 <br>
 
 <script>
@@ -156,7 +168,7 @@
         "info": false,         // Removes the information display (e.g., "Showing 1 to 3 of 3 entries")
         "paging": false,        // Removes the pagination controls
         "scrollX": true,        // Enables horizontal scrolling
-        "colReorder": true,     // Enables column reordering with drag and drop
+        // "colReorder": true,     // Enables column reordering with drag and drop <- breaks checkbox legend if enabled
         "fixedColumns": true,    // Always show first / "Methods" column
         "stripe": true,
         "orderClasses": false,
@@ -188,25 +200,56 @@
             }
         } 
         
-        // Handle checkbox change
-        $('.column-toggle').on('change', function() {
-            var columns = $(this).data('columns').split(',').map(Number);
-            var visible = $(this).is(':checked');
+        // Function to update column visibility based on checkbox states
+        function updateColumnVisibility() {
+            // Initialize a count object to keep track of column occurrences
+            var columnCount = {};
 
-            columns.forEach(function(index) {
-                table.column(index).visible(visible);
+            // Helper function to increment column count
+            function incrementColumnCount(columns) {
+                columns.forEach(function(index) {
+                    if (columnCount[index] === undefined) {
+                        columnCount[index] = 0;
+                    }
+                    columnCount[index]++;
+
+                });
+                columnCount[0] = 2; // Always show the first column
+                columnCount[1] = 2; // Always show the second column
+            }
+
+            // Process column-toggle checkboxes
+            $('.column-toggle').each(function() {
+                if ($(this).is(':checked')) {
+                    var columns = $(this).data('columns').split(',').map(Number);
+                    incrementColumnCount(columns);
+                }
             });
-        });
 
-        // Initialize visibility based on checkbox state
-        $('.column-toggle').each(function() {
-            var columns = $(this).data('columns').split(',').map(Number);
-            var visible = $(this).is(':checked');
-
-            columns.forEach(function(index) {
-                table.column(index).visible(visible);
+            // Process column-toggle-datasets checkboxes
+            $('.column-toggle-datasets').each(function() {
+                if ($(this).is(':checked')) {
+                    var columns = $(this).data('columns').split(',').map(Number);
+                    incrementColumnCount(columns);
+                }
             });
-        });
+
+            // Update column visibility based on occurrences
+            table.columns().every(function() {
+                var index = this.index();
+                var visible = columnCount[index] === 2; // Should be visible if count is 2
+
+                this.visible(visible);
+            });
+    }
+
+    // Attach the update function to checkbox changes
+    $('.column-toggle, .column-toggle-datasets').on('change', function() {
+        updateColumnVisibility();
+    });
+
+    // Initialize visibility based on checkbox states
+    updateColumnVisibility();
     }
     reportWindowSize();
     window.onresize = reportWindowSize;
