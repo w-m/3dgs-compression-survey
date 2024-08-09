@@ -114,9 +114,9 @@
 
 <section class="hero is-small">
     <div class="hero-body">
-            <div class="tablecontainer">
-                {{results_table | safe}}
-            </div>
+        <div class="tablecontainer">
+            {{results_table | safe}}
+        </div>
     </div>
 </section>
 
@@ -180,10 +180,14 @@
         const windowWidth = window.innerWidth;
         const tableContainer = document.querySelector('.tablecontainer');
 
-        if (tableWidth >= windowWidth * 1.33) {
+        if (tableWidth >= windowWidth * 1.3) {
             if (!setScroll) {
                 setScroll = true;
                 setNoScroll = false;
+
+                if (table){
+                    table.destroy();
+                }
 
                 if (!tableContainer.classList.contains('tablecontainer-scroll')) {
                     tableContainer.classList.add('tablecontainer-scroll');
@@ -191,9 +195,14 @@
                 if (tableContainer.classList.contains('tablecontainer-noscroll')) {
                     tableContainer.classList.remove('tablecontainer-noscroll');
                 }
+                tableOptions.scrollX = true;
+                table = new DataTable('#results', tableOptions);
             }
         } else {
             if (!setNoScroll) {
+                if (table){
+                    table.destroy();
+                }
                 setNoScroll = true;
                 setScroll = false;
 
@@ -203,6 +212,8 @@
                 if (!tableContainer.classList.contains('tablecontainer-noscroll')) {
                     tableContainer.classList.add('tablecontainer-noscroll');
                 }
+                tableOptions.scrollX = false;
+                table = new DataTable('#results', tableOptions);
             }
         }
     }
@@ -256,8 +267,6 @@
     $('.column-toggle, .column-toggle-datasets').on('change', function() {
         updateColumnVisibility();
     });
-    
-    table = new DataTable('#results', tableOptions);
     
     reportWindowSize();
     window.onresize = reportWindowSize;
