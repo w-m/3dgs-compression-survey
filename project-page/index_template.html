@@ -114,11 +114,9 @@
 
 <section class="hero is-small">
     <div class="hero-body">
-        <div class="container">
             <div class="tablecontainer">
                 {{results_table | safe}}
             </div>
-        </div>
     </div>
 </section>
 
@@ -147,9 +145,9 @@
 <br>
 
 <script>
-    var setSmall = false;
-    var setLarge = false;
     let table = null;
+    var setScroll = false;
+    var setNoScroll = false;
 
     var nanBottom = $.fn.dataTable.absoluteOrderNumber({
         value: '', position: 'bottom'
@@ -176,79 +174,91 @@
 
     }
 
-
     function reportWindowSize() {
-        if (window.innerWidth < 1500) {
-            if (!setSmall) {
-                setSmall = true
-                setLarge = false
-                if (table != null) {
-                    table.destroy();
+        const tableElement = document.querySelector('#results');
+        const tableWidth = tableElement.scrollWidth;
+        const windowWidth = window.innerWidth;
+        const tableContainer = document.querySelector('.tablecontainer');
+
+        if (tableWidth >= windowWidth * 1.33) {
+            if (!setScroll) {
+                setScroll = true;
+                setNoScroll = false;
+
+                if (!tableContainer.classList.contains('tablecontainer-scroll')) {
+                    tableContainer.classList.add('tablecontainer-scroll');
                 }
-                tableOptions.scrollX = true;
-                table = new DataTable('#results', tableOptions);
+                if (tableContainer.classList.contains('tablecontainer-noscroll')) {
+                    tableContainer.classList.remove('tablecontainer-noscroll');
+                }
             }
         } else {
-            if (!setLarge) {
-                setLarge = true
-                setSmall = false
-                if (table != null) {
-                    table.destroy();
+            if (!setNoScroll) {
+                setNoScroll = true;
+                setScroll = false;
+
+                if (tableContainer.classList.contains('tablecontainer-scroll')) {
+                    tableContainer.classList.remove('tablecontainer-scroll')
                 }
-                tableOptions.scrollX = false;
-                table = new DataTable('#results', tableOptions);
+                if (!tableContainer.classList.contains('tablecontainer-noscroll')) {
+                    tableContainer.classList.add('tablecontainer-noscroll');
+                }
             }
-        } 
+        }
+    }
         
-        // Function to update column visibility based on checkbox states
-        function updateColumnVisibility() {
-            // Initialize a count object to keep track of column occurrences
-            var columnCount = {};
+    // Function to update column visibility based on checkbox states
+    function updateColumnVisibility() {
+        // Initialize a count object to keep track of column occurrences
+        var columnCount = {};
 
-            // Helper function to increment column count
-            function incrementColumnCount(columns) {
-                columns.forEach(function(index) {
-                    if (columnCount[index] === undefined) {
-                        columnCount[index] = 0;
-                    }
-                    columnCount[index]++;
+        // Helper function to increment column count
+        function incrementColumnCount(columns) {
+            columns.forEach(function(index) {
+                if (columnCount[index] === undefined) {
+                    columnCount[index] = 0;
+                }
+                columnCount[index]++;
 
-                });
-                columnCount[0] = 2; // Always show the first column
-                columnCount[1] = 2; // Always show the second column
+            });
+        }
+
+        // Process column-toggle checkboxes
+        $('.column-toggle').each(function() {
+            if ($(this).is(':checked')) {
+                var columns = $(this).data('columns').split(',').map(Number);
+                incrementColumnCount(columns);
             }
+        });
 
-            // Process column-toggle checkboxes
-            $('.column-toggle').each(function() {
-                if ($(this).is(':checked')) {
-                    var columns = $(this).data('columns').split(',').map(Number);
-                    incrementColumnCount(columns);
-                }
-            });
+        // Process column-toggle-datasets checkboxes
+        $('.column-toggle-datasets').each(function() {
+            if ($(this).is(':checked')) {
+                var columns = $(this).data('columns').split(',').map(Number);
+                incrementColumnCount(columns);
+            }
+        });
 
-            // Process column-toggle-datasets checkboxes
-            $('.column-toggle-datasets').each(function() {
-                if ($(this).is(':checked')) {
-                    var columns = $(this).data('columns').split(',').map(Number);
-                    incrementColumnCount(columns);
-                }
-            });
+        columnCount[0] = 2; // Always show the first column
+        columnCount[1] = 2; // Always show the second column
 
-            // Update column visibility based on occurrences
-            table.columns().every(function() {
-                var index = this.index();
-                var visible = columnCount[index] === 2; // Should be visible if count is 2
+        // Update column visibility based on occurrences
+        table.columns().every(function() {
+            var index = this.index();
+            var visible = columnCount[index] === 2; // Should be visible if count is 2
 
-                this.visible(visible);
-            });
+            this.visible(visible);
+        });
+        reportWindowSize();
     }
 
     // Attach the update function to checkbox changes
     $('.column-toggle, .column-toggle-datasets').on('change', function() {
         updateColumnVisibility();
     });
-
-    }
+    
+    table = new DataTable('#results', tableOptions);
+    
     reportWindowSize();
     window.onresize = reportWindowSize;
 

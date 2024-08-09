@@ -57,20 +57,16 @@
 
 .tablecontainer {
   width: 100%;
+  margin-bottom: 25px;
 }
 
-@media (max-width: 1499px) {
-  .tablecontainer {
-      overflow-x: auto;
-  }
+.tablecontainer-scroll {
+  overflow-x: auto;
 }
-
-@media (min-width: 1500px) {
-  .tablecontainer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
+.tablecontainer-noscroll {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
