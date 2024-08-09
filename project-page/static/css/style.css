@@ -69,41 +69,6 @@
   align-items: center;
 }
 
-
-.interactive-plots-container {
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-wrap: wrap;
-  overflow-x: hidden;
-  box-sizing: border-box;
-  justify-content: space-between;
-  background-color: #fff;
-  gap: 10px; 
-  max-width: 1900px; 
-  margin: 0 auto;  
-  padding: 0 20px;  
-}
-
-.plot-container {
-  flex: 1 1 calc(25% - 10px);
-  box-sizing: border-box;
-  margin: 10px 0; 
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  padding: 0;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); 
-  aspect-ratio: 1 / 1;
-}
-
-.plot-content {
-  width: 100%;
-  height: 100%;
-}
-
 input[type="checkbox"] {
   width: 14px;
   height: 14px;
@@ -214,7 +179,52 @@ input[type="checkbox"] {
   text-align: left; 
 }
 
-/* Media queries for responsive design */
+.plot-container {
+  flex: 1 1 calc(25% - 10px);
+  box-sizing: border-box;
+  margin: 10px 0; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); 
+  aspect-ratio: 1 / 1;
+}
+
+.interactive-plots-container {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  justify-content: space-between;
+  background-color: #fff;
+  gap: 10px; 
+  max-width: 1900px; 
+  margin: 0 auto;  
+  padding: 0 20px;  
+}
+
+.plot-content {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .plot-container {
+    flex: 1 1 calc(50% - 10px);
+    margin-bottom: 30px;
+  }
+
+  .tab-buttons button {
+    font-size: 17px;
+    padding: 3px;
+  }
+}
+
 @media (max-width: 768px) {
   .plot-container {
     flex: 1 1 100%;
@@ -222,7 +232,7 @@ input[type="checkbox"] {
   }
 
   .tab-buttons button {
-    font-size: 12px;
+    font-size: 17px;
     padding: 3px;
   }
 }
