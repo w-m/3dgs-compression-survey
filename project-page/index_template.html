@@ -180,7 +180,7 @@
         const windowWidth = window.innerWidth;
         const tableContainer = document.querySelector('.tablecontainer');
 
-        if (tableWidth >= windowWidth * 1.3) {
+        if (tableWidth >= windowWidth * 1.33) {
             if (!setScroll) {
                 setScroll = true;
                 setNoScroll = false;
@@ -197,6 +197,7 @@
                 }
                 tableOptions.scrollX = true;
                 table = new DataTable('#results', tableOptions);
+                updateColumnVisibility()
             }
         } else {
             if (!setNoScroll) {
@@ -214,6 +215,7 @@
                 }
                 tableOptions.scrollX = false;
                 table = new DataTable('#results', tableOptions);
+                updateColumnVisibility()
             }
         }
     }
