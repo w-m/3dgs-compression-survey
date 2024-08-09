@@ -230,3 +230,14 @@ input[type="checkbox"] {
     padding: 3px;
   }
 }
+
+@media (max-width: 1920px){
+  body {
+      transform: scale(0.75);
+      transform-origin: top left;
+      width: 133.33%;
+      height: 133.33%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+  }
+}
