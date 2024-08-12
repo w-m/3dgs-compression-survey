@@ -328,21 +328,24 @@ def get_plot_data(ranks):
 
         for method in df.index:
             if psnr_groupData.get(df.loc[method, "Shortname"]) is None:
-                psnr_groupData[df.loc[method, "Shortname"]] = {"x": [], "y": [], "text": []}
+                psnr_groupData[df.loc[method, "Shortname"]] = {"x": [], "x2": [], "y": [], "text": []}
             if ssim_groupData.get(df.loc[method, "Shortname"]) is None:
-                ssim_groupData[df.loc[method, "Shortname"]] = {"x": [], "y": [], "text": []}
+                ssim_groupData[df.loc[method, "Shortname"]] = {"x": [], "x2": [], "y": [], "text": []}
             if lpips_groupData.get(df.loc[method, "Shortname"]) is None:
-                lpips_groupData[df.loc[method, "Shortname"]] = {"x": [], "y": [], "text": []}
+                lpips_groupData[df.loc[method, "Shortname"]] = {"x": [], "x2": [], "y": [], "text": []}
             
             psnr_groupData[df.loc[method, "Shortname"]]["x"].append(df.loc[method, "Size [MB]"])
+            psnr_groupData[df.loc[method, "Shortname"]]["x2"].append(df.loc[method, "#Gaussians"])
             psnr_groupData[df.loc[method, "Shortname"]]["y"].append(df.loc[method, "PSNR"])
             psnr_groupData[df.loc[method, "Shortname"]]["text"].append(df.loc[method, "NewMethod"])
 
             ssim_groupData[df.loc[method, "Shortname"]]["x"].append(df.loc[method, "Size [MB]"])
+            ssim_groupData[df.loc[method, "Shortname"]]["x2"].append(df.loc[method, "#Gaussians"])
             ssim_groupData[df.loc[method, "Shortname"]]["y"].append(df.loc[method, "SSIM"])
             ssim_groupData[df.loc[method, "Shortname"]]["text"].append(df.loc[method, "NewMethod"])
 
             lpips_groupData[df.loc[method, "Shortname"]]["x"].append(df.loc[method, "Size [MB]"])
+            lpips_groupData[df.loc[method, "Shortname"]]["x2"].append(df.loc[method, "#Gaussians"])
             lpips_groupData[df.loc[method, "Shortname"]]["y"].append(df.loc[method, "LPIPS"])
             lpips_groupData[df.loc[method, "Shortname"]]["text"].append(df.loc[method, "NewMethod"])   
 

@@ -38,12 +38,16 @@ function drawPlots(plotData, allowedKeys, allowedDatasets) {
             const groupData = plotInfo.groupData;
 
             const data = [];
-            for (const [group, { x, y, text }] of Object.entries(groupData)) {
+            for (const [group, { x, x2, y, text }] of Object.entries(groupData)) {
                 const color = groupColors[group];
                 const visible = checkboxStates[group];
+                const xValues = plotOption === 'size' ? x : x2;
 
+                // if all xvalues are nan continue
+                if (xValues.every(v => isNaN(v))) continue
+                
                 data.push({
-                    x,
+                    x: xValues,
                     y,
                     mode: 'markers',
                     text,
@@ -57,9 +61,9 @@ function drawPlots(plotData, allowedKeys, allowedDatasets) {
                     visible
                 });
 
-                if (x.length > 1) {
+                if (xValues.length > 1) {
                     data.push({
-                        x,
+                        x: xValues,
                         y,
                         mode: 'lines',
                         line: { color },
@@ -70,15 +74,17 @@ function drawPlots(plotData, allowedKeys, allowedDatasets) {
                 }
             }
 
+            const xlabel = plotOption === 'size' ? 'Size (MB)' : '#Gaussians';
+
             const layout = {
                 title: plotInfo.title,
                 xaxis: {
-                    title: plotInfo.xaxis,
+                    title: xlabel, //plotInfo.xaxis,
                     automargin: true,
                     zeroline: false
                 },
                 yaxis: {
-                    title: { text: plotInfo.yaxis },
+                    title: plotInfo.yaxis,
                     automargin: true,
                     autorange: j === 2 ? 'reversed' : true
                 },
@@ -163,6 +169,8 @@ function updatePlotVisibility(event) {
     });
 }
 
+const switchInput = document.getElementById('switchInput');
+let plotOption = 'size';  
 
 window.addEventListener('load', () => {
     const plots = ["plot1", "plot2", "plot3"];
@@ -185,8 +193,17 @@ window.addEventListener('load', () => {
 
     drawPlotsSequentially();
 
-    // Add event listener for window resize
     window.addEventListener('resize', resizePlots);
+  
+    switchInput.addEventListener('change', function() {
+        if (this.checked) {
+            plotOption = 'gaussians';
+        } else {
+            plotOption = 'size';
+        }
+        drawPlotsSequentially();
+    });
+
 
 });
 

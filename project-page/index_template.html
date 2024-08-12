@@ -332,7 +332,20 @@
     var checkboxStates = {{ checkbox_states|safe }};
     var groupColors = {{ groupcolors | safe }};
 </script>
-<script src="static/js/scripts.js"></script>
+
+<br>
+
+<div class="outer-container">
+    <div class="switch-container">
+        <span class="switch-text left">Size (MB)</span>
+        <label class="switch">
+            <input type="checkbox" id="switchInput">
+            <span class="slider"></span>
+        </label>
+        <span class="switch-text right">Number of Gaussians</span>
+    </div>
+</div>
+
 <br>
 
 {% for paper in summaries %}
@@ -426,5 +439,6 @@
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
 
 <!-- End of Statcounter Code -->
+<script src="static/js/scripts.js"></script>
 </body>
 </html>
