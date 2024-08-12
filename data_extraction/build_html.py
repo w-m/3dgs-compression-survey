@@ -243,7 +243,9 @@ def load_methods_summaries(ranks, groupcolors):
             summary = file_content.split('\n', 1)[1].strip()
 
             #get image path, webp, png or jpg
-            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_medium.webp"):
+            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_small.webp"):
+                image = f"static/images/{file.split('.')[0]}_small.webp"
+            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}_medium.webp"):
                 image = f"static/images/{file.split('.')[0]}_medium.webp"
             elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.webp"):
                 image = f"static/images/{file.split('.')[0]}.webp"
@@ -303,6 +305,7 @@ def get_plot_data(ranks):
             df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
             df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
             df.drop(columns=["Size [Bytes]"], inplace=True)
+            # df["Size [MB]"] = df["#Gaussians"]
 
         dfs[file.split(".")[0]] = df
 
