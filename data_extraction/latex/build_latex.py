@@ -279,3 +279,10 @@ subprocess.run(
         "methods.bib",
     ]
 )
+
+# Run arXiv script
+subprocess.run(["arxiv_latex_cleaner", "../latex"])
+subprocess.run(["rm", "../latex_arXiv/build_latex.py"])
+shutil.make_archive(
+    "../latex_arXiv", format="zip", root_dir="../", base_dir="latex_arXiv"
+)
