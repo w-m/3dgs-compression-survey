@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import io
 from decimal import Decimal
+import shutil
 
 methodsdir = "../../methods"
 imagedir = "../../project-page/static/images/"
@@ -206,6 +207,40 @@ def generate_section(paper_title: str, paper_text: str, paper_id: str, figure: s
     return section
 
 
+def cp_images(src_folder, dst_folder):
+    # Ensure the destination folder exists
+    if not os.path.exists(dst_folder):
+        os.makedirs(dst_folder)
+
+    # Get the list of images in both folders
+    images_in_src = [
+        f
+        for f in os.listdir(src_folder)
+        if os.path.isfile(os.path.join(src_folder, f))
+        and f.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff"))
+    ]
+    images_in_dst = set(os.listdir(dst_folder))
+
+    # Copy images from source to destination if they are not already in folder B
+    for image in images_in_src:
+        if image not in images_in_dst:
+            src = os.path.join(src_folder, image)
+            dst = os.path.join(dst_folder, image)
+            shutil.copy2(src, dst)
+            print(f"Copied: {image}")
+
+    print("Copying complete!")
+
+
+# copy images from website folder into latex folder
+src_folder = "../../project-page/static/images"
+cp_images(src_folder, "images")
+
+# copy bib files into latex folder
+shutil.copy2("../../datasets.bib", "dataset.bib")
+shutil.copy2("../../methods.bib", "methods.bib")
+
+# create table
 table = tex_table.replace("<table>", generate_tex_table())
 
 tex_content = "\\section*{Contribution Summaries}\n\n The following sections provide brief summaries of the current contributions. For more detailed insights, please refer to the cited papers."
