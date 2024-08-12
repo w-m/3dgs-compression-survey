@@ -15,7 +15,6 @@ dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF
 
 # List of markdown files to combine
 markdown_files = os.listdir(methodsdir)
-image_files = os.listdir(imagedir)
 
 # Combined markdown content
 combined_markdown = ""
@@ -260,7 +259,7 @@ full_document = tex_preamble + table + tex_content + tex_end_document
 with open("3dgs_compression_survey.tex", "w", encoding="UTF-8") as file:
     file.write(full_document)
 
-# Step 4: Compile LaTeX Document
+# Compile LaTeX Document
 subprocess.run(["pdflatex", "3dgs_compression_survey.tex"])
 # name of generated .bbl must match name of .tex file for arxiv submisisons
 subprocess.run(["bibtex", "3dgs_compression_survey"])
@@ -273,9 +272,10 @@ subprocess.run(
     [
         "rm",
         "3dgs_compression_survey.aux",
-        # "3dgs_compression_survey.bbl", # .bbl file needed for arxiv submission
         "3dgs_compression_survey.blg",
         "3dgs_compression_survey.log",
         "3dgs_compression_survey.out",
+        "dataset.bib",
+        "methods.bib",
     ]
 )
