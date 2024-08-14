@@ -169,6 +169,49 @@ function updatePlotVisibility(event) {
     });
 }
 
+function updateRanks() {    
+    let selected_string = '';
+
+    // Process column-toggle checkboxes
+    $('.column-toggle').slice(0, 4).each(function() {
+        if ($(this).is(':checked')) {
+            selected_string += '1';
+        }
+        else {
+            selected_string += '0';
+        }
+    });
+
+    // Process column-toggle-datasets checkboxes
+    $('.column-toggle-datasets').each(function() {
+        if ($(this).is(':checked')) {
+            selected_string += '1';
+        }
+        else {
+            selected_string += '0';
+        }
+    });
+
+    if (selected_string.startsWith('0000') || selected_string.endsWith('0000')) {
+        selected_string = '11111111';
+    }
+
+    const [newrank, classes] = rankCombinations[selected_string];
+    for (var i = 0; i < table.columns(1).data()[0].length; i++) {
+        table.cell(i, 1).data(newrank[i]);
+
+        $(table.cell(i, 1).node()).removeClass();
+        if (classes[i] != "") {
+            $(table.cell(i, 1).node()).addClass(classes[i]);
+        }
+
+        $(table.cell(i, 1).node()).addClass('has-text-right');
+    
+    }
+    // sort the table
+    table.order([1, 'asc']).draw();
+}
+
 const switchInput = document.getElementById('switchInput');
 let plotOption = 'size';  
 
@@ -203,7 +246,6 @@ window.addEventListener('load', () => {
         }
         drawPlotsSequentially();
     });
-
 
 });
 

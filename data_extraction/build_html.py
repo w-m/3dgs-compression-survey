@@ -7,6 +7,7 @@ import json
 from decimal import Decimal
 from PIL import Image
 import numpy as np
+import itertools
 
 dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
 
@@ -117,21 +118,66 @@ def combine_tables_to_html():
     #add new ranking col right after the method name
     multi_col_df.insert(1, "Rank", 0)
 
-    dataset_count = multi_col_df["Rank"].copy()
-    for dataset in dataset_order:
-        dataset_rank = multi_col_df["Rank"].copy() * 0
-        for metric in ["PSNR", "SSIM", "LPIPS", "Size [MB]"]:
-            if metric == "Size [MB]":
-                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / 2
-            elif metric == "LPIPS":
-                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / 6
-            else:
-                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=False) / 6
-        
-        multi_col_df["Rank"] += dataset_rank.fillna(0)
-        dataset_count += dataset_rank.notna()
+    def get_ranks(multi_col_df, metrics=["PSNR", "SSIM", "LPIPS", "Size [MB]"], datasets=dataset_order):
+        dataset_count = multi_col_df["Rank"].copy()
+        total_rank = multi_col_df["Rank"].copy()
+        for dataset in datasets:
+            dataset_rank = multi_col_df["Rank"].copy() * 0
+            for metric in metrics:
+                #calc weights for metrics
+                if "Size [MB]" in metrics:
+                    if len(metrics) == 1:
+                        size_weight = 1
+                        quality_metrics_weight = None
+                    else:
+                        size_weight = 2
+                        quality_metrics_weight = (len(metrics) - 1)*2
+                else:
+                    size_weight = None
+                    quality_metrics_weight = len(metrics)
+
+                if metric == "Size [MB]":
+                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / size_weight
+                elif metric == "LPIPS":
+                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / quality_metrics_weight
+                else:
+                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=False) / quality_metrics_weight
+            
+            total_rank += dataset_rank.fillna(0)
+            dataset_count += dataset_rank.notna()
     
-    multi_col_df["Rank"] = (multi_col_df["Rank"] / dataset_count).apply(lambda x: round(x, 1))
+        total_rank = (total_rank / dataset_count).apply(lambda x: round(x, 1))
+
+        return total_rank
+
+    #calc ranks for any combination of metrics and datasets
+    datasets = dataset_order
+    metrics = ["PSNR", "SSIM", "LPIPS", "Size [MB]"]
+    rank_combinations = {}
+    for r_datasets in range(1, 5):  # Sizes 1 to 4 for dataset combinations
+        for r_metrics in range(1, 5):  # Sizes 1 to 4 for metric combinations
+            for ds_comb in itertools.combinations(datasets, r_datasets):
+                for mt_comb in itertools.combinations(metrics, r_metrics):
+                    result = get_ranks(multi_col_df, mt_comb, ds_comb)
+                    #get bitwise combination vector for later identification
+                    combination_vector = [1 if metric in mt_comb else 0 for metric in metrics] + [1 if dataset in ds_comb else 0 for dataset in datasets]
+                    combination_str = "".join(map(str, combination_vector))
+
+                    #add top 3 classes to the result
+                    classes = ['first', 'second', 'third']
+                    result_classes = result.copy().astype(str)
+                    result_classes[:] = ""
+
+                    top_3 = pd.Series(result.unique()).nsmallest(3)
+                    for i, val in enumerate(top_3):
+                        matching_indices = result[result == val].index
+                        for index in matching_indices:
+                            result_classes[index] = classes[i]
+
+                    result = result.astype(str).replace('nan', '')
+                    rank_combinations[combination_str] = (result.to_list(), result_classes.to_list()) 
+    
+    multi_col_df["Rank"] = get_ranks(multi_col_df)
 
     ranks = {}
     i = 0
@@ -180,7 +226,7 @@ def combine_tables_to_html():
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
 
-    return cleaned_html_string, ranks, groupcolors
+    return cleaned_html_string, ranks, groupcolors, rank_combinations
 
 def get_published_at():
     published_at = {}
@@ -395,7 +441,7 @@ def get_plot_data(ranks):
     return data, group_links, checkbox_states
 
 if __name__ == "__main__":
-    results_table, ranks, groupcolors = combine_tables_to_html()
+    results_table, ranks, groupcolors, rank_combinations = combine_tables_to_html()
     summaries = load_methods_summaries(ranks, groupcolors)
     plot_data, group_links, checkbox_states = get_plot_data(ranks)
 
@@ -413,7 +459,8 @@ if __name__ == "__main__":
         'plot_data': json.dumps(plot_data),
         'group_links': json.dumps(group_links),
         'checkbox_states': json.dumps(checkbox_states),
-        'groupcolors': json.dumps(groupcolors)
+        'groupcolors': json.dumps(groupcolors),
+        'rank_combinations': json.dumps(rank_combinations),
     }
 
     # Render das Template mit den Daten
