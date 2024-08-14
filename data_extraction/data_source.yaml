@@ -3,7 +3,7 @@ morgenstern2024compact:
   is_csv: True
 
 lee2024compact:
-  url: "https://arxiv.org/src/2311.13681"
+  url: "https://arxiv.org/src/2311.13681v1"
   is_csv: False
   table_names: 
     - tab:qual1
@@ -17,7 +17,7 @@ navaneet2023compact3d:
   filename: "arxiv.tex"
 
 fan2024lightgaussian:
-  url: "https://arxiv.org/src/2311.17245"
+  url: "https://arxiv.org/src/2311.17245v5"
   is_csv: False
   table_names: 
     - tab:main1
@@ -39,5 +39,9 @@ niedermayr2024compressed:
 
 wang2024end:
   url: "https://github.com/USTC-IMCL/RDO-Gaussian/tree/main/results"
+  is_csv: True
+
+ye2023mathematical:
+  url: "https://github.com/nerfstudio-project/gsplat/tree/main/examples/benchmarks/compression/results"
   is_csv: True
 

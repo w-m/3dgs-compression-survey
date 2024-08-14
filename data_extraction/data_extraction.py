@@ -272,6 +272,8 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
             if "ours" in pd_tables[source]["Method"][row].lower():
                 # filter out submethods, everything after "ours", "" if only "ours"
                 submethod = re.search(r'(?i)ours([^}]*)', pd_tables[source]["Method"][row]).group(1)
+                if source == "fan2024lightgaussian":
+                    submethod = "Baseline"
                 #iterate through all columns and transfer values
                 for column in pd_tables[source].columns:
                     try:
