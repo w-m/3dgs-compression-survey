@@ -294,6 +294,10 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
                         # add "Submethod" column to result_tables right after "Method" if it does not exist
                         if "Submethod" not in result_tables[dataset_name].columns:
                             result_tables[dataset_name].insert(1, "Submethod", None)
+
+                        # change submethod to "Baseline" if empty
+                        if submethod == "":
+                            submethod = "Baseline"
                         
                         # row index for method and submethod
                         row_index = result_tables[dataset_name].index[
