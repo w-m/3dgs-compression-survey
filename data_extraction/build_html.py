@@ -321,6 +321,8 @@ def get_plot_data(ranks):
     data = []
     for dataset in dataset_order:
         df = dfs[dataset]
+        #sort by size to ensure correct lines between points
+        df = df.sort_values(by="Size [MB]")
 
         psnr_groupData = {}
         ssim_groupData = {}
