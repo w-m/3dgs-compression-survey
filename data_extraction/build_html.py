@@ -100,7 +100,9 @@ def combine_tables_to_html():
         df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
 
         #divide by 1000 and add "k" to the number, empty string if nan
-        df["#Gauss"] = df["#Gaussians"].apply(lambda x: str(int(x)) if not pd.isna(x) else np.nan) #.apply(lambda x: f"{int(x/1000)}k" if not pd.isna(x) else "")
+        df["k Gauss"] = df["#Gaussians"].apply(lambda x: f"{int(x/1000)}" if not pd.isna(x) else np.nan) #.apply(lambda x: f"{int(x/1000)}k" if not pd.isna(x) else "")
+        # add , if more than 3 digits
+        df["k Gauss"] = df["k Gauss"].apply(lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan)
         #calculate bits per gaussian
         df["b/G"] = (df["Size [Bytes]"] * 8 / df["#Gaussians"]).round()
         df["b/G"] = df["b/G"].apply(lambda x: str(int(x)) if not pd.isna(x) else np.nan)
@@ -216,7 +218,7 @@ def combine_tables_to_html():
         colors = ['first', 'second', 'third']
         for col in df.columns:
             try:
-                float_col = df[col].astype(float)
+                float_col = df[col].str.replace(',', '').astype(float)
             except ValueError:
                 continue
 
