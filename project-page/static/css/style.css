@@ -238,14 +238,24 @@ input[type="checkbox"] {
   }
 }
 
-@media (max-width: 1920px){
+@media (max-width: 1920px) {
+  html {
+    height: 100%;
+    overflow: hidden;
+  }
+  
   body {
-      transform: scale(0.75);
-      transform-origin: top left;
-      width: 133.33%;
-      height: 133.33%;
-      overflow-x: hidden;
-      overflow-y: hidden;
+    height: 133.33%;
+    width: 133.33%;
+    transform: scale(0.75);
+    transform-origin: top left;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 
