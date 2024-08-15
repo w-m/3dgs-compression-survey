@@ -210,6 +210,8 @@ function updateRanks() {
     }
     // sort the table
     table.order([1, 'asc']).draw();
+
+    document.getElementById('formula').innerHTML = katex.renderToString(metricFormulas[selected_string.slice(0, 4)])
 }
 
 const switchInput = document.getElementById('switchInput');

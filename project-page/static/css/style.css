@@ -1,3 +1,5 @@
+.katex { line-height: 2 !important; }
+
 .title-link {
   position: relative;
 }

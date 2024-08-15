@@ -118,6 +118,23 @@ def combine_tables_to_html():
     #add new ranking col right after the method name
     multi_col_df.insert(1, "Rank", 0)
 
+    def get_metric_formula(mt_comb):
+        formula_parts = []
+        quality_metrics_weight = (len(mt_comb) - 1) * 2 if "Size [MB]" in mt_comb else len(mt_comb)
+        
+        if len(mt_comb) > 1:
+            for metric in mt_comb:
+                if metric == "Size [MB]":
+                    formula_parts.append(f"\\frac{{\\text{{rank}}( \\textbf{{{metric}}} )}}{{2}}")
+                else:
+                    formula_parts.append(f"\\frac{{\\text{{rank}}( \\textbf{{{metric}}} )}}{{{quality_metrics_weight}}}")
+        else:
+            formula_parts.append(f"\\text{{rank}}(\\text{{{mt_comb[0]}}})")
+        
+        formula = "\\textbf{{Dataset rank}} = " + " + ".join(formula_parts)
+        
+        return formula
+
     def get_ranks(multi_col_df, metrics=["PSNR", "SSIM", "LPIPS", "Size [MB]"], datasets=dataset_order):
         dataset_count = multi_col_df["Rank"].copy()
         total_rank = multi_col_df["Rank"].copy()
@@ -154,6 +171,7 @@ def combine_tables_to_html():
     datasets = dataset_order
     metrics = ["PSNR", "SSIM", "LPIPS", "Size [MB]"]
     rank_combinations = {}
+    metric_formulas = {}
     for r_datasets in range(1, 5):  # Sizes 1 to 4 for dataset combinations
         for r_metrics in range(1, 5):  # Sizes 1 to 4 for metric combinations
             for ds_comb in itertools.combinations(datasets, r_datasets):
@@ -176,6 +194,8 @@ def combine_tables_to_html():
 
                     result = result.astype(str).replace('nan', '')
                     rank_combinations[combination_str] = (result.to_list(), result_classes.to_list()) 
+
+                    metric_formulas[combination_str[:4]] = get_metric_formula(mt_comb)
     
     multi_col_df["Rank"] = get_ranks(multi_col_df)
 
@@ -226,7 +246,7 @@ def combine_tables_to_html():
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
 
-    return cleaned_html_string, ranks, groupcolors, rank_combinations
+    return cleaned_html_string, ranks, groupcolors, rank_combinations, metric_formulas
 
 def get_published_at():
     published_at = {}
@@ -441,7 +461,7 @@ def get_plot_data(ranks):
     return data, group_links, checkbox_states
 
 if __name__ == "__main__":
-    results_table, ranks, groupcolors, rank_combinations = combine_tables_to_html()
+    results_table, ranks, groupcolors, rank_combinations, metric_formulas = combine_tables_to_html()
     summaries = load_methods_summaries(ranks, groupcolors)
     plot_data, group_links, checkbox_states = get_plot_data(ranks)
 
@@ -461,6 +481,7 @@ if __name__ == "__main__":
         'checkbox_states': json.dumps(checkbox_states),
         'groupcolors': json.dumps(groupcolors),
         'rank_combinations': json.dumps(rank_combinations),
+        'metric_formulas': json.dumps(metric_formulas),
     }
 
     # Render das Template mit den Daten

@@ -37,6 +37,12 @@
     <script defer src="static/js/plotly-1.58.5.min.js"></script>
     <script src="static/js/datatables.min.js"></script>
 
+
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js" integrity="sha512-1kNZVA50gKlorLAWU83+SdOAUwABzfFFQ4WuOAZTeS/UhNhnm9zU7rDv/Q5NEzSnr5u2L6uhR/+8icjjmHjSnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link async rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" integrity="sha512-J8je2SgrCzA7hNBeiCJiA6oETHTTdp3We3EriOgJp6POycGLcDXj5dSwWlAPQcYGeaQ4N3uf30aOg/Nt5pxW2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
 </head>
 
 <body>
@@ -291,9 +297,14 @@
                         <br>
                         <br>
 
-                        The <b>ranks</b> represent the average rankings of the methods across all available datasets. 
-                        The quality metrics PSNR, SSIM, and LPIPS are equally weighted with the model size, 
-                        meaning they each contribute one-sixth to the ranks, while the size contributes half.
+                        The <b>ranks</b> represent the average rankings of the methods across all available and selcted datasets. 
+                        The quality metrics PSNR, SSIM, and LPIPS are equally weighted with the model size. 
+                        Thus, each quality metric contributes one-sixth to the overall ranking, 
+                        while the model size accounts for the remaining half, assuming all metrics are selected.
+                        The formula for calculating the dataset ranks based on the current selection is provided below.
+                        
+                        <br>
+                        <div id="formula" style="display: flex; justify-content: center;"></div>
                     </p>
                 </div>
             </div>
@@ -335,6 +346,9 @@
     var checkboxStates = {{ checkbox_states|safe }};
     var groupColors = {{ groupcolors | safe }};
     var rankCombinations = {{ rank_combinations | safe }};
+    var metricFormulas = {{ metric_formulas | safe }}; // metricFormulas["1111"]
+    document.getElementById('formula').innerHTML = katex.renderToString(metricFormulas["1111"])
+
 </script>
 
 <br>
