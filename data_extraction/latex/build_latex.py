@@ -181,6 +181,7 @@ def generate_tex_table():
 
     lines = buffer.getvalue().strip().split("\n")
     lines[0] = "\\begin{tabular}{ll|llll|llll|llll|llll}"
+    lines[2] = lines[2].replace("{r}", "{c}")
     lines[3] = (
         lines[3]
         .replace("&", "& \\tiny")
