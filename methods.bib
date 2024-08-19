@@ -144,3 +144,14 @@
       url={https://arxiv.org/abs/2406.01597}, 
       shortname={RDO-Gaussian},
 }
+
+@inproceedings{xie2024mesongs,
+    title={MesonGS: Post-training Compression of 3D Gaussians via Efficient Attribute Transformation},
+    author={Xie, Shuzhao and Zhang, Weixiang and Tang, Chen and Bai, Yunpeng and Lu, Rongwei and Ge, Shijia and Wang, Zhi},
+    booktitle={European Conference on Computer Vision},
+    year={2024},
+    organization={Springer},
+    abstract={3D Gaussian Splatting demonstrates excellent quality and speed in novel view synthesis. Nevertheless, the significant size of the 3D Gaussians presents challenges for transmission and storage. Current approaches employ compact models to compress the substantial volume and attributes of 3D Gaussians, along with intensive training to uphold quality. These endeavors demand considerable finetuning time, presenting formidable hurdles for practical deployment. To this end, we propose MesonGS, a codec for post-training compression of 3D Gaussians. Initially, we introduce a measurement criterion that considers both view-dependent and view-independent factors to assess the impact of each Gaussian point on the rendering output, enabling the removal of insignificant points. Subsequently, we decrease the entropy of attributes through two transformations that complement subsequent entropy coding techniques to enhance the file compression rate. More specifically, we first replace the rotation quaternion with Euler angles; then, we apply region adaptive hierarchical transform (RAHT) to key attributes to reduce entropy. Lastly, we suggest block quantization to control quantization granularity, thereby avoiding excessive information loss caused by quantization. Moreover, a finetune scheme is introduced to restore quality. Extensive experiments demonstrate that MesonGS significantly reduces the size of 3D Gaussians while preserving competitive quality.},
+    url={https://shuzhaoxie.github.io/mesongs/},
+    shortname={MesonGS},
+}
