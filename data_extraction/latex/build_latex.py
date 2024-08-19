@@ -184,7 +184,10 @@ def generate_tex_table():
     lines[3] = (
         lines[3]
         .replace("&", "& \\tiny")
-        .replace("Size [MB]", "\\makecell{Size \\\\ MB}")
+        .replace("PSNR", "PSNR$\\uparrow$")
+        .replace("SSIM", "SSIM$\\uparrow$")
+        .replace("LPIPS", "LPIPS$\\downarrow$")
+        .replace("Size [MB]", "\\makecell{Size \\\\ MB$\\downarrow$}")
     )
     return "\n".join(lines)
 
