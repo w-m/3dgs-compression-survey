@@ -35,6 +35,9 @@ with open("tex_templates/entry.tex", "r") as file:
 with open("tex_templates/table.tex", "r") as file:
     tex_table = file.read()
 
+with open("tex_templates/contributions.tex", "r") as file:
+    contributions = file.read()
+
 
 def get_shortnames():
     # get shortnames from bibtex
@@ -242,7 +245,7 @@ shutil.copy2("../../methods.bib", "methods.bib")
 # create table
 table = tex_table.replace("<table>", generate_tex_table())
 
-tex_content = "\\section*{Contribution Summaries}\n\n The following sections provide brief summaries of the current contributions. For more detailed insights, please refer to the cited papers."
+# create subsections for methods
 for filename in markdown_files:
     with open(os.path.join(methodsdir, filename), "r") as file:
         title, text = extract_title_and_text(file.read())
@@ -252,9 +255,9 @@ for filename in markdown_files:
 
         figure_template = tex_figure.replace("<image_path>", image_path)
         latex_section = generate_section(title, text, paper_id, figure_template)
-        tex_content += "\n\n" + latex_section
+        contributions += "\n\n" + latex_section
 
-full_document = tex_preamble + table + tex_content + tex_end_document
+full_document = tex_preamble + table + contributions + tex_end_document
 
 with open("3dgs_compression_survey.tex", "w", encoding="UTF-8") as file:
     file.write(full_document)
