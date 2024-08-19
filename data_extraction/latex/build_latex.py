@@ -149,6 +149,8 @@ def generate_tex_table():
     multi_col_df["Rank"] = (multi_col_df["Rank"] / dataset_count).apply(
         lambda x: round(x, 1)
     )
+    # sort by rank
+    multi_col_df = multi_col_df.sort_values(by="Rank")
 
     # color the top 1 values in each column (top 3 on website)
     def add_top_3_classes(df):
