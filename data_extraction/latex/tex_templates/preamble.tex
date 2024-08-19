@@ -19,6 +19,9 @@
 \usepackage[table]{xcolor}    % loads also »colortbl«
 \usepackage{makecell}
 \usepackage{adjustbox}
+% make text the same size even when its bold in a table
+\newsavebox\CBox
+\def\textBF#1{\sbox\CBox{#1}\resizebox{\wd\CBox}{\ht\CBox}{\textbf{#1}}}
 
 % Page dimensions
 \geometry{letterpaper, margin=1in}

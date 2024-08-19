@@ -170,7 +170,7 @@ def generate_tex_table():
             for _, val in enumerate(top_3):
                 matching_indices = float_col[float_col == val].index
                 for index in matching_indices:
-                    df.at[index, col] = f"\\textbf{{{df.at[index, col]}}}"
+                    df.at[index, col] = f"\\textBF{{{df.at[index, col]}}}"
         return df
 
     # convert all columns to string to avoid FutureWarning, handle empty values/nans
