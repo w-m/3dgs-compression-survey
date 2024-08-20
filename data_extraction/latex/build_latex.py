@@ -152,11 +152,12 @@ def generate_tex_table():
     # sort by rank
     multi_col_df = multi_col_df.sort_values(by="Rank")
 
-    # color the top 1 values in each column (top 3 on website)
+    # color the top 3 values in each column (top 3 in LaTeX)
     def add_top_3_classes(df):
+        colors = ["lightred", "lightorange", "lightyellow"]
         for col in df.columns:
             try:
-                float_col = df[col].astype(float)
+                float_col = df[col].str.replace(",", "").astype(float)
             except ValueError:
                 continue
 
@@ -164,13 +165,13 @@ def generate_tex_table():
                 any(keyword in col[1].lower() for keyword in ["size", "lpips"])
                 or "rank" in col[0].lower()
             ):
-                top_3 = pd.Series(float_col.unique()).nsmallest(1)
+                top_3 = pd.Series(float_col.unique()).nsmallest(3)
             else:
-                top_3 = pd.Series(float_col.unique()).nlargest(1)
-            for _, val in enumerate(top_3):
+                top_3 = pd.Series(float_col.unique()).nlargest(3)
+            for i, val in enumerate(top_3):
                 matching_indices = float_col[float_col == val].index
                 for index in matching_indices:
-                    df.at[index, col] = f"\\textBF{{{df.at[index, col]}}}"
+                    df.at[index, col] = f"\\cellcolor{{{colors[i]}}}{df.at[index, col]}"
         return df
 
     # convert all columns to string to avoid FutureWarning, handle empty values/nans
