@@ -255,6 +255,8 @@ shutil.copy2("../../methods.bib", "methods.bib")
 
 # create table
 table = tex_table.replace("<table>", generate_tex_table())
+with open("3dgs_table.tex", "w", encoding="UTF-8") as file:
+    file.write(table)
 
 # create subsections for methods
 for filename in markdown_files:
@@ -296,7 +298,7 @@ subprocess.run(
 
 # Run arXiv script
 subprocess.run(["arxiv_latex_cleaner", "../latex"])
-subprocess.run(["rm", "../latex_arXiv/build_latex.py"])
+subprocess.run(["rm", "../latex_arXiv/build_latex.py", "../latex_arXiv/3dgs_table.tex"])
 shutil.make_archive(
     "../latex_arXiv", format="zip", root_dir="../", base_dir="latex_arXiv"
 )
