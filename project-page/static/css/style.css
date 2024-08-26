@@ -257,6 +257,14 @@ input[type="checkbox"] {
     top: 0;
     left: 0;
   }
+
+  .container {
+    max-width: 1200px;
+    font-size: 1.15em;
+  }
+  .title.is-3 {
+    font-size: 2.1rem;
+  }
 }
 
 .outer-container{
