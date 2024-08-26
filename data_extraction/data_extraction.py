@@ -323,11 +323,9 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
 
     for dataset in result_tables:
         #sort by method name
-        result_tables[dataset] = result_tables[dataset].sort_values(by="Method")
+        result_tables[dataset] = result_tables[dataset].sort_values(by=["Method", "Size [Bytes]"])
         #save table to csv
         result_tables[dataset].to_csv("results/" + dataset + ".csv", index=False)
-
-
 
 if __name__ == "__main__":
     with open("data_extraction/data_source.yaml") as stream:
