@@ -213,6 +213,9 @@ def read_csvs(sources_file):
                             "Data Source": url,
                             "Comment": ""
                         }
+                        if "#Gaussians" in df.columns:
+                            filled_row["#Gaussians"] = int(row.get("#Gaussians", pd.NA))
+
                         filled_rows.append(filled_row)
                     
                     # Convert the list of filled rows to a DataFrame
@@ -222,6 +225,8 @@ def read_csvs(sources_file):
                         csv_tables[dataset] = pd.concat([csv_tables[dataset], filled_rows_df], ignore_index=True)
                     else:
                         csv_tables[dataset] = filled_rows_df
+                    if "#Gaussians" in df.columns:
+                        csv_tables[dataset]['#Gaussians'] = csv_tables[dataset]['#Gaussians'].astype(pd.Int64Dtype())
     return csv_tables
 
 def df_to_results_csv(pd_tables, sources_file, csv_tables):
@@ -255,11 +260,7 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
             submethod = csv_tables[dataset]["Submethod"][i]
 
             #append new entry
-            result_tables[dataset] = result_tables[dataset]._append(csv_tables[dataset].iloc[i], ignore_index=True)
-
-            
-
-
+            result_tables[dataset] = pd.concat([result_tables[dataset], csv_tables[dataset].iloc[[i]].dropna(axis=1, how='all')], ignore_index=True)
 
     #copy results from pd_tables
     for source in pd_tables:
