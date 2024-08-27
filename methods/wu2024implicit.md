@@ -1,0 +1,3 @@
+### Implicit Gaussian Splatting with Efficient Multi-Level Tri-Plane Representation
+
+This method introduces a hybrid representation for splatting-based radiance fields, where Gaussian primitives are separated into explicit point cloud and implicit attribute features. The attribute features are encoded using a multi-resolution multi-level tri-plane architecture integrated with a residual-based rendering pipeline. It employs a level-based progressive training scheme for joint optimization of point clouds and tri-planes, starting with coarse attributes and refining them with higher-level details. Spatial regularization and a bootstrapping scheme are applied to enhance the consistency and stability of the Gaussian attributes during training.

@@ -20,6 +20,8 @@ wang2024end,,26.03,0.764,0.299,6162423,,https://raw.githubusercontent.com/USTC-I
 wang2024end,,26.50,0.784,0.268,9761150,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,26.87,0.796,0.248,15351860,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,Baseline,27.05,0.802,0.239,23460290,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
+wu2024implicit,-Low,27.33,0.809,0.257,13107200,,https://www.arxiv.org/src/2408.10041,
+wu2024implicit,-High,27.62,0.819,0.247,26633830,,https://www.arxiv.org/src/2408.10041,
 ye2023mathematical,,26.64,0.788,0.270,6916294,360000.0,https://raw.githubusercontent.com/nerfstudio-project/gsplat/main/examples/benchmarks/compression/results,
 ye2023mathematical,,26.88,0.796,0.256,8796870,490000.0,https://raw.githubusercontent.com/nerfstudio-project/gsplat/main/examples/benchmarks/compression/results,
 ye2023mathematical,-1.00M,27.29,0.811,0.229,16038022,1000000.0,https://raw.githubusercontent.com/nerfstudio-project/gsplat/main/examples/benchmarks/compression/results,

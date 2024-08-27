@@ -377,7 +377,7 @@
                 <span class="author-block">
                     {{ paper.authors }}</span>
             </div>
-            {% if paper.published_at != "arXiv" %}
+            {% if not "arXiv" in paper.published_at %}
             <span class="rounded-bullet"><b>{{ paper.published_at }}</b></span>
             {% endif %}
             <br>

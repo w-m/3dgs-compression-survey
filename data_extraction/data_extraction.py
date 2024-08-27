@@ -98,6 +98,8 @@ def parse_table_to_df(table, rotated=False):
     table = re.sub(r'\$\S+\$', '', table) #remove all inside $$
     table = re.sub(r'\\textbf{([^}]*)}', r'\1', table) #remove all \textbf{}
     table = re.sub(r'\\cellcolor{[^}]*}{([^}]*)}', r'\1', table) #remove all \cellcolor{}
+    table = re.sub(r'\\cellcolor\[[^}]*\]{[^}]*}', '', table) #remove celcolors with other backets
+    table = re.sub(r'\\multicolumn\{\d+\}\{[a-z]\}\{([\d.]+)\}', r'\1', table) # remove '\\multicolumn{1}{l}{12.5}'
     
     # Find the tabular environment
     rows = re.findall(r'\\begin\{tabular\}.*?\\end\{tabular\}', table, re.DOTALL)
@@ -166,7 +168,7 @@ def tex_to_pd(tables, sources_file):
                 if df is None:
                     continue
                 if source in pd_tables:
-                    pd_tables[source] = pd.concat([pd_tables[source], df], axis=1)
+                    pd_tables[source] = pd.merge(pd_tables[source], df, on="Method", how="outer")
                 else:
                     pd_tables[source] = df
             else:
@@ -270,7 +272,7 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
         pd_tables[source] = pd_tables[source].loc[:, ~duplicates]
         #find "ours" column
         for row in range(len(pd_tables[source])):
-            if "ours" in pd_tables[source]["Method"][row].lower():
+            if not pd.isna(pd_tables[source]["Method"][row]) and "ours" in pd_tables[source]["Method"][row].lower():
                 # filter out submethods, everything after "ours", "" if only "ours"
                 submethod = re.search(r'(?i)ours([^}]*)', pd_tables[source]["Method"][row]).group(1)
                 #iterate through all columns and transfer values
@@ -287,8 +289,14 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
                             #convert to Bytes
                             value = int(float(value) * 1024 * 1024)
                             metric = "Size [Bytes]"
-                        elif metric in ["PSNR","SSIM","LPIPS"]:
-                            pass
+                        # elif metric in ["PSNR","SSIM","LPIPS"]:
+                        #     pass
+                        elif "psnr" in metric.lower():
+                            metric = "PSNR"
+                        elif "ssim" in metric.lower():
+                            metric = "SSIM"
+                        elif "lpips" in metric.lower():
+                            metric = "LPIPS"
                         else:
                             continue
 
@@ -308,7 +316,7 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
                         if len(row_index) == 0:
                             #"Method","PSNR","SSIM","LPIPS","Size [Bytes]","Data Source","Comment"
                             print("Adding new row for ", source, " ", submethod)
-                            result_tables[dataset_name].loc[len(result_tables[dataset_name])] = {"Method": source, "Submethod": submethod, "PSNR": "", "SSIM": "", "LPIPS": "", "Size [Bytes]": pd.NA, "Data Source": "", "Comment": ""}
+                            result_tables[dataset_name].loc[len(result_tables[dataset_name])] = {"Method": source, "Submethod": submethod, "PSNR": "", "SSIM": "", "LPIPS": "", "Size [Bytes]": "", "Data Source": "", "Comment": ""}
                             row_index = result_tables[dataset_name].index[
                                 (result_tables[dataset_name]["Method"] == source) & 
                                 (result_tables[dataset_name]["Submethod"] == submethod)

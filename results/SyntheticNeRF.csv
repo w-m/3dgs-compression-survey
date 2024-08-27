@@ -15,3 +15,5 @@ wang2024end,,32.01,0.961,0.042,1016378,,https://raw.githubusercontent.com/USTC-I
 wang2024end,,32.56,0.964,0.038,1331576,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,32.97,0.966,0.035,1838842,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,Baseline,33.12,0.967,0.034,2314380,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
+wu2024implicit,-Low,33.36,0.971,0.036,1939865,,https://www.arxiv.org/src/2408.10041,
+wu2024implicit,-High,34.18,0.975,0.032,2852126,,https://www.arxiv.org/src/2408.10041,
