@@ -386,7 +386,11 @@
                     {{ paper.summary }}
                 </p>
                 <div style="display: flex; justify-content: center; align-items: center">
-                    <img src="{{ paper.image }}" alt="" width="{{paper.imwidth}}" height="{{paper.imheight}}" style="max-height: 250px;" loading="lazy">
+                    {% if paper.imheight <= 250 %}
+                    <img src="{{ paper.image }}" alt="" width="{{paper.imwidth}}" height="{{paper.imheight}}" loading="lazy">
+                    {% else %}
+                    <img src="{{ paper.image }}" alt="" style="max-height: 250px;" loading="lazy">
+                    {% endif %}
                 </div>
             </div>
         </div>
