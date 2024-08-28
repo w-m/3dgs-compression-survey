@@ -41,7 +41,7 @@ wang2024end:
   url: "https://github.com/USTC-IMCL/RDO-Gaussian/tree/main/results"
   is_csv: True
 
-ye2023mathematical:
+hu2024gsplat:
   url: "https://github.com/nerfstudio-project/gsplat/tree/main/examples/benchmarks/compression/results"
   is_csv: True
 
