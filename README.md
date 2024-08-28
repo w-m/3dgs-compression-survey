@@ -49,3 +49,20 @@ Baseline,xx.xx,0.xxx,0.xxx,xxxxxxxx
 Include up to two consistent submethod names for your results across all files to ensure they appear in the survey table. These names will then be concatenated with the name of your approach in the table. If you prefer only the name of your approach to be displayed in the table, you can use "Baseline" as a submethod name for those results. Results without a submethod name will only be displayed in the plots.
 
 You can view an example [here](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results)
+
+## LaTeX Table
+
+An up-to-date LaTeX version of the survey table can be found here [here](https://github.com/w-m/3dgs-compression-survey/blob/main/data_extraction/latex/3dgs_table.tex). Feel free to copy a line from the table into your research if you want to compare to the approach. Should you wish to copy the whole table you might need the following packages and definitions in your LaTeX preamble:
+```
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+% colors for table
+\definecolor{lightred}{HTML}{FF9999}
+\definecolor{lightyellow}{HTML}{FFFF99}
+\definecolor{lightorange}{HTML}{FFCC99}
+\usepackage{makecell}
+\usepackage{adjustbox}
+% make text the same size even when its bold in a table
+\newsavebox\CBox
+\def\textBF#1{\sbox\CBox{#1}\resizebox{\wd\CBox}{\ht\CBox}{\textbf{#1}}}
+```
