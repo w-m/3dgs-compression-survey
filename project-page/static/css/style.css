@@ -214,7 +214,7 @@ input[type="checkbox"] {
   height: 100%;
 }
 
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (min-width: 768px) and (max-width: 1200px) {
   .plot-container {
     flex: 1 1 calc(50% - 10px);
     margin-bottom: 30px;
@@ -226,7 +226,7 @@ input[type="checkbox"] {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .plot-container {
     flex: 1 1 100%;
     margin-bottom: 40px;
