@@ -22,27 +22,48 @@ This script attempts to fetch data from the relevant papers and update the table
 
 ## Including your own Results
 
-It is recommended that authors include their results in a separate folder within their GitHub repository to ensure correct data retrieval. The expected folder structure is:
+Authors are kindly requested to upload their per-scene results in a designated folder within their GitHub repository. This ensures accurate data retrieval and allows for consistent and fair comparisons. The expected folder structure is:
 
 ```
 results
-├── DeepBlending.csv
-├── MipNeRF360.csv
-├── SyntheticNeRF.csv
-├── TanksAndTemples.csv
+├── DeepBlending
+│   ├── drjohnson.csv
+│   └── playroom.csv
+├── MipNeRF360
+│   ├── bicycle.csv
+│   ├── bonsai.csv
+│   ├── counter.csv
+│   ├── flowers.csv
+│   ├── garden.csv
+│   ├── kitchen.csv
+│   ├── room.csv
+│   ├── stump.csv
+│   └── treehill.csv
+├── SyntheticNeRF
+│   ├── chair.csv
+│   ├── drums.csv
+│   ├── ficus.csv
+│   ├── hotdog.csv
+│   ├── lego.csv 
+│   ├── materials.csv
+│   ├── mic.csv
+│   └── ship.csv
+└── TanksAndTemples
+    ├── train.csv
+    └── truck.csv
 ```
 
-Please include all datasets on which your method was evaluated in the results folder.
+The folder should include all datasets on which your method was evaluated and cover all scenes specified in the folder structure.
 
 Each CSV file should be structured as follows:
 
 ```
-Submethod,PSNR,SSIM,LPIPS,Size [Bytes]
-Baseline,xx.xx,0.xxx,0.xxx,xxxxxxxx
--SubmethodName,xx.xx,0.xxx,0.xxx,xxxxxxxx
-,xx.xx,0.xxx,0.xxx,xxxxxxxx
-,xx.xx,0.xxx,0.xxx,xxxxxxxx
-,xx.xx,0.xxx,0.xxx,xxxxxxxx
+Submethod,PSNR,SSIM,LPIPS,Size [Bytes],#Gaussians
+Baseline,xx.xx,0.xxx,0.xxx,xxxxxxxx,xxxxxxxx
+-SubmethodName,xx.xx,0.xxx,0.xxx,xxxxxxxx,xxxxxxxx
+,xx.xx,0.xxx,0.xxx,xxxxxxxx,xxxxxxxx
+,xx.xx,0.xxx,0.xxx,xxxxxxxx,xxxxxxxx
+,xx.xx,0.xxx,0.xxx,xxxxxxxx,xxxxxxxx
 
 ```
 
