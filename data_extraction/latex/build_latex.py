@@ -7,6 +7,7 @@ import numpy as np
 import io
 from decimal import Decimal
 import shutil
+import re
 
 methodsdir = "../../methods"
 imagedir = "../../project-page/static/images/"
@@ -208,6 +209,9 @@ def extract_title_and_text(markdown: str):
     # Who puts hashtags in a title anyway?
     title = lines[0].replace("#", "").strip()
     text = "\n".join(lines[1:]).strip()
+    # check for html
+    clean = re.compile("<.*?>")
+    text = re.sub(clean, "", text)
     return title, text
 
 
