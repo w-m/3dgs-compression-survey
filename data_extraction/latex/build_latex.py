@@ -21,12 +21,6 @@ markdown_files = os.listdir(methodsdir)
 combined_markdown = ""
 section_count = 1
 
-with open("tex_templates/preamble.tex", "r") as file:
-    tex_preamble = file.read()
-
-with open("tex_templates/end_document.tex", "r") as file:
-    tex_end_document = file.read()
-
 with open("tex_templates/figure.tex", "r") as file:
     tex_figure = file.read()
 
@@ -274,10 +268,9 @@ for filename in markdown_files:
         latex_section = generate_section(title, text, paper_id, figure_template)
         contributions += "\n\n" + latex_section
 
-full_document = tex_preamble + table + contributions + tex_end_document
-
-with open("3dgs_compression_survey.tex", "w", encoding="UTF-8") as file:
-    file.write(full_document)
+# create contributions
+with open("3dgs_contributions.tex", "w", encoding="UTF-8") as file:
+    file.write(contributions)
 
 # Compile LaTeX Document
 subprocess.run(["pdflatex", "3dgs_compression_survey.tex"])
