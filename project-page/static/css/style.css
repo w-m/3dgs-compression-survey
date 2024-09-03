@@ -1,5 +1,25 @@
 .katex { line-height: 2 !important; }
 
+.text-item {
+  display: inline-block;
+  font-size: 1em;
+  line-height: 1;
+  vertical-align: baseline;
+  position: relative;
+  margin-right: 0.25em;
+}
+
+.text-color-box {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 0.2em;
+  border-radius: 0.2em;
+  vertical-align: middle;
+  position: relative;
+  top: -0.1em;
+}
+
 .title-link {
   position: relative;
 }
