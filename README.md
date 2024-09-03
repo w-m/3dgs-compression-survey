@@ -87,3 +87,20 @@ An up-to-date LaTeX version of the survey table can be found here [here](https:/
 \newsavebox\CBox
 \def\textBF#1{\sbox\CBox{#1}\resizebox{\wd\CBox}{\ht\CBox}{\textbf{#1}}}
 ```
+
+## Citation
+
+If you use our survey in your research, please cite our work. You can use the following BibTeX entry:
+
+```bibtex
+@misc{3DGSzip2024,
+    title={3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods}, 
+    author={Milena T. Bagdasarian and Paul Knoll and Florian Barthel and Anna Hilsmann and 
+            Peter Eisert and Wieland Morgenstern},
+    year={2024},
+    eprint={2407.09510},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV},
+    url={https://arxiv.org/abs/2407.09510}, 
+}
+```
