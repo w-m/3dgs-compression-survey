@@ -310,6 +310,17 @@ def load_methods_summaries(ranks, groupcolors):
                 title = f'<a href="{links[file.split(".")[0]]}" target="_blank" class="title-link" style="--title-box-color: {color}">{title}</a>'
             summary = file_content.split('\n', 1)[1].strip()
 
+            #insert color if applicable
+            matches = re.finditer(r"<insert>(.*?)</insert>", summary)
+            for match in matches:
+                shortname = match.group(1)
+                name = next((k for k, v in shortnames.items() if v == shortname), None)
+                assert name is not None
+                color = groupcolors[shortname]
+                colorbox_text = f'<span class="text-item"><span class="text-color-box" style="background-color: {color};"></span><a href="#{name}" style="display: inline;">{shortname}</a></span>'
+                
+                summary = summary.replace(match.group(0), colorbox_text)
+              
             #get image path, webp, png or jpg
             if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_medium.webp"):
                 image = f"static/images/{file.split('.')[0]}_medium.webp"
