@@ -1,0 +1,131 @@
+\begin{thebibliography}{10}
+
+\bibitem{MipNeRF360}
+J.~T. Barron, B.~Mildenhall, D.~Verbin, P.~P. Srinivasan, and P.~Hedman.
+\newblock Mip-nerf 360: Unbounded anti-aliased neural radiance fields.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 5470--5479, 2022.
+
+\bibitem{chen2024hac}
+Y.~Chen, Q.~Wu, J.~Cai, M.~Harandi, and W.~Lin.
+\newblock Hac: Hash-grid assisted context for 3d gaussian splatting
+  compression, 2024, 2403.14530.
+
+\bibitem{chen2024far}
+Y.~Chen, Q.~Wu, M.~Harandi, and J.~Cai.
+\newblock How far can we compress instant-ngp-based nerf?
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 20321--20330, 2024.
+
+\bibitem{fan2024lightgaussian}
+Z.~Fan, K.~Wang, K.~Wen, Z.~Zhu, D.~Xu, and Z.~Wang.
+\newblock Lightgaussian: Unbounded 3d gaussian compression with 15x reduction
+  and 200+ fps, 2024, 2311.17245.
+
+\bibitem{fei20243d}
+B.~Fei, J.~Xu, R.~Zhang, Q.~Zhou, W.~Yang, and Y.~He.
+\newblock 3d gaussian splatting as new era: A survey.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics}, 2024.
+
+\bibitem{girish2024eagles}
+S.~Girish, K.~Gupta, and A.~Shrivastava.
+\newblock Eagles: Efficient accelerated 3d gaussians with lightweight
+  encodings, 2024, 2312.04564.
+
+\bibitem{DeepBlending}
+P.~Hedman, J.~Philip, T.~Price, J.-M. Frahm, G.~Drettakis, and G.~Brostow.
+\newblock Deep blending for free-viewpoint image-based rendering.
+\newblock {\em ACM Transactions on Graphics (ToG)}, 37(6):1--15, 2018.
+
+\bibitem{hu2024gsplat}
+J.~Hu, R.~Li, V.~Ye, and A.~Kanazawa.
+\newblock gsplat compression, 2024.
+
+\bibitem{kerbl3Dgaussians}
+B.~Kerbl, G.~Kopanas, T.~Leimk{\"u}hler, and G.~Drettakis.
+\newblock 3d gaussian splatting for real-time radiance field rendering.
+\newblock {\em ACM Transactions on Graphics}, 42(4), July 2023.
+
+\bibitem{TanksAndTemples}
+A.~Knapitsch, J.~Park, Q.-Y. Zhou, and V.~Koltun.
+\newblock Tanks and temples: Benchmarking large-scale scene reconstruction.
+\newblock {\em ACM Transactions on Graphics}, 36(4), 2017.
+
+\bibitem{lee2024compact}
+J.~C. Lee, D.~Rho, X.~Sun, J.~H. Ko, and E.~Park.
+\newblock Compact 3d gaussian representation for radiance field, 2024.
+
+\bibitem{li2023compressing}
+L.~Li, Z.~Shen, Z.~Wang, L.~Shen, and L.~Bo.
+\newblock Compressing volumetric radiance fields to 1 mb.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 4222--4231, 2023.
+
+\bibitem{lu2024scaffold}
+T.~Lu, M.~Yu, L.~Xu, Y.~Xiangli, L.~Wang, D.~Lin, and B.~Dai.
+\newblock Scaffold-gs: Structured 3d gaussians for view-adaptive rendering,
+  2024.
+
+\bibitem{mildenhall2020nerf}
+B.~Mildenhall, P.~P. Srinivasan, M.~Tancik, J.~T. Barron, R.~Ramamoorthi, and
+  R.~Ng.
+\newblock Nerf: Representing scenes as neural radiance fields for view
+  synthesis.
+\newblock In {\em ECCV}, 2020.
+
+\bibitem{SyntheticNeRF}
+B.~Mildenhall, P.~P. Srinivasan, M.~Tancik, J.~T. Barron, R.~Ramamoorthi, and
+  R.~Ng.
+\newblock Nerf: Representing scenes as neural radiance fields for view
+  synthesis.
+\newblock {\em Communications of the ACM}, 65(1):99--106, 2021.
+
+\bibitem{morgenstern2024compact}
+W.~Morgenstern, F.~Barthel, A.~Hilsmann, and P.~Eisert.
+\newblock Compact 3d scene representation via self-organizing gaussian grids,
+  2024, 2312.13299.
+
+\bibitem{navaneet2023compact3d}
+K.~Navaneet, K.~P. Meibodi, S.~A. Koohpayegani, and H.~Pirsiavash.
+\newblock Compact3d: Compressing gaussian splat radiance field models with
+  vector quantization, 2024, 2311.18159.
+
+\bibitem{niedermayr2024compressed}
+S.~Niedermayr, J.~Stumpfegger, and R.~Westermann.
+\newblock Compressed 3d gaussian splatting for accelerated novel view
+  synthesis, 2024.
+
+\bibitem{papantonakis2024reducing}
+P.~Papantonakis, G.~Kopanas, B.~Kerbl, A.~Lanvin, and G.~Drettakis.
+\newblock Reducing the memory footprint of 3d gaussian splatting.
+\newblock {\em Proceedings of the ACM on Computer Graphics and Interactive
+  Techniques}, 7(1):1--17, May 2024.
+
+\bibitem{sun2024f3dgs}
+X.~Sun, J.~C. Lee, D.~Rho, J.~H. Ko, U.~Ali, and E.~Park.
+\newblock F-3dgs: Factorized coordinates and representations for 3d gaussian
+  splatting, 2024, 2405.17083.
+
+\bibitem{wang2024end}
+H.~Wang, H.~Zhu, T.~He, R.~Feng, J.~Deng, J.~Bian, and Z.~Chen.
+\newblock End-to-end rate-distortion optimized 3d gaussian representation,
+  2024, 2406.01597.
+
+\bibitem{wu2024implicit}
+M.~Wu and T.~Tuytelaars.
+\newblock Implicit gaussian splatting with efficient multi-level tri-plane
+  representation.
+\newblock {\em arXiv preprint arXiv:2408.10041}, 2024.
+
+\bibitem{wu2024recent}
+T.~Wu, Y.-J. Yuan, L.-X. Zhang, J.~Yang, Y.-P. Cao, L.-Q. Yan, and L.~Gao.
+\newblock Recent advances in 3d gaussian splatting.
+\newblock {\em Computational Visual Media}, pages 1--30, 2024.
+
+\bibitem{xie2024mesongs}
+S.~Xie, W.~Zhang, C.~Tang, Y.~Bai, R.~Lu, S.~Ge, and Z.~Wang.
+\newblock Mesongs: Post-training compression of 3d gaussians via efficient
+  attribute transformation.
+\newblock In {\em European Conference on Computer Vision}. Springer, 2024.
+
+\end{thebibliography}

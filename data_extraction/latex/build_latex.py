@@ -206,6 +206,8 @@ def extract_title_and_text(markdown: str):
     # check for html
     clean = re.compile("<.*?>")
     text = re.sub(clean, "", text)
+    # excape % character
+    text = text.replace("%", r"\%")
     return title, text
 
 
@@ -288,8 +290,6 @@ subprocess.run(
         "3dgs_compression_survey.blg",
         "3dgs_compression_survey.log",
         "3dgs_compression_survey.out",
-        "3dgs_contributions.tex",
-        "3dgs_table.aux",
         "dataset.bib",
         "methods.bib",
     ]
