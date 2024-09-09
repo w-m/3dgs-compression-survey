@@ -206,6 +206,8 @@ def extract_title_and_text(markdown: str):
     # check for html
     clean = re.compile("<.*?>")
     text = re.sub(clean, "", text)
+    # excape % character
+    text = text.replace("%", r"\%")
     return title, text
 
 
