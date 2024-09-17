@@ -130,9 +130,9 @@ If you use our survey in your research, please cite our work. You can use the fo
 - 2024-08-02: Show conferences of published papers
 - 2024-06-19: New rank calculation with all available datasets
 - 2024-06-17: Include ranks of methods
-- 2024-06-17: Intitial publication of survey on [arXiv](https://arxiv.org/abs/2407.09510)
+- 2024-06-17: Initial publication of survey on [arXiv](https://arxiv.org/abs/2407.09510)
 - 2024-06-13: Add plots of metrics over model size
-- 2024-06-10: First draft of survey page with interactivate table
+- 2024-06-10: First draft of survey page with interactive table
 
 
 <!-- - 2024-08-22: Released pre-trained, [compressed scenes](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/releases/tag/eccv-2024-data)
