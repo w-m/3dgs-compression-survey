@@ -67,9 +67,11 @@ Baseline,xx.xx,0.xxx,0.xxx,xxxxxxxx,xxxxxxxx
 
 ```
 
+Please ensure that the PSNR results are reported with a precision of at least two decimal places, and that SSIM and LPIPS results are reported with a precision of at least three decimal places. Authors are encouraged to provide results with full precision, as these will be rounded before inclusion in our survey.
+
 Include up to two consistent submethod names for your results across all files to ensure they appear in the survey table. These names will then be concatenated with the name of your approach in the table. If you prefer only the name of your approach to be displayed in the table, you can use "Baseline" as a submethod name for those results. Results without a submethod name will only be displayed in the plots.
 
-You can view an example [here](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results)
+You can view an example [here](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results).
 
 ### Important: 3DGS testing conventions
 
@@ -83,7 +85,7 @@ Authors are required to adhere to the testing conventions established in the ori
 
 ## LaTeX Table
 
-An up-to-date LaTeX version of the survey table can be found here [here](https://github.com/w-m/3dgs-compression-survey/blob/main/data_extraction/latex/3dgs_table.tex). Feel free to copy a line from the table into your research if you want to compare to the approach. Should you wish to copy the whole table you might need the following packages and definitions in your LaTeX preamble:
+An up-to-date LaTeX version of the survey table can be found [here](https://github.com/w-m/3dgs-compression-survey/blob/main/data_extraction/latex/3dgs_table.tex). Feel free to copy a line from the table into your research if you want to compare to the approach. Should you wish to copy the whole table you might need the following packages and definitions in your LaTeX preamble:
 ```
 \usepackage{booktabs}
 \usepackage[table]{xcolor}
@@ -114,3 +116,31 @@ If you use our survey in your research, please cite our work. You can use the fo
     url={https://arxiv.org/abs/2407.09510}, 
 }
 ```
+
+## Updates
+
+- 2024-09-17: Updated Morgenstern et al. results and reverted HAC results because of [confusion about testing conventions](https://github.com/YihangChen-ee/HAC/issues/14)
+- 2024-09-05: Update Scaffold-GS MipNeRF-360 results to include all 9 scenes
+- 2024-08-27: Add IGS method to survey
+- 2024-08-26: Add gsplat method to survey
+- 2024-08-14: Adaptive ranks based on attribute and dataset selection
+- 2024-08-12: New plots to show metrics over number of Gaussians instead of model size
+- 2024-08-08: Add checkboxes to select metrics and datasets to be shown in table
+- 2024-08-07: Include number of Gaussians in survey, include bits per Gaussian in table
+- 2024-08-02: Show conferences of published papers
+- 2024-06-19: New rank calculation with all available datasets
+- 2024-06-17: Include ranks of methods
+- 2024-06-17: Intitial publication of survey on [arXiv](https://arxiv.org/abs/2407.09510)
+- 2024-06-13: Add plots of metrics over model size
+- 2024-06-10: First draft of survey page with interactivate table
+
+
+<!-- - 2024-08-22: Released pre-trained, [compressed scenes](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/releases/tag/eccv-2024-data)
+- 2024-07-09: Project website updated with TLDR, contributions, insights and comparison to concurrent methods
+- 2024-07-01: Our work was accepted at **ECCV 2024** 🥳
+- 2024-06-13: Training code available
+- 2024-05-14: Improved compression scores! New results for paper v2 available on the [project website](https://fraunhoferhhi.github.io/Self-Organizing-Gaussians/)
+- 2024-05-02: Revised [paper v2](https://arxiv.org/pdf/2312.13299) on arXiv: Added compression of spherical harmonics, updated compression method with improved results (all attributes compressed with JPEG XL now), added qualitative comparison of additional scenes, moved compression explanation and comparison to main paper, added comparison with "Making Gaussian Splats smaller".
+- 2024-02-22: The code for the sorting algorithm is now available at [fraunhoferhhi/PLAS](https://github.com/fraunhoferhhi/PLAS)
+- 2024-02-21: Video comparisons for different scenes available on the [project website](https://fraunhoferhhi.github.io/Self-Organizing-Gaussians/)
+- 2023-12-19: Preprint available on [arXiv](https://arxiv.org/abs/2312.13299) -->
