@@ -175,6 +175,14 @@ def tex_to_pd(tables, sources_file):
                 print("Table not found.")
     return pd_tables
 
+
+dataset_scenes = {
+    'DeepBlending': ["drjohnson", "playroom"], 
+    'SyntheticNeRF': ["drums","ficus","hotdog","lego","materials","mic","ship"], 
+    'TanksAndTemples': ["train", "truck"], 
+    'MipNeRF360': ["garden", "bicycle", "stump", "bonsai", "counter", "kitchen", "room", "treehill", "flowers"]
+}
+
 def read_csvs(sources_file):
     #read github csv files
     csv_tables = {}
@@ -190,6 +198,26 @@ def read_csvs(sources_file):
             
 
             for dataset in ['DeepBlending', 'SyntheticNeRF', 'TanksAndTemples', 'MipNeRF360']:
+                # try to get per scene data:
+                scene_dfs = []
+                USE_AVG = 0
+                for scene in dataset_scenes[dataset]:
+                    table = requests.get(url+'/'+dataset+'/'+scene+'.csv').text
+                    if table and table != '404: Not Found':
+                        print('Downloaded', dataset)
+                        data = StringIO(table)
+                        df = pd.read_csv(data,dtype={
+                            'Size [Bytes]': 'Int64',
+                        })
+                        scene_dfs.append(df)
+
+                    else:
+                        print("cannot find per scene results for",source)
+                        USE_AVG = 1
+                        break
+
+                #average results
+                if USE_AVG:
                 table = requests.get(url+'/'+dataset+'.csv').text
                 # if it worked
                 if table and table != '404: Not Found':
@@ -201,6 +229,16 @@ def read_csvs(sources_file):
                         'SSIM': 'string',
                         'LPIPS': 'string',
                     })
+                    else:
+                        print("no csv results found for", source)
+                        continue
+                else:
+                    df = pd.concat(scene_dfs).groupby('Submethod').mean(numeric_only=True).reset_index()
+                    df['PSNR'] = df['PSNR'].apply(lambda x: f"{x:.2f}")
+                    df['SSIM'] = df['SSIM'].apply(lambda x: f"{x:.3f}")
+                    df['LPIPS'] = df['LPIPS'].apply(lambda x: f"{x:.3f}")
+                    df['Size [Bytes]'] = df['Size [Bytes]'].astype(int)
+
                     filled_rows = []
             
                     # Iterate over each row in the DataFrame
