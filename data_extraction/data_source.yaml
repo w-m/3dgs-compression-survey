@@ -1,5 +1,5 @@
 morgenstern2024compact:
-  url: "https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/eval-release/results"
+  url: "https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results"
   is_csv: True
 
 lee2024compact:
