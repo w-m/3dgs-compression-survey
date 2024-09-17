@@ -19,7 +19,7 @@ morgenstern2024compact,Baseline,23.56,0.837,0.186,22778534,1242209.0,https://raw
 navaneet2023compact3d, 16K,23.39,0.836,0.200,12582912,,https://arxiv.org/src/2311.18159,
 navaneet2023compact3d, 32K,23.44,0.838,0.198,13631488,520000.0,https://arxiv.org/src/2311.18159,
 niedermayr2024compressed,Baseline,23.324,0.832,0.194,18119393,,https://arxiv.org/pdf/2401.02436,
-papantonakis2024reducing,Baseline,23.57,0.84,0.188,14680064,680000.0,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
+papantonakis2024reducing,Baseline,23.57,0.840,0.188,14680064,680000.0,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
 sun2024f3dgs,-CP-16,30.29,0.957,0.061,11471421,,https://arxiv.org/pdf/2405.17083,[N/T][N/P]
 wang2024end,,22.98,0.812,0.233,3737081,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,23.14,0.823,0.214,5492385,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,

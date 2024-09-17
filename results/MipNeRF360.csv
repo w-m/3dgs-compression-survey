@@ -19,7 +19,7 @@ lu2024scaffold,Baseline,27.50,0.806,0.252,266233446,,https://arxiv.org/pdf/2403.
 navaneet2023compact3d, 16K,27.03,0.804,0.243,18874368,,https://arxiv.org/src/2311.18159,
 navaneet2023compact3d, 32K,27.12,0.806,0.240,19922944,845000.0,https://arxiv.org/src/2311.18159,
 niedermayr2024compressed,Baseline,26.981,0.801,0.238,30198989,,https://arxiv.org/pdf/2401.02436,
-papantonakis2024reducing,Baseline,27.1,0.809,0.226,30408704,1460000.0,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
+papantonakis2024reducing,Baseline,27.10,0.809,0.226,30408704,1460000.0,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
 wang2024end,,26.03,0.764,0.299,6162423,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,26.50,0.784,0.268,9761150,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,26.87,0.796,0.248,15351860,,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
