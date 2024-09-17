@@ -71,13 +71,13 @@ Include up to two consistent submethod names for your results across all files t
 
 You can view an example [here](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results)
 
-### Caution: 3DGS testing conventions
+### Important: 3DGS testing conventions
 
 Authors are required to adhere to the testing conventions established in the original [3DGS project](https://github.com/graphdeco-inria/gaussian-splatting). Specifically, this includes:
 
 - Using all 9 scenes from the MipNeRF360 dataset, including "flowers" and "treehill".
 - Evaluating images at full resolution up to a maximum width of 1600px. Larger test images should be downscaled to a width of 1600px (which is only applicable for MipNeRF360).
-- For the 3 COLMAP datasets (Tanks and Temples, Deep Blending, MipNeRF360), use every 8th image for testing. Concretly, the test images are those where idx % 8 == 0.
+- For the 3 COLMAP datasets (Tanks and Temples, Deep Blending, MipNeRF360), use every 8th image for testing. Concretly, the test images are those where ```idx % 8 == 0```.
 - For the Blender dataset (SyntheticNeRF), follow the predefined train/eval split.
 
 
