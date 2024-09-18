@@ -1,0 +1,2 @@
+### FreGS: 3D Gaussian Splatting with Progressive Frequency Regularization
+This approach is designed to address over-reconstruction from a frequency-based perspective. It minimizes the discrepancy between the frequency spectra of rendered images and the corresponding ground truth. This method explicitly regularizes amplitude and phase differences within Fourier space to achieve more accurate results.
