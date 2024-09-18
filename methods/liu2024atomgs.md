@@ -1,0 +1,3 @@
+### AtomGS: Atomizing Gaussian Splatting for High-Fidelity Radiance Field
+This method prioritizes fine details through Atom Gaussians, which are isotropic and uniformly sized to align closely with the scene's geometry, while large Gaussians are merged to cover smooth surfaces. In addition, Geometry-Guided Optimization uses an Edge-Aware Normal Loss and multi-scale SSIM to maintain geometric accuracy. The Edge-Aware Normal Loss is calculated as the product of the normal map, derived from the pre-optimized 3DGS, and the edge map, which is derived from the gradient magnitude of the ground truth RGB image.
+
