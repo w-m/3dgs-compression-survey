@@ -1,0 +1,2 @@
+### Color-cued Efficient Densification Method for 3D Gaussian Splatting
+This method introduces a simple yet effective modification to the densification process in the original 3D Gaussian Splatting (3DGS). It leverages the view-independent (0th) spherical harmonics (SH) coefficient gradient to better assess color cues for densification, while using the 2D position gradient more coarsely to refine areas where structure-from-motion (SfM) struggles to capture fine structures.
