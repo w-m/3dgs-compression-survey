@@ -11,10 +11,10 @@ import itertools
 
 dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
 
-def get_shortnames():
+def get_shortnames(methods_file="methods_compression.bib"):
     #get shortnames from bibtex
     shortnames = {}
-    with open("methods.bib") as bibtex_file:
+    with open(methods_file) as bibtex_file:
         bib_database = bibtexparser.load(bibtex_file)
         for entry in bib_database.entries:
             if "shortname" in entry:
@@ -25,10 +25,10 @@ def get_shortnames():
                 #print(f"Shortname not found for {entry['ID']}, using ID instead")
     return shortnames
 
-def get_links():
+def get_links(methods_file="methods_compression.bib"):
     #get links from bibtex
     links = {}
-    with open("methods.bib") as bibtex_file:
+    with open(methods_file) as bibtex_file:
         bib_database = bibtexparser.load(bibtex_file)
         for entry in bib_database.entries:
             if "url" in entry:
@@ -38,10 +38,10 @@ def get_links():
                 print(f"Link not found for {entry['ID']}")
     return links
 
-def get_authors():
+def get_authors(methods_file="methods_compression.bib"):
     #get authors from bibtex
     authors = {}
-    with open("methods.bib", encoding='utf-8') as bibtex_file:
+    with open(methods_file, encoding='utf-8') as bibtex_file:
         bib_database = bibtexparser.load(bibtex_file)
         for entry in bib_database.entries:
             if "author" in entry:
@@ -57,7 +57,6 @@ def combine_tables_to_html():
     shortnames = get_shortnames()
 
     groupcolors = {}
-    # group_colors = plotly.colors.qualitative.Prism
     colors = [
     "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78",
     "#2ca02c", "#98df8a", "#d62728", "#ff9896",
@@ -250,9 +249,9 @@ def combine_tables_to_html():
 
     return cleaned_html_string, ranks, groupcolors, rank_combinations, metric_formulas
 
-def get_published_at():
+def get_published_at(methods_file="methods_compression.bib"):
     published_at = {}
-    with open("methods.bib", encoding='utf-8') as bibtex_file:
+    with open(methods_file, encoding='utf-8') as bibtex_file:
         bib_database = bibtexparser.load(bibtex_file)
         for entry in bib_database.entries:
             if "booktitle" in entry:
