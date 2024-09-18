@@ -239,6 +239,8 @@ window.addEventListener('load', () => {
     drawPlotsSequentially();
 
     window.addEventListener('resize', resizePlots);
+
+    document.getElementById('formula').innerHTML = katex.renderToString(metricFormulas["1111"])
   
     switchInput.addEventListener('change', function() {
         if (this.checked) {
