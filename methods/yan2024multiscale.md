@@ -1,0 +1,2 @@
+### Multi-Scale 3D Gaussian Splatting for Anti-Aliased Rendering
+This method aggregates small Gaussians below a size threshold during early training, enlarging and inserting them into the scene at various resolution scales. These multi-scale Gaussians are then selected for rendering based on their "pixel coverage" at the current resolution. During rendering, only Gaussians with pixel coverage between adaptively selected minimum and maximum are selected. These pixel-coverage values are dynamically updated based on the aggregation results from the first stage.
