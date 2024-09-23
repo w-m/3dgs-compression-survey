@@ -69,7 +69,7 @@ Baseline,xx.xx,0.xxx,0.xxx,xxxxxxxx,xxxxxxxx
 
 Please ensure that the PSNR results are reported with a precision of at least two decimal places, and that SSIM and LPIPS results are reported with a precision of at least three decimal places. Authors are encouraged to provide results with full precision, as these will be rounded before inclusion in our survey.
 
-Include up to two consistent submethod names for your results across all files to ensure they appear in the survey table. These names will then be concatenated with the name of your approach in the table. If you prefer only the name of your approach to be displayed in the table, you can use "Baseline" as a submethod name for those results. Results without a submethod name will only be displayed in the plots.
+Include up to two consistent submethod names for your results across all files to ensure they appear in the survey table. These names will then be concatenated with the name of your approach in the table. If the submethod specifier should be separated from the method name with a space, make sure to include that space in front of the submethod name. If you prefer only the name of your approach to be displayed in the table, you can use "Baseline" as a submethod name for those results. Results without a submethod name will only be displayed in the plots.
 
 You can view an example [here](https://github.com/fraunhoferhhi/Self-Organizing-Gaussians/tree/main/results).
 
