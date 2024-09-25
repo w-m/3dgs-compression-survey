@@ -7,6 +7,8 @@ import tarfile
 import io
 import requests
 from io import StringIO
+import numpy as np
+from decimal import Decimal, ROUND_HALF_UP
 
 
 
@@ -209,6 +211,7 @@ def read_csvs(sources_file):
                         df = pd.read_csv(data,dtype={
                             'Size [Bytes]': 'Int64',
                         })
+                        df['Submethod'] = df['Submethod'].apply(lambda x: '' if isinstance(x, str) and x.strip() == '' else x) # make empty submethod names empty
                         scene_dfs.append(df)
 
                     else:
@@ -230,14 +233,30 @@ def read_csvs(sources_file):
                         'LPIPS': 'string',
                     })
                     else:
-                        print("no csv results found for", source)
+                        print("no csv results found for", source, "for", dataset)
                         continue
                 else:
-                    df = pd.concat(scene_dfs).groupby('Submethod').mean(numeric_only=True).reset_index()
-                    df['PSNR'] = df['PSNR'].apply(lambda x: f"{x:.2f}")
-                    df['SSIM'] = df['SSIM'].apply(lambda x: f"{x:.3f}")
-                    df['LPIPS'] = df['LPIPS'].apply(lambda x: f"{x:.3f}")
-                    df['Size [Bytes]'] = df['Size [Bytes]'].astype(int)
+                    #expect submethods in same order for all scenes of one dataset
+                    if len(set(len(df) for df in scene_dfs)) != 1:
+                        raise ValueError("All DataFrames must have the same number of rows in", source)
+                    
+                    if not all(df['Submethod'].equals(scene_dfs[0]['Submethod']) for df in scene_dfs[1:]):
+                        raise ValueError("Submethod mismatch across DataFrames in", source)
+                    
+                    #averaging
+                    numeric_cols = scene_dfs[0].select_dtypes(include=[np.number]).columns
+                    df = pd.DataFrame({
+                        'Submethod': scene_dfs[0]['Submethod'],
+                        **{col: np.mean([df[col] for df in scene_dfs], axis=0) for col in numeric_cols}
+                    })
+                    
+                    #rounding
+                    df['PSNR'] = df['PSNR'].apply(lambda x: f"{Decimal(str(x)).quantize(Decimal('0.00'), rounding=ROUND_HALF_UP):.2f}")
+                    df['SSIM'] = df['SSIM'].apply(lambda x: f"{Decimal(str(x)).quantize(Decimal('0.000'), rounding=ROUND_HALF_UP):.3f}")
+                    df['LPIPS'] = df['LPIPS'].apply(lambda x: f"{Decimal(str(x)).quantize(Decimal('0.000'), rounding=ROUND_HALF_UP):.3f}")
+                    df['Size [Bytes]'] = df['Size [Bytes]'].apply(lambda x: f"{Decimal(str(x)).quantize(Decimal('0'), rounding=ROUND_HALF_UP)}")
+                    if "#Gaussians" in df.columns:
+                        df['#Gaussians'] = df['#Gaussians'].apply(lambda x: f"{Decimal(str(x)).quantize(Decimal('0'), rounding=ROUND_HALF_UP)}")
 
                     filled_rows = []
             
@@ -368,7 +387,8 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
                             result_tables[dataset_name].loc[row_index, "Data Source"] = sources_file[source]["url"]
 
     for dataset in result_tables:
-        #sort by method name
+        #sort by method name and size
+        result_tables[dataset]["Size [Bytes]"] = pd.to_numeric(result_tables[dataset]["Size [Bytes]"], errors='coerce').astype('Int64')
         result_tables[dataset] = result_tables[dataset].sort_values(by=["Method", "Size [Bytes]"])
         #save table to csv
         result_tables[dataset].to_csv("results/" + dataset + ".csv", index=False)
