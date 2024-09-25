@@ -180,7 +180,7 @@ def tex_to_pd(tables, sources_file):
 
 dataset_scenes = {
     'DeepBlending': ["drjohnson", "playroom"], 
-    'SyntheticNeRF': ["drums","ficus","hotdog","lego","materials","mic","ship"], 
+    'SyntheticNeRF': ["drums","ficus","hotdog","lego","materials","mic","ship","chair"], 
     'TanksAndTemples': ["train", "truck"], 
     'MipNeRF360': ["garden", "bicycle", "stump", "bonsai", "counter", "kitchen", "room", "treehill", "flowers"]
 }
