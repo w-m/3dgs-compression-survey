@@ -1,38 +1,44 @@
-\section*{Survey Table}
-% Have a look into ../tex_templates/preamble.tex for packages and color definitions 
+\rotatebox{90}{
+    \begin{minipage}{\textheight} % Adjust the minipage width to fit the content
+        \section*{Survey Table}
+        % Have a look into ../tex_templates/preamble.tex for packages and color definitions 
 
-\rowcolors{2}{gray!25}{white}
-{
-\footnotesize
-\setlength{\tabcolsep}{3pt}
+        % color every second line in grey
+        \rowcolors{2}{gray!25}{white}
 
-\begin{adjustbox}{center}
-\begin{tabular}{ll|llll|llll|llll|llll}
+        \footnotesize
+        \setlength{\tabcolsep}{3pt}
+        
+        % center the table
+        \begin{adjustbox}{center}
+           \begin{tabular}{ll|llllll|llllll|llllll|llllll}
 \toprule
-Method & Rank & \multicolumn{4}{c|}{TanksAndTemples} & \multicolumn{4}{c|}{MipNeRF360} & \multicolumn{4}{c|}{DeepBlending} & \multicolumn{4}{c}{SyntheticNeRF} \\
- & \tiny  & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} \\
+Method & Rank & \multicolumn{6}{c|}{TanksAndTemples} & \multicolumn{6}{c|}{MipNeRF360} & \multicolumn{6}{c|}{DeepBlending} & \multicolumn{6}{c}{SyntheticNeRF} \\
+ & \tiny  & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny k Gauss & \tiny b/G & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny k Gauss & \tiny b/G & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny k Gauss & \tiny b/G & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny k Gauss & \tiny b/G \\
 \midrule
-HAC-lowrate & \cellcolor{lightred}4.6 & 24.04 & 0.846 & \cellcolor{lightyellow}0.187 & \cellcolor{lightred}8.1 & 27.53 & 0.807 & 0.238 & \cellcolor{lightorange}15.3 & 29.98 & 0.902 & 0.269 & \cellcolor{lightred}4.3 & 33.24 & 0.967 & 0.037 & \cellcolor{lightred}1.2 \\
-HAC-highrate & \cellcolor{lightred}4.6 & \cellcolor{lightyellow}24.40 & \cellcolor{lightyellow}0.853 & \cellcolor{lightorange}0.177 & 11.2 & \cellcolor{lightorange}27.77 & 0.811 & 0.230 & 21.9 & 30.34 & 0.906 & 0.258 & \cellcolor{lightyellow}6.3 & \cellcolor{lightorange}33.71 & 0.968 & 0.034 & \cellcolor{lightyellow}1.9 \\
-gsplat-1.00M & \cellcolor{lightorange}5.2 & 24.03 & \cellcolor{lightorange}0.857 & \cellcolor{lightred}0.163 & 15.4 & 27.29 & 0.811 & \cellcolor{lightyellow}0.229 & \cellcolor{lightorange}15.3 &  &  &  &  &  &  &  &  \\
-IGS-Low & \cellcolor{lightyellow}5.7 & 23.70 & 0.836 & 0.227 & \cellcolor{lightyellow}8.4 & 27.33 & 0.809 & 0.257 & \cellcolor{lightred}12.5 & \cellcolor{lightorange}30.63 & 0.904 & 0.293 & \cellcolor{lightyellow}6.3 & 33.36 & \cellcolor{lightorange}0.971 & 0.036 & \cellcolor{lightorange}1.8 \\
-IGS-High & 5.9 & 24.05 & 0.849 & 0.210 & 12.5 & 27.62 & \cellcolor{lightorange}0.819 & 0.247 & 25.4 & \cellcolor{lightred}32.33 & \cellcolor{lightred}0.924 & 0.253 & 7.7 & \cellcolor{lightred}34.18 & \cellcolor{lightred}0.975 & \cellcolor{lightorange}0.032 & 2.7 \\
-Morgenstern et al. w/o SH & 6.0 & \cellcolor{lightorange}25.27 & \cellcolor{lightorange}0.857 & 0.217 & \cellcolor{lightorange}8.2 & 27.02 & 0.803 & 0.232 & \cellcolor{lightyellow}16.7 & \cellcolor{lightyellow}30.50 & 0.908 & 0.261 & \cellcolor{lightorange}5.5 & 31.75 & 0.961 & 0.040 & 2.0 \\
-Morgenstern et al. & 7.5 & \cellcolor{lightred}25.63 & \cellcolor{lightred}0.864 & 0.208 & 21.4 & \cellcolor{lightyellow}27.64 & \cellcolor{lightyellow}0.814 & \cellcolor{lightred}0.220 & 40.3 & 30.35 & \cellcolor{lightyellow}0.909 & 0.258 & 16.8 & \cellcolor{lightyellow}33.70 & \cellcolor{lightyellow}0.969 & \cellcolor{lightred}0.031 & 4.1 \\
-Navaneet et al. 32K & 7.8 & 23.44 & 0.838 & 0.198 & 13.0 & 27.12 & 0.806 & 0.240 & 19.0 & 29.90 & 0.907 & \cellcolor{lightyellow}0.251 & 13.0 &  &  &  &  \\
-Navaneet et al. 16K & 8.0 & 23.39 & 0.836 & 0.200 & 12.0 & 27.03 & 0.804 & 0.243 & 18.0 & 29.90 & 0.906 & 0.252 & 12.0 &  &  &  &  \\
-RDO-Gaussian & 8.4 & 23.34 & 0.835 & 0.195 & 11.5 & 27.05 & 0.802 & 0.239 & 22.4 & 29.63 & 0.902 & 0.252 & 17.2 & 33.12 & 0.967 & 0.034 & 2.2 \\
-Reduced3DGS & 8.9 & 23.57 & 0.84 & 0.188 & 14.0 & 27.10 & 0.809 & \cellcolor{lightorange}0.226 & 29.0 & 29.63 & 0.902 & \cellcolor{lightred}0.249 & 18.0 &  &  &  &  \\
-Compressed3D & 10.7 & 23.32 & 0.832 & 0.194 & 17.3 & 26.98 & 0.801 & 0.238 & 28.8 & 29.38 & 0.898 & 0.253 & 25.3 & 32.94 & 0.967 & \cellcolor{lightyellow}0.033 & 3.7 \\
-Scaffold-GS & 10.9 & 23.96 & \cellcolor{lightyellow}0.853 & \cellcolor{lightorange}0.177 & 87.0 & \cellcolor{lightred}28.84 & \cellcolor{lightred}0.848 & \cellcolor{lightred}0.220 & 156.0 & 30.21 & 0.906 & 0.254 & 66.0 &  &  &  &  \\
-Compact3DGS+PP & 11.5 & 23.32 & 0.831 & 0.202 & 20.9 & 27.03 & 0.797 & 0.247 & 29.1 & 29.73 & 0.900 & 0.258 & 23.8 & 32.88 & 0.968 & 0.034 & 2.7 \\
-EAGLES & 11.9 & 23.37 & 0.84 & 0.20 & 29.0 & 27.23 & 0.81 & 0.24 & 54.0 & 29.86 & \cellcolor{lightorange}0.91 & \cellcolor{lightorange}0.25 & 52.0 &  &  &  &  \\
-Compact3DGS & 12.9 & 23.32 & 0.831 & 0.201 & 39.4 & 27.08 & 0.798 & 0.247 & 48.8 & 29.79 & 0.901 & 0.258 & 43.2 & 33.33 & 0.968 & 0.034 & 5.5 \\
-LightGaussian & 13.0 & 23.11 & 0.817 & 0.231 & 22.0 & 27.28 & 0.805 & 0.243 & 42.0 &  &  &  &  & 32.72 & 0.965 & 0.037 & 7.8 \\
-EAGLES-Small & 13.7 & 23.10 & 0.82 & 0.22 & 19.0 & 26.94 & 0.80 & 0.25 & 47.0 & 29.92 & 0.90 & \cellcolor{lightorange}0.25 & 33.0 &  &  &  &  \\
+HAC-lowrate & \cellcolor{lightred}3.9 & \cellcolor{lightyellow}24.04 & 0.846 & 0.187 & \cellcolor{lightred}8.1 &  &  & \cellcolor{lightyellow}27.53 & 0.807 & 0.238 & \cellcolor{lightorange}15.3 &  &  & 29.98 & 0.902 & 0.269 & \cellcolor{lightred}4.3 &  &  & 33.24 & 0.967 & 0.037 & \cellcolor{lightred}1.2 &  &  \\
+HAC-highrate & \cellcolor{lightorange}4.0 & \cellcolor{lightred}24.40 & \cellcolor{lightorange}0.853 & \cellcolor{lightorange}0.177 & 11.2 &  &  & \cellcolor{lightred}27.77 & \cellcolor{lightorange}0.811 & \cellcolor{lightyellow}0.230 & 21.9 &  &  & \cellcolor{lightyellow}30.34 & 0.906 & 0.258 & \cellcolor{lightyellow}6.3 &  &  & \cellcolor{lightorange}33.71 & \cellcolor{lightyellow}0.968 & \cellcolor{lightyellow}0.034 & \cellcolor{lightyellow}1.9 &  &  \\
+gsplat-1.00M & \cellcolor{lightyellow}4.5 & 24.03 & \cellcolor{lightred}0.857 & \cellcolor{lightred}0.163 & 15.4 & 1,000 & \cellcolor{lightyellow}129 & 27.29 & \cellcolor{lightorange}0.811 & \cellcolor{lightorange}0.229 & \cellcolor{lightorange}15.3 & \cellcolor{lightorange}1,000 & \cellcolor{lightyellow}128 &  &  &  &  &  &  &  &  &  &  &  &  \\
+IGS-Low & 5.2 & 23.70 & 0.836 & 0.227 & \cellcolor{lightorange}8.4 &  &  & 27.33 & 0.809 & 0.257 & \cellcolor{lightred}12.5 &  &  & \cellcolor{lightorange}30.63 & 0.904 & 0.293 & \cellcolor{lightyellow}6.3 &  &  & \cellcolor{lightyellow}33.36 & \cellcolor{lightorange}0.971 & 0.036 & \cellcolor{lightorange}1.8 &  &  \\
+IGS-High & 5.5 & \cellcolor{lightorange}24.05 & \cellcolor{lightyellow}0.849 & 0.210 & 12.5 &  &  & \cellcolor{lightorange}27.62 & \cellcolor{lightred}0.819 & 0.247 & 25.4 &  &  & \cellcolor{lightred}32.33 & \cellcolor{lightred}0.924 & 0.253 & 7.7 &  &  & \cellcolor{lightred}34.18 & \cellcolor{lightred}0.975 & \cellcolor{lightred}0.032 & 2.7 &  &  \\
+Navaneet et al. 32K & 7.2 & 23.44 & 0.838 & 0.198 & 13.0 & \cellcolor{lightred}520 & 210 & 27.12 & 0.806 & 0.240 & 19.0 & \cellcolor{lightred}845 & 189 & 29.90 & \cellcolor{lightyellow}0.907 & \cellcolor{lightyellow}0.251 & 13.0 & \cellcolor{lightred}554 & 197 &  &  &  &  &  &  \\
+Navaneet et al. 16K & 7.7 & 23.39 & 0.836 & 0.200 & 12.0 &  &  & 27.03 & 0.804 & 0.243 & 18.0 &  &  & 29.90 & 0.906 & 0.252 & 12.0 &  &  &  &  &  &  &  &  \\
+RDO-Gaussian & 8.0 & 23.34 & 0.835 & 0.195 & 11.5 & 907 & \cellcolor{lightorange}106 & 27.05 & 0.802 & 0.239 & 22.4 & 1,859 & \cellcolor{lightorange}101 & 29.63 & 0.902 & 0.252 & 17.2 & 1,474 & \cellcolor{lightorange}98 & 33.12 & 0.967 & 0.035 & 2.2 & \cellcolor{lightred}132 & \cellcolor{lightorange}139 \\
+Reduced3DGS & 8.2 & 23.57 & 0.840 & 0.188 & 14.0 & \cellcolor{lightyellow}680 & 173 & 27.10 & 0.809 & \cellcolor{lightred}0.226 & 29.0 & 1,460 & 167 & 29.63 & 0.902 & \cellcolor{lightred}0.249 & 18.0 & 1,010 & \cellcolor{lightyellow}149 &  &  &  &  &  &  \\
+Morgenstern et al. w/o SH & 8.5 & 23.15 & 0.828 & 0.198 & \cellcolor{lightyellow}8.9 & 1,207 & \cellcolor{lightred}62 & 26.56 & 0.791 & 0.241 & \cellcolor{lightyellow}15.9 & 2,149 & \cellcolor{lightred}62 & 29.12 & 0.892 & 0.270 & \cellcolor{lightorange}5.4 & \cellcolor{lightorange}800 & \cellcolor{lightred}57 & 31.37 & 0.959 & 0.043 & \cellcolor{lightyellow}1.9 & \cellcolor{lightyellow}175 & \cellcolor{lightred}90 \\
+Morgenstern et al. & 10.2 & 23.56 & 0.837 & \cellcolor{lightyellow}0.186 & 21.7 & 1,242 & 147 & 27.08 & 0.799 & \cellcolor{lightyellow}0.230 & 38.4 & 2,176 & 148 & 29.26 & 0.894 & 0.268 & 16.9 & \cellcolor{lightyellow}890 & 159 & 33.23 & 0.966 & \cellcolor{lightyellow}0.034 & 3.9 & \cellcolor{lightorange}157 & \cellcolor{lightyellow}210 \\
+Compressed3D & 10.2 & 23.32 & 0.832 & 0.194 & 17.3 &  &  & 26.98 & 0.801 & 0.238 & 28.8 &  &  & 29.38 & 0.898 & 0.253 & 25.3 &  &  & 32.94 & 0.967 & \cellcolor{lightorange}0.033 & 3.7 &  &  \\
+Compact3DGS+PP & 11.1 & 23.32 & 0.831 & 0.202 & 20.9 &  &  & 27.03 & 0.797 & 0.247 & 29.1 &  &  & 29.73 & 0.900 & 0.258 & 23.8 &  &  & 32.88 & \cellcolor{lightyellow}0.968 & \cellcolor{lightyellow}0.034 & 2.7 &  &  \\
+EAGLES & 11.5 & 23.37 & 0.84 & 0.20 & 29.0 &  &  & 27.23 & \cellcolor{lightyellow}0.81 & 0.24 & 54.0 &  &  & 29.86 & \cellcolor{lightorange}0.91 & \cellcolor{lightorange}0.25 & 52.0 &  &  &  &  &  &  &  &  \\
+Scaffold-GS & 11.9 & 23.96 & \cellcolor{lightorange}0.853 & \cellcolor{lightorange}0.177 & 87.0 &  &  & 27.50 & 0.806 & 0.252 & 253.9 &  &  & 30.21 & 0.906 & 0.254 & 66.0 &  &  &  &  &  &  &  &  \\
+Compact3DGS & 12.4 & 23.32 & 0.831 & 0.201 & 39.4 & 836 & 395 & 27.08 & 0.798 & 0.247 & 48.8 & 1,388 & 295 & 29.79 & 0.901 & 0.258 & 43.2 & 1,058 & 342 & 33.33 & \cellcolor{lightyellow}0.968 & \cellcolor{lightyellow}0.034 & 5.5 &  &  \\
+LightGaussian & 12.8 & 23.11 & 0.817 & 0.231 & 22.0 &  &  & 27.28 & 0.805 & 0.243 & 42.0 &  &  &  &  &  &  &  &  & 32.72 & 0.965 & 0.037 & 7.8 &  &  \\
+EAGLES-Small & 13.3 & 23.10 & 0.82 & 0.22 & 19.0 & \cellcolor{lightorange}650 & 245 & 26.94 & 0.80 & 0.25 & 47.0 & \cellcolor{lightyellow}1,330 & 296 & 29.92 & 0.90 & \cellcolor{lightorange}0.25 & 33.0 & 1,190 & 233 &  &  &  &  &  &  \\
 \bottomrule
 \end{tabular}
-\end{adjustbox}
-\newline\newline
-\noindent Note: The best methods in each category are highlighted (\colorbox{lightred}{fist}, \colorbox{lightorange}{second}, \colorbox{lightyellow}{third}). The ranks represent the average rankings of the methods across all available datasets. The quality metrics PSNR, SSIM, and LPIPS are equally weighted with the model size, meaning they each contribute one-sixth to the ranks, while the size contributes half.
+        \end{adjustbox}
+        \newline\newline
+        \noindent Note: The best methods in each category are highlighted (\colorbox{lightred}{fist}, \colorbox{lightorange}{second}, \colorbox{lightyellow}{third}). The ranks represent the average rankings of the methods across all available datasets. The quality metrics PSNR, SSIM, and LPIPS are equally weighted with the model size, meaning they each contribute one-sixth to the ranks, while the size contributes half.
+
+    \end{minipage}
 }
