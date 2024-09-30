@@ -11,62 +11,80 @@ import itertools
 
 dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
 
-def get_shortnames(methods_file="methods_compression.bib"):
+def get_shortnames(methods_files=["methods_compression.bib"]):
     #get shortnames from bibtex
     shortnames = {}
-    with open(methods_file) as bibtex_file:
-        bib_database = bibtexparser.load(bibtex_file)
-        for entry in bib_database.entries:
-            if "shortname" in entry:
-                shortnames[entry["ID"]] = entry["shortname"]
-            else:
-                pass
-                #shortnames[entry["ID"]] = entry["ID"]
-                #print(f"Shortname not found for {entry['ID']}, using ID instead")
+    for methods_file in methods_files:
+        with open(methods_file) as bibtex_file:
+            bib_database = bibtexparser.load(bibtex_file)
+            for entry in bib_database.entries:
+                if "shortname" in entry:
+                    shortnames[entry["ID"]] = entry["shortname"]
+                else:
+                    pass
+                    #shortnames[entry["ID"]] = entry["ID"]
+                    #print(f"Shortname not found for {entry['ID']}, using ID instead")
     return shortnames
 
-def get_links(methods_file="methods_compression.bib"):
+def get_links(methods_files=["methods_compression.bib","methods_densification.bib"]):
     #get links from bibtex
     links = {}
-    with open(methods_file) as bibtex_file:
-        bib_database = bibtexparser.load(bibtex_file)
-        for entry in bib_database.entries:
-            if "url" in entry:
-                links[entry["ID"]] = entry["url"]
-            else:
-                links[entry["ID"]] = ""
-                print(f"Link not found for {entry['ID']}")
+    for methods_file in methods_files:
+        with open(methods_file) as bibtex_file:
+            bib_database = bibtexparser.load(bibtex_file)
+            for entry in bib_database.entries:
+                if "url" in entry:
+                    links[entry["ID"]] = entry["url"]
+                else:
+                    links[entry["ID"]] = ""
+                    print(f"Link not found for {entry['ID']}")
     return links
 
-def get_authors(methods_file="methods_compression.bib"):
+def get_authors(methods_files=["methods_compression.bib","methods_densification.bib"]):
     #get authors from bibtex
     authors = {}
-    with open(methods_file, encoding='utf-8') as bibtex_file:
-        bib_database = bibtexparser.load(bibtex_file)
-        for entry in bib_database.entries:
-            if "author" in entry:
-                authors[entry["ID"]] = entry["author"]
-            else:
-                authors[entry["ID"]] = ""
-                print(f"Author not found for {entry['ID']}")
+    for methods_file in methods_files:
+        with open(methods_file, encoding='utf-8') as bibtex_file:
+            bib_database = bibtexparser.load(bibtex_file)
+            for entry in bib_database.entries:
+                if "author" in entry:
+                    authors[entry["ID"]] = entry["author"]
+                else:
+                    authors[entry["ID"]] = ""
+                    print(f"Author not found for {entry['ID']}")
     return authors
 
 
 def combine_tables_to_html():
     dfs = []
     shortnames = get_shortnames()
+    shortnames_d = get_shortnames(methods_files=["methods_densification.bib"])
 
     groupcolors = {}
     colors = [
-    "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78",
-    "#2ca02c", "#98df8a", "#d62728", "#ff9896",
-    "#9467bd", "#c5b0d5", "#8c564b", "#c49c94",
-    "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
-    "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"
+        "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78",
+        "#2ca02c", "#98df8a", "#d62728", "#ff9896",
+        "#9467bd", "#c5b0d5", "#8c564b", "#c49c94",
+        "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
+        "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"
     ]
-    for name in shortnames.values():
-        if name not in ["F-3DGS", "MesonGS"]:
-            groupcolors[name] = colors.pop(0)
+    colors_d = ['#164f79', '#7a8da3', '#b2590a', '#b28253', '#1d721f', 
+                '#6ca46e', '#941d1d', '#b26b68', '#6b4d8a', '#897aa3', 
+                '#633e38', '#896e66', '#a05891', '#ae8093', '#595959', 
+                '#8d8d8d', '#868417', '#989867', '#1193b1', '#6ca0a2']
+
+    method_categories_dict = {}
+    for name, shortname in shortnames.items():
+        if shortname not in ["F-3DGS", "MesonGS"]:
+            groupcolors[shortname] = colors.pop(0)
+        method_categories_dict[name] = "c"
+
+    for name, shortname in shortnames_d.items():
+        if shortname not in ["F-3DGS", "MesonGS"]:
+            groupcolors[shortname] = colors_d.pop(0)
+        method_categories_dict[name] = "d"
+
+    shortnames.update(shortnames_d)
 
     for dataset in dataset_order:
         #read csvs
@@ -95,25 +113,29 @@ def combine_tables_to_html():
         df["Method"] = '<a class="method-name" href="#' + df["Method"] + '"> <span class="legend-color-box-container"><span class="legend-color-box" style=background-color:'+df["Shortname"].map(groupcolors)+'></span><span class="legend-color-box-methods"></span>' + df["NewMethod"] + '</span></a>'
 
         #change Size [Bytes] to Size [MB] and round
-        df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
+        df.insert(5, "Size [MB]", df["Size [Bytes]"] / 1024 / 1024)
         df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
 
-        #divide by 1000 and add "k" to the number, empty string if nan
-        df["k Gauss"] = df["#Gaussians"].apply(lambda x: f"{int(x/1000)}" if not pd.isna(x) else np.nan) #.apply(lambda x: f"{int(x/1000)}k" if not pd.isna(x) else "")
-        # add , if more than 3 digits
-        df["k Gauss"] = df["k Gauss"].apply(lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan)
         #calculate bits per gaussian
         df["b/G"] = (df["Size [Bytes]"] * 8 / df["#Gaussians"]).round()
         df["b/G"] = df["b/G"].apply(lambda x: str(int(x)) if not pd.isna(x) else np.nan)
 
         df.set_index("Method", inplace=True)
         #drop columns
-        df.drop(columns=["Submethod", "NewMethod", "Data Source", "Comment", "Shortname", "#Gaussians", "Size [Bytes]"], inplace=True)
+        df.drop(columns=["Submethod", "NewMethod", "Data Source", "Comment", "Shortname", "Size [Bytes]"], inplace=True)
 
         dfs.append((dataset, df))
     
     multi_col_df = pd.concat({name: df for name, df in dfs}, axis=1)
     multi_col_df.reset_index(inplace=True)
+
+    #insert category
+    multi_col_df[("category", "")] = "c"
+    # Loop through method_categories_dict to set the category if the method name contains the key
+    for method, category in method_categories_dict.items():
+        multi_col_df.loc[multi_col_df["Method"].str.contains(method, na=False), "category"] = category
+
+    method_categories = list(multi_col_df["category"])
 
     #calculate ranking for each method: points for ranks in PSNR, SSIM and LPIPS and size, 
     #add new ranking col right after the method name
@@ -121,11 +143,11 @@ def combine_tables_to_html():
 
     def get_metric_formula(mt_comb):
         formula_parts = []
-        quality_metrics_weight = (len(mt_comb) - 1) * 2 if "Size [MB]" in mt_comb else len(mt_comb)
+        quality_metrics_weight = (len(mt_comb) - 1) * 2 if "Size [MB]" in mt_comb or "#Gaussians" in mt_comb else len(mt_comb)
         
         if len(mt_comb) > 1:
             for metric in mt_comb:
-                if metric == "Size [MB]":
+                if metric == "Size [MB]" or metric == "#Gaussians":
                     formula_parts.append(f"\\frac{{\\text{{rank}}( \\textbf{{{metric}}} )}}{{2}}")
                 else:
                     formula_parts.append(f"\\frac{{\\text{{rank}}( \\textbf{{{metric}}} )}}{{{quality_metrics_weight}}}")
@@ -133,6 +155,8 @@ def combine_tables_to_html():
             formula_parts.append(f"\\text{{rank}}(\\text{{{mt_comb[0]}}})")
         
         formula = "\\textbf{{Dataset rank}} = " + " + ".join(formula_parts)
+
+        formula = formula.replace('#', r'\#') # prevent katex EOL error
         
         return formula
 
@@ -143,7 +167,7 @@ def combine_tables_to_html():
             dataset_rank = multi_col_df["Rank"].copy() * 0
             for metric in metrics:
                 #calc weights for metrics
-                if "Size [MB]" in metrics:
+                if "Size [MB]" in metrics or "#Gaussians" in metrics:
                     if len(metrics) == 1:
                         size_weight = 1
                         quality_metrics_weight = None
@@ -154,7 +178,7 @@ def combine_tables_to_html():
                     size_weight = None
                     quality_metrics_weight = len(metrics)
 
-                if metric == "Size [MB]":
+                if metric == "Size [MB]" or metric == "#Gaussians":
                     dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / size_weight
                 elif metric == "LPIPS":
                     dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / quality_metrics_weight
@@ -167,59 +191,109 @@ def combine_tables_to_html():
         total_rank = (total_rank / dataset_count).apply(lambda x: round(x, 1))
 
         return total_rank
+    
+    def get_rank_combinations_and_formulas(datasets, metrics, df):
+        rank_combinations = {}
+        metric_formulas = {}
+        for r_datasets in range(1, len(datasets)+1): 
+            for r_metrics in range(1, len(metrics)+1):
+                for ds_comb in itertools.combinations(datasets, r_datasets):
+                    for mt_comb in itertools.combinations(metrics, r_metrics):
+                        result = get_ranks(df, mt_comb, ds_comb)
+                        #get bitwise combination vector for later identification
+                        combination_vector = [1 if metric in mt_comb else 0 for metric in metrics] + [1 if dataset in ds_comb else 0 for dataset in datasets]
+                        combination_str = "".join(map(str, combination_vector))
 
-    #calc ranks for any combination of metrics and datasets
+                        #add top 3 classes to the result
+                        classes = ['first', 'second', 'third']
+                        result_classes = result.copy().astype(str)
+                        result_classes[:] = ""
+
+                        top_3 = pd.Series(result.unique()).nsmallest(3)
+                        for i, val in enumerate(top_3):
+                            matching_indices = result[result == val].index
+                            for index in matching_indices:
+                                result_classes[index] = classes[i]
+
+                        result = result.astype(str).replace('nan', '')
+                        rank_combinations[combination_str] = (result.to_list(), result_classes.to_list()) 
+
+                        metric_formulas[combination_str[:4]] = get_metric_formula(mt_comb)
+        return rank_combinations, metric_formulas
+    
+    def filter_empty_cols_from_df(key):
+        #set datasets where important metric is nan completly to nan to avoid influencing ranks of other methods when own rank cant be determined
+        new_df = multi_col_df.copy()  # Make a copy of the original dataframe
+        for dataset in dataset_order:
+            new_df.loc[new_df[(dataset, key)].isna(), [(dataset, 'PSNR'), (dataset, 'SSIM'), (dataset, 'LPIPS')]] = np.nan
+        return new_df
+
+    #calc compression ranks for any combination of metrics and datasets for all methods
     datasets = dataset_order
     metrics = ["PSNR", "SSIM", "LPIPS", "Size [MB]"]
-    rank_combinations = {}
-    metric_formulas = {}
-    for r_datasets in range(1, 5):  # Sizes 1 to 4 for dataset combinations
-        for r_metrics in range(1, 5):  # Sizes 1 to 4 for metric combinations
-            for ds_comb in itertools.combinations(datasets, r_datasets):
-                for mt_comb in itertools.combinations(metrics, r_metrics):
-                    result = get_ranks(multi_col_df, mt_comb, ds_comb)
-                    #get bitwise combination vector for later identification
-                    combination_vector = [1 if metric in mt_comb else 0 for metric in metrics] + [1 if dataset in ds_comb else 0 for dataset in datasets]
-                    combination_str = "".join(map(str, combination_vector))
+    rank_combinations_c_all, metric_formulas_c = get_rank_combinations_and_formulas(datasets, metrics, filter_empty_cols_from_df("Size [MB]"))
 
-                    #add top 3 classes to the result
-                    classes = ['first', 'second', 'third']
-                    result_classes = result.copy().astype(str)
-                    result_classes[:] = ""
+    #calc compression ranks for any combination of metrics and datasets for all compression methods
+    filtered_df = multi_col_df[multi_col_df['category'] == 'c'].copy()
+    rank_combinations_c, _ = get_rank_combinations_and_formulas(datasets, metrics, filtered_df)
 
-                    top_3 = pd.Series(result.unique()).nsmallest(3)
-                    for i, val in enumerate(top_3):
-                        matching_indices = result[result == val].index
-                        for index in matching_indices:
-                            result_classes[index] = classes[i]
+    #calc densification ranks for combinations of metrics and datasets for all methods
+    datasets = dataset_order[:2]
+    metrics = ["PSNR", "SSIM", "LPIPS", "#Gaussians"]
+    rank_combinations_d_all, metric_formulas_d = get_rank_combinations_and_formulas(datasets, metrics, filter_empty_cols_from_df("#Gaussians"))
 
-                    result = result.astype(str).replace('nan', '')
-                    rank_combinations[combination_str] = (result.to_list(), result_classes.to_list()) 
+    #calc compression ranks for any combination of metrics and datasets for all densification methods
+    filtered_df = multi_col_df[multi_col_df['category'] == 'd'].copy()
+    rank_combinations_d, _ = get_rank_combinations_and_formulas(datasets, metrics, filtered_df)
 
-                    metric_formulas[combination_str[:4]] = get_metric_formula(mt_comb)
+    rank_combinations = {
+        "compression": rank_combinations_c,
+        "densification": rank_combinations_d,
+        "compression_all": rank_combinations_c_all,
+        "densification_all": rank_combinations_d_all
+    }
+
+    metric_formulas = {
+        "compression": metric_formulas_c,
+        "densification": metric_formulas_d
+    }
     
-    multi_col_df["Rank"] = get_ranks(multi_col_df)
-
+    def get_ordered_ranks():
+        ranks = {}
+        i = 0
+        #ranks for order of plot legend and summaries
+        for index, row in multi_col_df.sort_values("Rank").iterrows():
+            for shortname in shortnames.values():
+                if shortname in row["Method"].item() and shortname not in ranks and not np.isnan(row["Rank"].item()):
+                    ranks[shortname] = i
+                    i += 1
+                    break
+        return ranks
+    
     ranks = {}
-    i = 0
-    #ranks for order of plot legend and summaries
-    for index, row in multi_col_df.sort_values("Rank").iterrows():
-        for shortname in shortnames.values():
-            if shortname in row["Method"][0] and shortname not in ranks:
-                ranks[shortname] = i
-                i += 1
-                break
-    #sort group colors by rank for correct roder in legend
-    groupcolors = {k: v for k, v in sorted(groupcolors.items(), key=lambda item: ranks[item[0]])}
+    #first get ordered densification ranks for summary order and plot legend order
+    mask = multi_col_df['category'] == 'd'
+    multi_col_df['Rank'] = pd.Series(rank_combinations["densification"]["111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
+    ranks["d"] = get_ordered_ranks()
+    
+    #then same for compression and leave ranks like this as this is the default option on the website
+    mask = multi_col_df['category'] == 'c'
+    multi_col_df['Rank'] = pd.Series(rank_combinations["compression"]["11111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
+    ranks["c"] = get_ordered_ranks()
+
+    #sort group colors by rank for correct order in legend
+    groupcolors_d = {k: v for k, v in sorted(groupcolors.items(), key=lambda item: ranks["d"].get(item[0], float('inf'))) if k in ranks["d"]}
+    groupcolors_c = {k: v for k, v in sorted(groupcolors.items(), key=lambda item: ranks["c"].get(item[0], float('inf'))) if k in ranks["c"]}
+    groupcolors = {**groupcolors_c, **groupcolors_d}
 
     #color the top 3 values in each column
-    def add_top_3_classes(df):
+    def add_top_3_classes(df, actual_df):
         colors = ['first', 'second', 'third']
         for col in df.columns:
             try:
-                float_col = df[col].str.replace(',', '').astype(float)
+                float_col = df[col].astype(float)
             except ValueError:
-                continue
+                continue #for method and category cols
 
             if any(keyword in col[1].lower() for keyword in ['size', 'lpips', 'gauss', "b/g"]) or 'rank' in col[0].lower():
                 top_3 = pd.Series(float_col.unique()).nsmallest(3)
@@ -228,12 +302,29 @@ def combine_tables_to_html():
             for i, val in enumerate(top_3):
                 matching_indices = float_col[float_col == val].index
                 for index in matching_indices:
-                    df.at[index, col] = f'<td class="{colors[i]}">{df.at[index, col]}</td>'
+                    actual_df.at[index, col] = f'<td class="{colors[i]}">{actual_df.at[index, col]}</td>'
                 
-        return df
+        return actual_df
     
-    #convert all columns to string to avoid FutureWarning, handle empty values/nans
-    multi_col_df = add_top_3_classes(multi_col_df.astype(str)).replace(['nan', 'NaN'], '')
+    multi_col_df_copy = multi_col_df.copy()
+
+    for col in multi_col_df.columns: #Convert num gaussians col after ranking to enable string representation with ","
+        if col[1] == "#Gaussians":
+            multi_col_df[col] /= 1000     
+            multi_col_df[col] = multi_col_df[col].apply(lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan)
+
+    multi_col_df = add_top_3_classes(multi_col_df_copy, multi_col_df.astype(str)).replace(['nan', 'NaN', "None"], '')
+
+    new_columns = []
+    for col in multi_col_df.columns: # rename #Gaussians
+        if col[1] == '#Gaussians':
+            new_col = (col[0], 'k Gauss') + col[2:]
+        else:
+            new_col = col
+        new_columns.append(new_col)
+
+    # Set the new column names
+    multi_col_df.columns = pd.MultiIndex.from_tuples(new_columns)
 
     html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
                                       justify="center", border=0, escape=False)
@@ -247,33 +338,34 @@ def combine_tables_to_html():
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
 
-    return cleaned_html_string, ranks, groupcolors, rank_combinations, metric_formulas
+    return cleaned_html_string, ranks, groupcolors, rank_combinations, metric_formulas, method_categories
 
-def get_published_at(methods_file="methods_compression.bib"):
+def get_published_at(methods_files=["methods_compression.bib","methods_densification.bib"]):
     published_at = {}
-    with open(methods_file, encoding='utf-8') as bibtex_file:
-        bib_database = bibtexparser.load(bibtex_file)
-        for entry in bib_database.entries:
-            if "booktitle" in entry:
-                pub = entry["booktitle"]
-            elif "journal" in entry:
-                pub = entry["journal"] 
-            else:
-                pub = "arXiv"
-            
-            if pub != "arXiv":
-                if "Conference on Computer Vision and Pattern Recognition" in pub:
-                    pub = "CVPR"
-                elif "European Conference on Computer Vision" in pub:
-                    pub = "ECCV"
-                elif "ACM on Computer Graphics and Interactive Techniques" in pub:
-                    pub = "I3D"
-                elif "ACM Transactions on Graphics" in pub:
-                    pub = "TOG"
+    for methods_file in methods_files:
+        with open(methods_file, encoding='utf-8') as bibtex_file:
+            bib_database = bibtexparser.load(bibtex_file)
+            for entry in bib_database.entries:
+                if "booktitle" in entry:
+                    pub = entry["booktitle"]
+                elif "journal" in entry:
+                    pub = entry["journal"] 
+                else:
+                    pub = "arXiv"
                 
-                pub = pub + " '" + entry["year"][-2:]
+                if pub != "arXiv":
+                    if "Conference on Computer Vision and Pattern Recognition" in pub:
+                        pub = "CVPR"
+                    elif "European Conference on Computer Vision" in pub:
+                        pub = "ECCV"
+                    elif "ACM on Computer Graphics and Interactive Techniques" in pub:
+                        pub = "I3D"
+                    elif "ACM Transactions on Graphics" in pub:
+                        pub = "TOG"
+                    
+                    pub = pub + " '" + entry["year"][-2:]
 
-            published_at[entry["ID"]] = pub
+                published_at[entry["ID"]] = pub
             
     return published_at
 
@@ -285,82 +377,92 @@ def load_methods_summaries(ranks, groupcolors):
     published_at = get_published_at()
 
     #sort here by rank to determine order of method summaries
-    shortnames = get_shortnames()
-    for name in shortnames.values(): #also include non ranked methods
-        if name not in ranks:
-            ranks[name] = 1000
+    shortnames = get_shortnames(["methods_compression.bib","methods_densification.bib"])
 
-    for shortname in ranks.keys():
-        file = [key for key, value in shortnames.items() if value == shortname][0] + '.md'
-        with open(f'methods/{file}', 'r') as f:
-            file_content = f.read()
-            # markdown files, extarct title and summary
-            title = file_content.split('\n')[0]
-            if title.startswith('### '):
-                title = title[4:]
-            elif title == '':
-                continue
-            #include link to project page in title, if available
-            if links[file.split(".")[0]] != '':
-                try:
-                    color = groupcolors[shortnames[file.split(".")[0]]]
-                except KeyError:
-                    color = "#ffffff"
-                title = f'<a href="{links[file.split(".")[0]]}" target="_blank" class="title-link" style="--title-box-color: {color}">{title}</a>'
-            summary = file_content.split('\n', 1)[1].strip()
+    #for now, only include ranked methods
+    # shortnames_d = get_shortnames(["methods_densification.bib"])
+    # shortnames_c = get_shortnames(["methods_compression.bib"])
+    # for name in shortnames_d.values(): #also include non ranked methods
+    #     if name not in ranks["d"]:
+    #         ranks["d"][name] = 1000
+    # for name in shortnames_c.values(): #also include non ranked methods
+    #     if name not in ranks["c"]:
+    #         ranks["c"][name] = 1000
 
-            #insert color if applicable
-            matches = re.finditer(r"<insert>(.*?)</insert>", summary)
-            for match in matches:
-                shortname = match.group(1)
-                name = next((k for k, v in shortnames.items() if v == shortname), None)
-                assert name is not None
-                color = groupcolors[shortname]
-                colorbox_text = f'<span class="text-item"><span class="text-color-box" style="background-color: {color};"></span><a href="#{name}" style="display: inline;">{shortname}</a></span>'
+    for category in ["c", "d"]:
+        for shortname in ranks[category].keys():
+            file = [key for key, value in shortnames.items() if value == shortname][0] + '.md'
+            if not os.path.exists(f'methods/{file}'): continue
+            with open(f'methods/{file}', 'r') as f:
+                file_content = f.read()
+                # markdown files, extarct title and summary
+                title = file_content.split('\n')[0]
+                if title.startswith('### '):
+                    title = title[4:]
+                elif title == '':
+                    continue
+                #include link to project page in title, if available
+                if links[file.split(".")[0]] != '':
+                    try:
+                        color = groupcolors[shortnames[file.split(".")[0]]]
+                    except KeyError:
+                        color = "#ffffff"
+                    title = f'<a href="{links[file.split(".")[0]]}" target="_blank" class="title-link" style="--title-box-color: {color}">{title}</a>'
+                summary = file_content.split('\n', 1)[1].strip()
+
+                #insert color if applicable
+                matches = re.finditer(r"<insert>(.*?)</insert>", summary)
+                for match in matches:
+                    shortname = match.group(1)
+                    name = next((k for k, v in shortnames.items() if v == shortname), None)
+                    assert name is not None
+                    color = groupcolors[shortname]
+                    colorbox_text = f'<span class="text-item"><span class="text-color-box" style="background-color: {color};"></span><a href="#{name}" style="display: inline;">{shortname}</a></span>'
+                    
+                    summary = summary.replace(match.group(0), colorbox_text)
                 
-                summary = summary.replace(match.group(0), colorbox_text)
-              
-            #get image path, webp, png or jpg
-            if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_medium.webp"):
-                image = f"static/images/{file.split('.')[0]}_medium.webp"
-            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}_small.webp"):
-                image = f"static/images/{file.split('.')[0]}_small.webp"
-            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.webp"):
-                image = f"static/images/{file.split('.')[0]}.webp"
-            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.png"):
-                image = f"static/images/{file.split('.')[0]}.png"
-            elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.jpg"):
-                image = f"static/images/{file.split('.')[0]}.jpg"
-            else:
-                image = ""
+                #get image path, webp, png or jpg
+                if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_medium.webp"):
+                    image = f"static/images/{file.split('.')[0]}_medium.webp"
+                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}_small.webp"):
+                    image = f"static/images/{file.split('.')[0]}_small.webp"
+                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.webp"):
+                    image = f"static/images/{file.split('.')[0]}.webp"
+                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.png"):
+                    image = f"static/images/{file.split('.')[0]}.png"
+                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.jpg"):
+                    image = f"static/images/{file.split('.')[0]}.jpg"
+                else:
+                    image = ""
 
-            #get width and height of image
-            if image != "":
-                with Image.open(f"project-page/{image}") as img:
-                    width, height = img.size
+                #get width and height of image
+                if image != "":
+                    with Image.open(f"project-page/{image}") as img:
+                        width, height = img.size
 
-            author = authors[file.split(".")[0]] 
-            #replace all but the last " and " with ", "
-            if not "," in author:
-                parts = author.split(' and ')
-                # Join all parts except the last one with ", " and then add the last part prefixed with " and "
-                author = ', '.join(parts[:-1]) + ' and ' + parts[-1]
+                author = authors[file.split(".")[0]] 
+                #replace all but the last " and " with ", "
+                if not "," in author:
+                    parts = author.split(' and ')
+                    # Join all parts except the last one with ", " and then add the last part prefixed with " and "
+                    author = ', '.join(parts[:-1]) + ' and ' + parts[-1]
 
-            summaries.append({
-                'name': file.split('.')[0],
-                'summary': summary,
-                'title': title,
-                'authors': author,
-                'image': image,
-                'imwidth': width,
-                'imheight': height,
-                'published_at': published_at[file.split(".")[0]]
-            })
+                summaries.append({
+                    'name': file.split('.')[0],
+                    'summary': summary,
+                    'title': title,
+                    'authors': author,
+                    'image': image,
+                    'imwidth': width,
+                    'imheight': height,
+                    'published_at': published_at[file.split(".")[0]]
+                })
     return summaries
 
 def get_plot_data(ranks): 
     dfs = {}
-    shortnames = get_shortnames()
+    shortnames = get_shortnames(["methods_compression.bib","methods_densification.bib"])
+    shortnames_d = get_shortnames(["methods_densification.bib"]) #mark densification methdos for different representation in plots
 
     result_files = os.listdir('results')
         
@@ -383,7 +485,6 @@ def get_plot_data(ranks):
             df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
             df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
             df.drop(columns=["Size [Bytes]"], inplace=True)
-            # df["Size [MB]"] = df["#Gaussians"]
 
         dfs[file.split(".")[0]] = df
 
@@ -418,6 +519,8 @@ def get_plot_data(ranks):
             psnr_groupData[df.loc[method, "Shortname"]]["x2"].append(df.loc[method, "#Gaussians"])
             psnr_groupData[df.loc[method, "Shortname"]]["y"].append(df.loc[method, "PSNR"])
             psnr_groupData[df.loc[method, "Shortname"]]["text"].append(df.loc[method, "NewMethod"])
+            if df.loc[method, "Method"] in shortnames_d:
+                psnr_groupData
 
             ssim_groupData[df.loc[method, "Shortname"]]["x"].append(df.loc[method, "Size [MB]"])
             ssim_groupData[df.loc[method, "Shortname"]]["x2"].append(df.loc[method, "#Gaussians"])
@@ -458,9 +561,12 @@ def get_plot_data(ranks):
         })
 
     group_links = {}
-    shortnames = get_shortnames()
+    densification_methods = {}
+    shortnames = get_shortnames(["methods_compression.bib","methods_densification.bib"])
     for method in shortnames:
         group_links[shortnames[method]] = "#"+method
+        if method in shortnames_d:
+            densification_methods[shortnames_d[method]] = 1 #differentiate c and d methdos in js
 
     checkbox_states = {}
     for method in shortnames.values():
@@ -470,12 +576,12 @@ def get_plot_data(ranks):
             checkbox_states[method] = True
 
 
-    return data, group_links, checkbox_states
+    return data, group_links, checkbox_states, densification_methods
 
 if __name__ == "__main__":
-    results_table, ranks, groupcolors, rank_combinations, metric_formulas = combine_tables_to_html()
+    results_table, ranks, groupcolors, rank_combinations, metric_formulas, method_categories = combine_tables_to_html()
     summaries = load_methods_summaries(ranks, groupcolors)
-    plot_data, group_links, checkbox_states = get_plot_data(ranks)
+    plot_data, group_links, checkbox_states, densification_methods = get_plot_data(ranks)
 
     # Pfad zu deinem Template-Ordner
     file_loader = FileSystemLoader('project-page')
@@ -494,6 +600,8 @@ if __name__ == "__main__":
         'groupcolors': json.dumps(groupcolors),
         'rank_combinations': json.dumps(rank_combinations),
         'metric_formulas': json.dumps(metric_formulas),
+        'method_categories': json.dumps(method_categories),
+        'densification_methods': json.dumps(densification_methods),
     }
 
     # Render das Template mit den Daten

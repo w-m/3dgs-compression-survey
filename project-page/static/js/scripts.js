@@ -45,6 +45,11 @@ function drawPlots(plotData, allowedKeys, allowedDatasets) {
 
                 // if all xvalues are nan continue
                 if (xValues.every(v => isNaN(v))) continue
+
+                let symbol = 'triangle-up'
+                if (group in densificationMethods){
+                    symbol = "circle"
+                }
                 
                 data.push({
                     x: xValues,
@@ -52,7 +57,7 @@ function drawPlots(plotData, allowedKeys, allowedDatasets) {
                     mode: 'markers',
                     text,
                     marker: {
-                        symbol: 'triangle-up',
+                        symbol: symbol,
                         color,
                         size: 12
                     },
@@ -172,8 +177,11 @@ function updatePlotVisibility(event) {
 function updateRanks() {    
     let selected_string = '';
 
+    const category = switchInputCD.checked ? 'densification' : 'compression';
+    const both = $('.row-toggle-c').is(':checked') && $('.row-toggle-d').is(':checked');
+
     // Process column-toggle checkboxes
-    $('.column-toggle').slice(0, 4).each(function() {
+    $('.column-toggle').slice(0, 5).each(function() {
         if ($(this).is(':checked')) {
             selected_string += '1';
         }
@@ -181,6 +189,12 @@ function updateRanks() {
             selected_string += '0';
         }
     });
+    // include the 3 quality metrics + size for compressin / + #Gaussians for densification
+    if (category === 'densification') {
+        selected_string = selected_string.slice(0, 3) + selected_string.slice(4);
+    } else if (category === 'compression') {
+        selected_string = selected_string.slice(0, 4);
+    }
 
     // Process column-toggle-datasets checkboxes
     $('.column-toggle-datasets').each(function() {
@@ -196,26 +210,69 @@ function updateRanks() {
         selected_string = '11111111';
     }
 
-    const [newrank, classes] = rankCombinations[selected_string];
+    let rank_category;
+    // Extend category with "_all" if both are checked
+    if (both) {
+        rank_category = category + '_all';
+    } else {
+        rank_category = category;
+    }
+
+    if (category === 'densification') {
+        selected_string = selected_string.slice(0,6)
+    }
+
+    const [newrank, classes] = rankCombinations[rank_category][selected_string];
+    let ii = 0
     for (var i = 0; i < table.columns(1).data()[0].length; i++) {
-        table.cell(i, 1).data(newrank[i]);
+        if (!both && methodCategories[i] != category.slice(0,1)) { // ranks only apply to selected methods with correct category
+            continue;
+        }
+        table.cell(i, 1).data(newrank[ii]);
 
         $(table.cell(i, 1).node()).removeClass();
-        if (classes[i] != "") {
-            $(table.cell(i, 1).node()).addClass(classes[i]);
+        if (classes[ii] != "") {
+            $(table.cell(i, 1).node()).addClass(classes[ii]);
         }
 
         $(table.cell(i, 1).node()).addClass('has-text-right');
+        ii++;
     
     }
     // sort the table
     table.order([1, 'asc']).draw();
 
-    document.getElementById('formula').innerHTML = katex.renderToString(metricFormulas[selected_string.slice(0, 4)])
+    document.getElementById('formula').innerHTML = katex.renderToString(metricFormulas[category][selected_string.slice(0, 4)])
+}
+
+function updateRowVisibility() {
+    var compression = $('.row-toggle-c').is(':checked');
+    var densification = $('.row-toggle-d').is(':checked');
+
+    // Iterate over all rows in the DataTable
+    table.rows().every(function(rowIdx) {
+        var categoryValue = methodCategories[rowIdx]; // Access category value for this row
+        var shouldShowRow = true;
+
+        if (categoryValue.trim() === 'd' && !densification) {
+            shouldShowRow = false; // Hide rows with category 'd' if densification is unchecked
+        } else if (categoryValue.trim() === 'c' && !compression) {
+            shouldShowRow = false; // Hide rows with category 'c' if compression is unchecked
+        }
+
+        var rowNode = this.node();
+        $(rowNode).css('display', shouldShowRow ? '' : 'none');
+    });
+
+    // Adjust column sizing and redraw the table for correct layout
+    table.columns.adjust().draw();
 }
 
 const switchInput = document.getElementById('switchInput');
+const switchInputCD = document.getElementById('switchInputCD');
 let plotOption = 'size';  
+
+updateRowVisibility();
 
 window.addEventListener('load', () => {
     const plots = ["plot1", "plot2", "plot3"];
@@ -240,7 +297,7 @@ window.addEventListener('load', () => {
 
     window.addEventListener('resize', resizePlots);
 
-    document.getElementById('formula').innerHTML = katex.renderToString(metricFormulas["1111"])
+    document.getElementById('formula').innerHTML = katex.renderToString(metricFormulas["compression"]["1111"])
   
     switchInput.addEventListener('change', function() {
         if (this.checked) {
@@ -250,6 +307,42 @@ window.addEventListener('load', () => {
         }
         drawPlotsSequentially();
     });
+
+    switchInputCD.addEventListener('change', function() {
+        if (this.checked) { // densifictaion
+            $('.row-toggle-c').prop('checked', false);
+            $('.row-toggle-d').prop('checked', true);
+
+            // Show first 2 datasets (t&t and mip)
+            $('.column-toggle-datasets').eq(0).prop('checked', true);
+            $('.column-toggle-datasets').eq(1).prop('checked', true);
+
+            // hide last 2
+            $('.column-toggle-datasets').eq(2).prop('checked', false);
+            $('.column-toggle-datasets').eq(3).prop('checked', false);
+
+            // show psnr, ssim, lpips, size
+            $('.column-toggle').prop('checked', false);
+            $('.column-toggle').slice(0, 3).prop('checked', true);
+            $('.column-toggle').eq(4).prop('checked', true);
+
+        } else { // compression
+            $('.row-toggle-c').prop('checked', true);
+            $('.row-toggle-d').prop('checked', false);
+
+            //show all datasets
+            $('.column-toggle-datasets').prop('checked', true);
+
+            // show psnr, ssim, lpips, size
+            $('.column-toggle').prop('checked', false);
+            $('.column-toggle').slice(0, 4).prop('checked', true);
+        }
+        updateRowVisibility()
+        updateColumnVisibility()
+        updateRanks()
+    });
+
+    $('.row-toggle-c, .row-toggle-d').on('change', updateRowVisibility);
 
 });
 

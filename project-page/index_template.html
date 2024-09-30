@@ -124,6 +124,17 @@
     </div>
 </section>
 
+<div class="outer-container">
+    <div class="switch-container">
+        <span class="switch-text left">Compression</span>
+        <label class="switch">
+            <input type="checkbox" id="switchInputCD">
+            <span class="slider"></span>
+        </label>
+        <span class="switch-text right">Densification</span>
+    </div>
+</div>
+
 <section class="hero is-small">
     <div class="hero-body">
         <div class="tablecontainer">
@@ -151,6 +162,12 @@
         <label><input type="checkbox" class="column-toggle-datasets" data-columns="14,15,16,17,18,19" checked> Deep Blending</label>
         <label><input type="checkbox" class="column-toggle-datasets" data-columns="20,21,22,23,24,25" checked> Synthetic NeRF</label>
       </div>
+      <br>
+      <div>
+        <b style="margin-bottom: 5px; display: inline-block;">Methods:</b>
+        <label><input type="checkbox" class="row-toggle-c" checked>Compression</label>
+        <label><input type="checkbox" class="row-toggle-d">Densification</label>
+     </div>
     </div>
   </div>
 
@@ -171,7 +188,7 @@
             { targets: '_all', type: nanBottom },
             { targets: "_all", className: "has-text-right" },
             { targets: [0], orderable: false},
-            { targets: [6,7,12,13,18,19,24,25], visible: false },
+            { targets: [6,7,12,13,18,19,24,25,26], visible: false },
         ],
         "lengthChange": false, // Removes the "entries per page" dropdown
         "searching": false,    // Removes the search box
@@ -282,7 +299,12 @@
         updateColumnVisibility();
         updateRanks();
     });
-    
+
+    $('.row-toggle-c, .row-toggle-d').on('change', function() {
+        updateRowVisibility();
+        updateRanks();
+    });
+
     reportWindowSize();
     window.onresize = reportWindowSize;
 
@@ -304,9 +326,22 @@
                         <br>
 
                         The <b>ranks</b> represent the average rankings of the methods across all available and selected datasets. 
-                        The quality metrics PSNR, SSIM, and LPIPS are equally weighted with the model size. 
-                        Thus, each quality metric contributes one-sixth to the overall ranking, 
-                        while the model size accounts for the remaining half, assuming all metrics are selected.
+                        The slider above the table allows you to toggle between ranking methods (compression and densification) as well 
+                        as pre-selected shown attributes, datasets, and methods.
+                        Selections can be further refined using the checkboxes below the table.
+
+                        <br>
+                        <br>
+
+                        While all selected datasets contribute to the compression rank, the densification rank is limited only 
+                        to the Tanks and Temples and MipNeRF-360 datasets.
+                        The quality metrics PSNR, SSIM, and LPIPS are equally weighted with the model size for the compression rank, 
+                        and with the number of Gaussians for the densification rank.
+
+                        <br>
+                        <br>
+                        
+                        When deviating from the pre-selected attributes, the ranking calculation dynamically adjusts to the remaining metrics.
                         The formula for calculating the dataset ranks based on the current selection is provided below.
 
                         <br>
@@ -353,6 +388,8 @@
     var groupColors = {{ groupcolors | safe }};
     var rankCombinations = {{ rank_combinations | safe }};
     var metricFormulas = {{ metric_formulas | safe }};
+    var methodCategories = {{ method_categories | safe }};
+    var densificationMethods = {{ densification_methods | safe }}
 
 </script>
 

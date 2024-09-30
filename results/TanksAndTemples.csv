@@ -27,3 +27,7 @@ wang2024end,,23.28,0.831,0.202,8017022,597209.0,https://raw.githubusercontent.co
 wang2024end,Baseline,23.34,0.835,0.195,12022711,907503.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wu2024implicit,-Low,23.70,0.836,0.227,8849981,,https://www.arxiv.org/src/2408.10041,
 wu2024implicit,-High,24.05,0.849,0.210,13107200,,https://www.arxiv.org/src/2408.10041,
+kim2024CVPR,Baseline,23.18,0.830,0.198,44040192,370000,https://openaccess.thecvf.com/content/CVPR2024W/3DMV/papers/Kim_Color-cued_Efficient_Densification_Method_for_3D_Gaussian_Splatting_CVPRW_2024_paper.pdf,
+fang2024minisplatting,Baseline,23.18,0.835,0.202,,200000,https://arxiv.org/pdf/2403.14166,
+fang2024minisplatting,-D,23.23,0.853,0.140,,4280000,https://arxiv.org/pdf/2403.14166,
+ren2024octreegs,Baseline,24.52,0.866,0.153,,481000,https://arxiv.org/pdf/2403.17898,
