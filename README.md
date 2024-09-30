@@ -107,7 +107,7 @@ If you use our survey in your research, please cite our work. You can use the fo
 ```bibtex
 @misc{3DGSzip2024,
     title={3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods}, 
-    author={Milena T. Bagdasarian and Paul Knoll and Florian Barthel and Anna Hilsmann and 
+    author={Milena T. Bagdasarian and Paul Knoll and Yi-Hsin Li and Florian Barthel and Anna Hilsmann and 
             Peter Eisert and Wieland Morgenstern},
     year={2024},
     eprint={2407.09510},

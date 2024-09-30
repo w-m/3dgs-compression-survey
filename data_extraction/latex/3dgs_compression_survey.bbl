@@ -41,11 +41,6 @@ P.~Hedman, J.~Philip, T.~Price, J.-M. Frahm, G.~Drettakis, and G.~Brostow.
 J.~Hu, R.~Li, V.~Ye, and A.~Kanazawa.
 \newblock gsplat compression, 2024.
 
-\bibitem{kerbl3Dgaussians}
-B.~Kerbl, G.~Kopanas, T.~Leimk{\"u}hler, and G.~Drettakis.
-\newblock 3d gaussian splatting for real-time radiance field rendering.
-\newblock {\em ACM Transactions on Graphics}, 42(4), July 2023.
-
 \bibitem{TanksAndTemples}
 A.~Knapitsch, J.~Park, Q.-Y. Zhou, and V.~Koltun.
 \newblock Tanks and temples: Benchmarking large-scale scene reconstruction.

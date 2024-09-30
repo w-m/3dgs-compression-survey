@@ -8,6 +8,7 @@ import io
 from decimal import Decimal
 import shutil
 import re
+import itertools
 
 methodsdir = "../../methods"
 imagedir = "../../project-page/static/images/"
@@ -37,7 +38,7 @@ with open("tex_templates/contributions.tex", "r") as file:
 def get_shortnames():
     # get shortnames from bibtex
     shortnames = {}
-    with open("../../methods.bib") as bibtex_file:
+    with open("../../methods_compression.bib") as bibtex_file:
         bib_database = bibtexparser.load(bibtex_file)
         for entry in bib_database.entries:
             if "shortname" in entry:
@@ -52,6 +53,34 @@ def get_shortnames():
 def generate_tex_table():
     dfs = []
     shortnames = get_shortnames()
+
+    groupcolors = {}
+    colors = [
+        "#1f77b4",
+        "#aec7e8",
+        "#ff7f0e",
+        "#ffbb78",
+        "#2ca02c",
+        "#98df8a",
+        "#d62728",
+        "#ff9896",
+        "#9467bd",
+        "#c5b0d5",
+        "#8c564b",
+        "#c49c94",
+        "#e377c2",
+        "#f7b6d2",
+        "#7f7f7f",
+        "#c7c7c7",
+        "#bcbd22",
+        "#dbdb8d",
+        "#17becf",
+        "#9edae5",
+    ]
+
+    for name in shortnames.values():
+        if name not in ["F-3DGS", "MesonGS"]:
+            groupcolors[name] = colors.pop(0)
 
     for dataset in dataset_order:
         # read csvs
@@ -89,9 +118,14 @@ def generate_tex_table():
         df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
 
         # divide by 1000 and add "k" to the number, empty string if nan
-        df["#Gauss"] = df["#Gaussians"].apply(
-            lambda x: str(int(x)) if not pd.isna(x) else np.nan
+        df["k Gauss"] = df["#Gaussians"].apply(
+            lambda x: f"{int(x/1000)}" if not pd.isna(x) else np.nan
         )
+        # add , if more than 3 digits
+        df["k Gauss"] = df["k Gauss"].apply(
+            lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan
+        )
+
         # calculate bits per gaussian
         df["b/G"] = (df["Size [Bytes]"] * 8 / df["#Gaussians"]).round()
         df["b/G"] = df["b/G"].apply(lambda x: str(int(x)) if not pd.isna(x) else np.nan)
@@ -107,8 +141,6 @@ def generate_tex_table():
                 "Shortname",
                 "#Gaussians",
                 "Size [Bytes]",
-                "#Gauss",
-                "b/G",
             ],
             inplace=True,
         )
@@ -125,25 +157,125 @@ def generate_tex_table():
     # add new ranking col right after the method name
     multi_col_df.insert(1, "Rank", 0)
 
-    dataset_count = multi_col_df["Rank"].copy()
-    for dataset in dataset_order:
-        dataset_rank = multi_col_df["Rank"].copy() * 0
-        for metric in ["PSNR", "SSIM", "LPIPS", "Size [MB]"]:
-            if metric == "Size [MB]":
-                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / 2
-            elif metric == "LPIPS":
-                dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / 6
-            else:
-                dataset_rank += (
-                    multi_col_df[(dataset, metric)].rank(ascending=False) / 6
-                )
+    def get_metric_formula(mt_comb):
+        formula_parts = []
+        quality_metrics_weight = (
+            (len(mt_comb) - 1) * 2 if "Size [MB]" in mt_comb else len(mt_comb)
+        )
 
-        multi_col_df["Rank"] += dataset_rank.fillna(0)
-        dataset_count += dataset_rank.notna()
+        if len(mt_comb) > 1:
+            for metric in mt_comb:
+                if metric == "Size [MB]":
+                    formula_parts.append(
+                        f"\\frac{{\\text{{rank}}( \\textbf{{{metric}}} )}}{{2}}"
+                    )
+                else:
+                    formula_parts.append(
+                        f"\\frac{{\\text{{rank}}( \\textbf{{{metric}}} )}}{{{quality_metrics_weight}}}"
+                    )
+        else:
+            formula_parts.append(f"\\text{{rank}}(\\text{{{mt_comb[0]}}})")
 
-    multi_col_df["Rank"] = (multi_col_df["Rank"] / dataset_count).apply(
-        lambda x: round(x, 1)
-    )
+        formula = "\\textbf{{Dataset rank}} = " + " + ".join(formula_parts)
+
+        return formula
+
+    def get_ranks(
+        multi_col_df,
+        metrics=["PSNR", "SSIM", "LPIPS", "Size [MB]"],
+        datasets=dataset_order,
+    ):
+        dataset_count = multi_col_df["Rank"].copy()
+        total_rank = multi_col_df["Rank"].copy()
+        for dataset in datasets:
+            dataset_rank = multi_col_df["Rank"].copy() * 0
+            for metric in metrics:
+                # calc weights for metrics
+                if "Size [MB]" in metrics:
+                    if len(metrics) == 1:
+                        size_weight = 1
+                        quality_metrics_weight = None
+                    else:
+                        size_weight = 2
+                        quality_metrics_weight = (len(metrics) - 1) * 2
+                else:
+                    size_weight = None
+                    quality_metrics_weight = len(metrics)
+
+                if metric == "Size [MB]":
+                    dataset_rank += (
+                        multi_col_df[(dataset, metric)].rank(ascending=True)
+                        / size_weight
+                    )
+                elif metric == "LPIPS":
+                    dataset_rank += (
+                        multi_col_df[(dataset, metric)].rank(ascending=True)
+                        / quality_metrics_weight
+                    )
+                else:
+                    dataset_rank += (
+                        multi_col_df[(dataset, metric)].rank(ascending=False)
+                        / quality_metrics_weight
+                    )
+
+            total_rank += dataset_rank.fillna(0)
+            dataset_count += dataset_rank.notna()
+
+        total_rank = (total_rank / dataset_count).apply(lambda x: round(x, 1))
+
+        return total_rank
+
+    # calc ranks for any combination of metrics and datasets
+    datasets = dataset_order
+    metrics = ["PSNR", "SSIM", "LPIPS", "Size [MB]"]
+    rank_combinations = {}
+    metric_formulas = {}
+    for r_datasets in range(1, 5):  # Sizes 1 to 4 for dataset combinations
+        for r_metrics in range(1, 5):  # Sizes 1 to 4 for metric combinations
+            for ds_comb in itertools.combinations(datasets, r_datasets):
+                for mt_comb in itertools.combinations(metrics, r_metrics):
+                    result = get_ranks(multi_col_df, mt_comb, ds_comb)
+                    # get bitwise combination vector for later identification
+                    combination_vector = [
+                        1 if metric in mt_comb else 0 for metric in metrics
+                    ] + [1 if dataset in ds_comb else 0 for dataset in datasets]
+                    combination_str = "".join(map(str, combination_vector))
+
+                    # add top 3 classes to the result
+                    classes = ["first", "second", "third"]
+                    result_classes = result.copy().astype(str)
+                    result_classes[:] = ""
+
+                    top_3 = pd.Series(result.unique()).nsmallest(3)
+                    for i, val in enumerate(top_3):
+                        matching_indices = result[result == val].index
+                        for index in matching_indices:
+                            result_classes[index] = classes[i]
+
+                    result = result.astype(str).replace("nan", "")
+                    rank_combinations[combination_str] = (
+                        result.to_list(),
+                        result_classes.to_list(),
+                    )
+
+                    metric_formulas[combination_str[:4]] = get_metric_formula(mt_comb)
+
+    multi_col_df["Rank"] = get_ranks(multi_col_df)
+
+    ranks = {}
+    i = 0
+    # ranks for order of plot legend and summaries
+    for index, row in multi_col_df.sort_values("Rank").iterrows():
+        for shortname in shortnames.values():
+            if shortname in row["Method"][0] and shortname not in ranks:
+                ranks[shortname] = i
+                i += 1
+                break
+    # sort group colors by rank for correct roder in legend
+    groupcolors = {
+        k: v for k, v in sorted(groupcolors.items(), key=lambda item: ranks[item[0]])
+    }
+
     # sort by rank
     multi_col_df = multi_col_df.sort_values(by="Rank")
 
@@ -157,7 +289,10 @@ def generate_tex_table():
                 continue
 
             if (
-                any(keyword in col[1].lower() for keyword in ["size", "lpips"])
+                any(
+                    keyword in col[1].lower()
+                    for keyword in ["size", "lpips", "gauss", "b/g"]
+                )
                 or "rank" in col[0].lower()
             ):
                 top_3 = pd.Series(float_col.unique()).nsmallest(3)
@@ -178,7 +313,7 @@ def generate_tex_table():
     multi_col_df.to_latex(buf=buffer, na_rep="", index=False, float_format="%.3g")
 
     lines = buffer.getvalue().strip().split("\n")
-    lines[0] = "\\begin{tabular}{ll|llll|llll|llll|llll}"
+    lines[0] = "\\begin{tabular}{ll|llllll|llllll|llllll|llllll}"
     lines[2] = (
         lines[2]
         .replace("{r}", "{c|}")
@@ -191,6 +326,7 @@ def generate_tex_table():
         .replace("SSIM", "SSIM$\\uparrow$")
         .replace("LPIPS", "LPIPS$\\downarrow$")
         .replace("Size [MB]", "\\makecell{Size \\\\ MB$\\downarrow$}")
+        .replace("#Gauss", "$\\#$Gauss")
     )
     return "\n".join(lines)
 
