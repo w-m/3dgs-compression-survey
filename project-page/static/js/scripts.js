@@ -147,7 +147,11 @@ function drawLegend() {
         checkbox.addEventListener('change', updatePlotVisibility);
 
         var colorBox = document.createElement('div');
-        colorBox.className = 'legend-color-box';
+        if (group in densificationMethods){
+            colorBox.className = 'legend-color-box densification';
+        }else{
+            colorBox.className = 'legend-color-box';
+        }
         colorBox.style.backgroundColor = groupColors[group];
 
         var labelText = document.createElement('a');

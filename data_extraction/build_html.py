@@ -110,7 +110,20 @@ def combine_tables_to_html():
         df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
         df["NewMethod"] = df["Shortname"] + df["Submethod"]
         # make Method column a link to the method summary + add color box
-        df["Method"] = '<a class="method-name" href="#' + df["Method"] + '"> <span class="legend-color-box-container"><span class="legend-color-box" style=background-color:'+df["Shortname"].map(groupcolors)+'></span><span class="legend-color-box-methods"></span>' + df["NewMethod"] + '</span></a>'
+        df["Method"] = (
+            '<a class="method-name" href="#' 
+            + df["Method"] 
+            + '"> <span class="legend-color-box-container">'
+            + '<span class="' 
+            + df["Method"].apply(lambda x: "legend-color-box densification" if x in shortnames_d else "legend-color-box")
+            + '" style="background-color:' 
+            + df["Shortname"].map(groupcolors) 
+            + '"></span>'
+            + '<span class="legend-color-box-methods"></span>' 
+            + df["NewMethod"] 
+            + '</span></a>'
+        )
+        
 
         #change Size [Bytes] to Size [MB] and round
         df.insert(5, "Size [MB]", df["Size [Bytes]"] / 1024 / 1024)
@@ -407,7 +420,9 @@ def load_methods_summaries(ranks, groupcolors):
                         color = groupcolors[shortnames[file.split(".")[0]]]
                     except KeyError:
                         color = "#ffffff"
-                    title = f'<a href="{links[file.split(".")[0]]}" target="_blank" class="title-link" style="--title-box-color: {color}">{title}</a>'
+                    
+                    class_str =  "title-link" if category == "c" else "title-link densification" #for different symbols
+                    title = f'<a href="{links[file.split(".")[0]]}" target="_blank" class="{class_str}" style="--title-box-color: {color}">{title}</a>'
                 summary = file_content.split('\n', 1)[1].strip()
 
                 #insert color if applicable

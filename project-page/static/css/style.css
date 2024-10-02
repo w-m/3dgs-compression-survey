@@ -1,25 +1,5 @@
 .katex { line-height: 2 !important; }
 
-.text-item {
-  display: inline-block;
-  font-size: 1em;
-  line-height: 1;
-  vertical-align: baseline;
-  position: relative;
-  margin-right: 0.25em;
-}
-
-.text-color-box {
-  display: inline-block;
-  width: 0.8em;
-  height: 0.8em;
-  margin-right: 0.2em;
-  border-radius: 0.2em;
-  vertical-align: middle;
-  position: relative;
-  top: -0.1em;
-}
-
 .title-link {
   position: relative;
 }
@@ -34,6 +14,10 @@
   border-radius: 8px;
   background-color: var(--title-box-color, #000000);
   margin-right: 10px; 
+}
+
+.title-link.densification::before {
+  border-radius: 100px; 
 }
 
 .rounded-bullet {
@@ -179,6 +163,10 @@ input[type="checkbox"] {
   margin-right: 5px;
   border-radius: 4px;
   flex-shrink: 0; 
+}
+
+.legend-color-box.densification {
+  border-radius: 100px;
 }
 
 .legend-color-box-container {
