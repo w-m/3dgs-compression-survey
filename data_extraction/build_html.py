@@ -441,11 +441,22 @@ def load_methods_summaries(ranks, groupcolors):
                         width, height = img.size
 
                 author = authors[file.split(".")[0]] 
-                #replace all but the last " and " with ", "
+
+                parts = author.split(' and ')
                 if not "," in author:
-                    parts = author.split(' and ')
-                    # Join all parts except the last one with ", " and then add the last part prefixed with " and "
-                    author = ', '.join(parts[:-1]) + ' and ' + parts[-1]
+                    formatted_authors = parts
+                else:
+                    formatted_authors = []
+                    for part in parts:
+                        # Split by comma and reverse the order
+                        last, first = [p.strip() for p in part.split(',', 1)]
+                        formatted_authors.append(f"{first} {last}")
+
+                if len(formatted_authors) > 2:
+                    author = ', '.join(formatted_authors[:-1]) + ' and ' + formatted_authors[-1]
+                else:
+                    author = ' and '.join(formatted_authors)
+
 
                 summaries.append({
                     'name': file.split('.')[0],
