@@ -46,11 +46,6 @@ hu2024gsplat:
   is_csv: True
 
 wu2024implicit:
-  url: "https://www.arxiv.org/src/2408.10041"
-  is_csv: False
-  table_names: 
-    - tab:exp1
-    - tab:exp2
-  table_rotated: True
-  filename: "sec/3_method.tex"
+  url: "https://github.com/wuminye/ImplicitGS/tree/main/results"
+  is_csv: True
 
