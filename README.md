@@ -78,7 +78,7 @@ You can view an example [here](https://github.com/fraunhoferhhi/Self-Organizing-
 Authors are required to adhere to the testing conventions established in the original [3DGS project](https://github.com/graphdeco-inria/gaussian-splatting). Specifically, this includes:
 
 - Using all 9 scenes from the MipNeRF360 dataset, including the [extra scenes](https://storage.googleapis.com/gresearch/refraw360/360_extra_scenes.zip) "flowers" and "treehill".
-- Evaluating images at full resolution up to a maximum side length of 1600px. Larger test images should be downscaled so that the longest dimension equals 1600px (applicable only to MipNeRF360).
+- Evaluating images at full resolution up to a maximum side length of 1600px. Larger test images should be downscaled so that the longest dimension equals 1600px (applicable only to MipNeRF360). Make sure the resizing aligns with 3DGS, which applies the standard PIL ```.resize()``` method with bicubic resampling.  
 - For the 3 COLMAP datasets (Tanks and Temples, Deep Blending, MipNeRF360), use every 8th image for testing. Concretly, the test images are those where ```idx % 8 == 0```.
 - For the Blender dataset (SyntheticNeRF), follow the predefined train/eval split.
 
