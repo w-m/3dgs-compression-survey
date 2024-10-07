@@ -80,48 +80,6 @@ input[type="checkbox"] {
   height: 14px;
 }
 
-.tab-buttons {
-  display: flex;
-  justify-content: space-around;
-  padding: 5px;
-  background-color: #f1f1f1;
-  border-bottom: 1px solid #ddd;
-  border-radius: 8px 8px 0 0;
-}
-
-.tab-buttons button {
-  flex: 1;
-  padding: 5px;
-  cursor: pointer;
-  border: none;
-  background-color: #f1f1f1;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.tab-buttons button.active {
-  background-color: #ccc;
-  border-radius: 8px 8px 0 0;
-}
-
-.tab-buttons button:hover {
-  background-color: #e1e1e1;
-  border-radius: 8px; 
-}
-
-.tab {
-  display: none;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 35px;
-  left: 0;
-}
-
-.tab-active {
-  display: block;
-}
-
 .legend label {
   display: flex;
   align-items: center;
@@ -189,6 +147,55 @@ input[type="checkbox"] {
   text-align: left; 
 }
 
+.tab-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 3px 5px;
+  background-color: #f1f1f1;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+}
+
+.tab-buttons button {
+  flex: 1;
+  padding: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #f1f1f1;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.tab-buttons button.active {
+  background-color: #ccc;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -1px;
+}
+
+.tab-buttons button:hover {
+  background-color: #e1e1e1;
+  border-radius: 8px; 
+}
+
+.tab {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 33px;
+  left: 0;
+}
+
+.tab-active {
+  display: block;
+}
+
 .plot-container {
   flex: 1 1 calc(25% - 10px);
   box-sizing: border-box;
@@ -201,7 +208,18 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); 
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1.1;
+  overflow: hidden; 
+}
+
+.plot-content {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% - 35px);
+  padding: 0;
+  margin: 0;
+  display: block;
+  object-fit: contain;
 }
 
 .interactive-plots-container {
@@ -216,11 +234,6 @@ input[type="checkbox"] {
   max-width: 1900px; 
   margin: 0 auto;  
   padding: 0 20px;  
-}
-
-.plot-content {
-  width: 100%;
-  height: 100%;
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
