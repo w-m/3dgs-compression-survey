@@ -437,18 +437,10 @@ def load_methods_summaries(ranks, groupcolors):
                     summary = summary.replace(match.group(0), colorbox_text)
                 
                 #get image path, webp, png or jpg
-                if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_medium.webp"):
-                    image = f"static/images/{file.split('.')[0]}_medium.webp"
-                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}_small.webp"):
-                    image = f"static/images/{file.split('.')[0]}_small.webp"
-                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.webp"):
-                    image = f"static/images/{file.split('.')[0]}.webp"
-                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.png"):
-                    image = f"static/images/{file.split('.')[0]}.png"
-                elif os.path.exists(f"project-page/static/images/{file.split('.')[0]}.jpg"):
-                    image = f"static/images/{file.split('.')[0]}.jpg"
+                if os.path.exists(f"project-page/static/images/{file.split('.')[0]}_h250px.webp"):
+                    image = f"static/images/{file.split('.')[0]}_h250px.webp"
                 else:
-                    image = ""
+                    raise Exception(f"images for {file.split('.')[0]} missing, please include an image and run preprocess_images.py first")
 
                 #get width and height of image
                 if image != "":

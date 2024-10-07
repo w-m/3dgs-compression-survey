@@ -432,11 +432,9 @@
                     {{ paper.summary }}
                 </p>
                 <div style="display: flex; justify-content: center; align-items: center">
-                    {% if paper.imheight <= 250 %}
-                    <img src="{{ paper.image }}" alt="" width="{{paper.imwidth}}" height="{{paper.imheight}}" loading="lazy">
-                    {% else %}
-                    <img src="{{ paper.image }}" alt="" style="max-height: 250px;" loading="lazy">
-                    {% endif %}
+                    <img src="{{ paper.image }}" 
+                    srcset="{{ paper.image }} 1x, {{ paper.image | replace('_h250px.webp', '_h500px.webp') }} 2x"
+                    alt="" width="{{paper.imwidth}}" height="250" loading="lazy">
                 </div>
             </div>
         </div>
