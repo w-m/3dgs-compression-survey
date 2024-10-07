@@ -212,6 +212,7 @@ def read_csvs(sources_file):
                             'Size [Bytes]': 'Int64',
                         })
                         df['Submethod'] = df['Submethod'].apply(lambda x: '' if isinstance(x, str) and x.strip() == '' else x) # make empty submethod names empty
+                        df['Submethod'] = df['Submethod'].apply(lambda x: ' ' + x if isinstance(x, str) and len(x)>0 and x != "Baseline" and x[0].isalpha() else x) #add space if starts with alphabetical character
                         scene_dfs.append(df)
 
                     else:
