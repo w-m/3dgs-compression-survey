@@ -191,12 +191,13 @@ def combine_tables_to_html():
                     size_weight = None
                     quality_metrics_weight = len(metrics)
 
+                rmethod = "min"
                 if metric == "Size [MB]" or metric == "#Gaussians":
-                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / size_weight
+                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True,method=rmethod) / size_weight
                 elif metric == "LPIPS":
-                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True) / quality_metrics_weight
+                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=True,method=rmethod) / quality_metrics_weight
                 else:
-                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=False) / quality_metrics_weight
+                    dataset_rank += multi_col_df[(dataset, metric)].rank(ascending=False,method=rmethod) / quality_metrics_weight
             
             total_rank += dataset_rank.fillna(0)
             dataset_count += dataset_rank.notna()
