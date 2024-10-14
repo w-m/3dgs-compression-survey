@@ -26,3 +26,5 @@ wang2024end,,29.59,0.902,0.257,10959800,887813.0,https://raw.githubusercontent.c
 wang2024end,Baseline,29.63,0.902,0.252,17998224,1474690.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wu2024implicit, low,30.63,0.904,0.293,6647242,1536100.0,https://raw.githubusercontent.com/wuminye/ImplicitGS/main/results,
 wu2024implicit, high,32.33,0.924,0.253,8113732,1536100.0,https://raw.githubusercontent.com/wuminye/ImplicitGS/main/results,
+xie2024mesongs, c3,29.48,0.903,0.252,29011600,2022966.0,https://raw.githubusercontent.com/ShuzhaoXie/MesonGS/main/results,
+xie2024mesongs, c1,29.50,0.903,0.251,31071609,2166331.0,https://raw.githubusercontent.com/ShuzhaoXie/MesonGS/main/results,

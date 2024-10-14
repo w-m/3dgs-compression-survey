@@ -119,6 +119,7 @@ If you use our survey in your research, please cite our work. You can use the fo
 
 ## Updates
 
+- 2024-10-14: Add MesonGS to compression methods
 - 2024-09-30: Add densification methods to survey
 - 2024-09-17: Updated Morgenstern et al. results and reverted HAC results because of [confusion about testing conventions](https://github.com/YihangChen-ee/HAC/issues/14)
 - 2024-09-05: Update Scaffold-GS MipNeRF-360 results to include all 9 scenes

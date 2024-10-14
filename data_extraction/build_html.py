@@ -75,12 +75,12 @@ def combine_tables_to_html():
 
     method_categories_dict = {}
     for name, shortname in shortnames.items():
-        if shortname not in ["F-3DGS", "MesonGS"]:
+        if shortname not in ["F-3DGS"]:
             groupcolors[shortname] = colors.pop(0)
         method_categories_dict[name] = "c"
 
     for name, shortname in shortnames_d.items():
-        if shortname not in ["F-3DGS", "MesonGS"]:
+        if shortname not in ["F-3DGS"]:
             groupcolors[shortname] = colors_d.pop(0)
         method_categories_dict[name] = "d"
 

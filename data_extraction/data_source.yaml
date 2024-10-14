@@ -49,3 +49,6 @@ wu2024implicit:
   url: "https://github.com/wuminye/ImplicitGS/tree/main/results"
   is_csv: True
 
+xie2024mesongs:
+  url: "https://github.com/ShuzhaoXie/MesonGS/tree/main/results"
+  is_csv: True
