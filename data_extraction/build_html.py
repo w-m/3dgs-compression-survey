@@ -624,7 +624,7 @@ def get_plot_data(ranks):
 
     checkbox_states = {}
     for method in shortnames.values():
-        if method in ["Scaffold-GS"]:
+        if method in ["Scaffold-GS", "AtomGS"]:
             checkbox_states[method] = False
         else:
             checkbox_states[method] = True

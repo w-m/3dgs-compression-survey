@@ -34,3 +34,4 @@ xie2024mesongs, c3,26.99,0.797,0.246,25929623,1870378.0,https://raw.githubuserco
 xie2024mesongs, c1,26.99,0.796,0.247,28484305,2082024.0,https://raw.githubusercontent.com/ShuzhaoXie/MesonGS/main/results,
 taming20243dgs,Baseline,27.29,0.799,0.253,,630000,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
 taming20243dgs, (Big),27.79,0.822,0.205,,3310000,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
+liu2024atomgs,Baseline,27.38,0.816,0.211,778950993,3140929,https://arxiv.org/pdf/2405.12369,(#Gaussians and Size in Email to Yi-Hsin)
