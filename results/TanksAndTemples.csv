@@ -33,3 +33,5 @@ wu2024implicit, low,23.70,0.836,0.227,8852922,1278063.0,https://raw.githubuserco
 wu2024implicit, high,24.05,0.849,0.211,13143920,1278063.0,https://raw.githubusercontent.com/wuminye/ImplicitGS/main/results,
 xie2024mesongs, c3,23.29,0.835,0.197,17357031,1162500.0,https://raw.githubusercontent.com/ShuzhaoXie/MesonGS/main/results,
 xie2024mesongs, c1,23.31,0.835,0.196,18465486,1239197.0,https://raw.githubusercontent.com/ShuzhaoXie/MesonGS/main/results,
+taming20243dgs,Baseline,23.89,0.835,0.207,,290000,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
+taming20243dgs, (Big),24.04,0.851,0.170,,1840000,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,

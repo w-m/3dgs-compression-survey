@@ -409,6 +409,8 @@ def get_published_at(methods_files=["methods_compression.bib","methods_densifica
                         pub = "I3D"
                     elif "ACM Transactions on Graphics" in pub:
                         pub = "TOG"
+                    elif "SIGGRAPH" in pub:
+                        pub = "SIGGRAPH"
                     
                     pub = pub + " '" + entry["year"][-2:]
 
