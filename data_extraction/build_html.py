@@ -284,16 +284,19 @@ def combine_tables_to_html():
                     break
         return ranks
     
+    latex_dfs = {}
     ranks = {}
     #first get ordered densification ranks for summary order and plot legend order
     mask = multi_col_df['category'] == 'd'
     multi_col_df['Rank'] = pd.Series(rank_combinations["densification"]["111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
     ranks["d"] = get_ordered_ranks()
+    latex_dfs["densification"] = multi_col_df.copy()
     
     #then same for compression and leave ranks like this as this is the default option on the website
     mask = multi_col_df['category'] == 'c'
     multi_col_df['Rank'] = pd.Series(rank_combinations["compression"]["11111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
     ranks["c"] = get_ordered_ranks()
+    latex_dfs["compression"] = multi_col_df.copy()
 
     #sort group colors by rank for correct order in legend
     groupcolors_d = {k: v for k, v in sorted(groupcolors.items(), key=lambda item: ranks["d"].get(item[0], float('inf'))) if k in ranks["d"]}
@@ -329,6 +332,36 @@ def combine_tables_to_html():
 
     multi_col_df = add_top_3_classes(multi_col_df_copy, multi_col_df.astype(str)).replace(['nan', 'NaN', "None"], '')
 
+    def extract_method_name(html_string):
+        #capture the text between the last </span> and </a>
+        match = re.search(r'</span>([^<]+)</span>\s*</a>', html_string, re.IGNORECASE)
+        if match:
+            return match.group(1).strip()
+        return None
+
+    #parse dfs for latex
+    for methods in ["compression", "densification"]:
+        df = latex_dfs[methods]
+        # Remove rows where rank is None
+        latex_dfs[methods] = latex_dfs[methods][latex_dfs[methods]['Rank'].notna()]
+        # Remove more rows
+        latex_dfs[methods] = latex_dfs[methods].drop(columns=['category'])
+        latex_dfs[methods] = latex_dfs[methods].drop(columns=[col for col in latex_dfs[methods].columns if col[1] == 'b/G'])
+        if methods == "compression":
+            latex_dfs[methods] = latex_dfs[methods].drop(columns=[col for col in latex_dfs[methods].columns if col[1] == '#Gaussians'])
+        else:
+            latex_dfs[methods] = latex_dfs[methods].drop(columns=[col for col in latex_dfs[methods].columns if col[1] == 'Size [MB]'])
+            latex_dfs[methods] = latex_dfs[methods].drop(columns=[col for col in latex_dfs[methods].columns if col[0] == 'SyntheticNeRF'])
+        
+        # Sort by the "Rank" column
+        latex_dfs[methods] = latex_dfs[methods].sort_values(by=('Rank', ''))
+        # Reset the index
+        latex_dfs[methods] = latex_dfs[methods].reset_index(drop=True)
+        # Add top 3 classes to the dataframe
+        latex_dfs[methods] = add_top_3_classes(latex_dfs[methods].copy(), latex_dfs[methods].astype(str)).replace(['nan', 'NaN', "None"], '')
+        #recover method name
+        latex_dfs[methods]['Method'] = latex_dfs[methods]['Method'].apply(extract_method_name)
+        
     new_columns = []
     for col in multi_col_df.columns: # rename #Gaussians
         if col[1] == '#Gaussians':
@@ -352,7 +385,7 @@ def combine_tables_to_html():
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
 
-    return cleaned_html_string, ranks, groupcolors, rank_combinations, metric_formulas, method_categories
+    return cleaned_html_string, ranks, groupcolors, rank_combinations, metric_formulas, method_categories, latex_dfs
 
 def get_published_at(methods_files=["methods_compression.bib","methods_densification.bib"]):
     published_at = {}
@@ -598,7 +631,7 @@ def get_plot_data(ranks):
     return data, group_links, checkbox_states, densification_methods
 
 if __name__ == "__main__":
-    results_table, ranks, groupcolors, rank_combinations, metric_formulas, method_categories = combine_tables_to_html()
+    results_table, ranks, groupcolors, rank_combinations, metric_formulas, method_categories, _ = combine_tables_to_html()
     summaries = load_methods_summaries(ranks, groupcolors)
     plot_data, group_links, checkbox_states, densification_methods = get_plot_data(ranks)
 
