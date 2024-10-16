@@ -324,12 +324,13 @@ def combine_tables_to_html():
         return actual_df
     
     multi_col_df_copy = multi_col_df.copy()
-
-    for col in multi_col_df.columns: #Convert num gaussians col after ranking to enable string representation with ","
+    def numGaussians_to_k_Gauss(df):
+        for col in df.columns: #Convert num gaussians col after ranking to enable string representation with ","
         if col[1] == "#Gaussians":
-            multi_col_df[col] /= 1000     
-            multi_col_df[col] = multi_col_df[col].apply(lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan)
+                df[col] /= 1000     
+                df[col] = df[col].apply(lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan)
 
+    numGaussians_to_k_Gauss(multi_col_df)
     multi_col_df = add_top_3_classes(multi_col_df_copy, multi_col_df.astype(str)).replace(['nan', 'NaN', "None"], '')
 
     def extract_method_name(html_string):
@@ -352,13 +353,16 @@ def combine_tables_to_html():
         else:
             latex_dfs[methods] = latex_dfs[methods].drop(columns=[col for col in latex_dfs[methods].columns if col[1] == 'Size [MB]'])
             latex_dfs[methods] = latex_dfs[methods].drop(columns=[col for col in latex_dfs[methods].columns if col[0] == 'SyntheticNeRF'])
-        
         # Sort by the "Rank" column
         latex_dfs[methods] = latex_dfs[methods].sort_values(by=('Rank', ''))
         # Reset the index
         latex_dfs[methods] = latex_dfs[methods].reset_index(drop=True)
+        df_copy = latex_dfs[methods].copy()
+        numGaussians_to_k_Gauss(latex_dfs[methods])
         # Add top 3 classes to the dataframe
-        latex_dfs[methods] = add_top_3_classes(latex_dfs[methods].copy(), latex_dfs[methods].astype(str)).replace(['nan', 'NaN', "None"], '')
+        latex_dfs[methods] = add_top_3_classes(df_copy, latex_dfs[methods].astype(str)).replace(['nan', 'NaN', "None"], '')
+        # Rename all columns where the second entry in the column's name is '#Gaussians'
+        latex_dfs[methods].columns = pd.MultiIndex.from_tuples([(col[0], 'k Gauss') if col[1] == '#Gaussians' else col for col in latex_dfs[methods].columns])
         #recover method name
         latex_dfs[methods]['Method'] = latex_dfs[methods]['Method'].apply(extract_method_name)
         
