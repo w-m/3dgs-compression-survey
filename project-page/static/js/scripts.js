@@ -168,6 +168,7 @@ function drawLegend() {
 function updatePlotVisibility(event) {
     var group = event.target.dataset.group;
     var visible = event.target.checked;
+    checkboxStates[group] = !checkboxStates[group]
 
     document.querySelectorAll('.plot-content').forEach(plotContent => {
         plotContent.data.forEach((trace, index) => {

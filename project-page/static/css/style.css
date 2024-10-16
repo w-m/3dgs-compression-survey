@@ -304,8 +304,7 @@ input[type="checkbox"] {
     transform-origin: top left;
     margin: 0;
     padding: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
     position: absolute;
     top: 0;
     left: 0;
