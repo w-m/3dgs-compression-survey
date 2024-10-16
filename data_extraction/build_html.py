@@ -326,7 +326,7 @@ def combine_tables_to_html():
     multi_col_df_copy = multi_col_df.copy()
     def numGaussians_to_k_Gauss(df):
         for col in df.columns: #Convert num gaussians col after ranking to enable string representation with ","
-        if col[1] == "#Gaussians":
+            if col[1] == "#Gaussians": #
                 df[col] /= 1000     
                 df[col] = df[col].apply(lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan)
 
