@@ -41,4 +41,9 @@ for filename in os.listdir(folder_path):
         # Save the 2x version as WebP with height in the filename
         img_2x.save(os.path.join(folder_path, f"{base}_h{high_res_height}px.webp"), format="webp", quality=80)
         print(f'Resized and saved {base}_{high_res_height}px@2x.webp to {new_width_2x}x{high_res_height}')
+
+        # Save the original image as a PDF
+        pdf_path = os.path.join(folder_path, f"{base}.pdf")
+        img.save(pdf_path, "PDF", resolution=100.0)
+        print(f'Saved {base}.pdf at full resolution')
 print("Processing complete!")
