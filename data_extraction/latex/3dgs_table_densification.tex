@@ -1,0 +1,30 @@
+\rotatebox{90}{
+    \begin{minipage}{\textheight} % Adjust the minipage width to fit the content
+        \section*{Survey Table}
+        % Have a look into ../tex_templates/preamble.tex for packages and color definitions 
+
+        % color every second line in grey
+        \rowcolors{2}{gray!25}{white}
+
+        \footnotesize
+        \setlength{\tabcolsep}{3pt}
+        
+        % center the table
+        \begin{adjustbox}{center}
+           \begin{tabular}{ll|lllr|lllr|lllr}
+\toprule
+Method & Rank & \multicolumn{4}{c|}{TanksAndTemples} & \multicolumn{4}{c|}{MipNeRF360} & \multicolumn{4}{c|}{DeepBlending} \\
+ & \tiny  & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \#Gaussians$\downarrow$ & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \#Gaussians$\downarrow$ & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \#Gaussians$\downarrow$ \\
+\midrule
+Mini-Splatting & \cellcolor{lightred}1.9 & \cellcolor{lightyellow}23.18 & \cellcolor{lightyellow}0.835 & 0.202 & \cellcolor{lightred}200000.0 & \cellcolor{lightyellow}27.34 & \cellcolor{lightorange}0.822 & \cellcolor{lightorange}0.217 & \cellcolor{lightred}490000.0 & \cellcolor{lightorange}29.98 & \cellcolor{lightorange}0.908 & \cellcolor{lightyellow}0.253 & \cellcolor{lightorange}350000.0 \\
+Octree-GS & \cellcolor{lightorange}2.3 & \cellcolor{lightred}24.52 & \cellcolor{lightred}0.866 & \cellcolor{lightorange}0.153 & \cellcolor{lightyellow}481000.0 & \cellcolor{lightred}27.73 & \cellcolor{lightyellow}0.815 & \cellcolor{lightorange}0.217 & \cellcolor{lightyellow}686000.0 & \cellcolor{lightred}30.41 & \cellcolor{lightred}0.913 & \cellcolor{lightorange}0.238 & \cellcolor{lightred}144000.0 \\
+Mini-Splatting-D & \cellcolor{lightyellow}2.8 & \cellcolor{lightorange}23.23 & \cellcolor{lightorange}0.853 & \cellcolor{lightred}0.140 & 4280000.0 & \cellcolor{lightorange}27.51 & \cellcolor{lightred}0.831 & \cellcolor{lightred}0.176 & 4690000.0 & \cellcolor{lightyellow}29.88 & \cellcolor{lightyellow}0.906 & \cellcolor{lightred}0.211 & 4630000.0 \\
+Color-cued GS & \cellcolor{lightyellow}2.8 & \cellcolor{lightyellow}23.18 & 0.830 & \cellcolor{lightyellow}0.198 & \cellcolor{lightorange}370000.0 & 27.07 & 0.797 & \cellcolor{lightyellow}0.249 & \cellcolor{lightorange}646000.0 & 29.71 & 0.902 & 0.255 & \cellcolor{lightyellow}644000.0 \\
+\bottomrule
+\end{tabular}
+        \end{adjustbox}
+        \newline\newline
+        \noindent Note: The best methods in each category are highlighted (\colorbox{lightred}{fist}, \colorbox{lightorange}{second}, \colorbox{lightyellow}{third}). The ranks represent the average rankings of the methods across all available datasets. The quality metrics PSNR, SSIM, and LPIPS are equally weighted with the model size, meaning they each contribute one-sixth to the ranks, while the size contributes half.
+
+    \end{minipage}
+}
