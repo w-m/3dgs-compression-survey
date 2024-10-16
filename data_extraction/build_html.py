@@ -10,6 +10,13 @@ import numpy as np
 import itertools
 
 dataset_order = ["TanksAndTemples", "MipNeRF360", "DeepBlending", "SyntheticNeRF"]
+dataset_names = {
+    "TanksAndTemples": "Tanks and Temples",
+    "MipNeRF360": "Mip-NeRF 360",
+    "DeepBlending": "Deep Blending",
+    "SyntheticNeRF": "Synthetic NeRF"
+}
+
 
 def get_shortnames(methods_files=["methods_compression.bib"]):
     #get shortnames from bibtex
@@ -329,6 +336,11 @@ def combine_tables_to_html():
             if col[1] == "#Gaussians": #
                 df[col] /= 1000     
                 df[col] = df[col].apply(lambda x: "{:,}".format(int(x)) if not pd.isna(x) else np.nan)
+    def apply_dataset_names(df):
+        df.columns = pd.MultiIndex.from_tuples(
+        [(dataset_names[col[0]], col[1]) if col[0] in dataset_names else col for col in df.columns]
+    )
+
 
     numGaussians_to_k_Gauss(multi_col_df)
     multi_col_df = add_top_3_classes(multi_col_df_copy, multi_col_df.astype(str)).replace(['nan', 'NaN', "None"], '')
@@ -365,6 +377,7 @@ def combine_tables_to_html():
         latex_dfs[methods].columns = pd.MultiIndex.from_tuples([(col[0], 'k Gauss') if col[1] == '#Gaussians' else col for col in latex_dfs[methods].columns])
         #recover method name
         latex_dfs[methods]['Method'] = latex_dfs[methods]['Method'].apply(extract_method_name)
+        apply_dataset_names(latex_dfs[methods])
         
     new_columns = []
     for col in multi_col_df.columns: # rename #Gaussians
@@ -376,6 +389,8 @@ def combine_tables_to_html():
 
     # Set the new column names
     multi_col_df.columns = pd.MultiIndex.from_tuples(new_columns)
+
+    apply_dataset_names(multi_col_df)
 
     html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
                                       justify="center", border=0, escape=False)
@@ -593,7 +608,7 @@ def get_plot_data(ranks):
 
         data.append({
             'plot1': {
-                "title": f"<b>{dataset}</b>", #: PSNR / Size
+                "title": f"<b>{dataset_names[dataset]}</b>", #: PSNR / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "PSNR",
                 'groupData': psnr_groupData,
@@ -601,7 +616,7 @@ def get_plot_data(ranks):
                 'lineHeight': org_3dgs[dataset][0],
             },
             'plot2': {
-                "title": f"<b>{dataset}</b>", #: SSIM / Size
+                "title": f"<b>{dataset_names[dataset]}</b>", #: SSIM / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "SSIM",
                 'groupData': ssim_groupData,
@@ -609,7 +624,7 @@ def get_plot_data(ranks):
                 'lineHeight': org_3dgs[dataset][1],
             },
             'plot3': {
-                "title": f"<b>{dataset}</b>", #: LPIPS / Size
+                "title": f"<b>{dataset_names[dataset]}</b>", #: LPIPS / Size
                 "xaxis": "Size (MB)",
                 "yaxis": "LPIPS",
                 'groupData': lpips_groupData,
