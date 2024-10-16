@@ -17,15 +17,31 @@ Y.~Chen, Q.~Wu, M.~Harandi, and J.~Cai.
 \newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
   Pattern Recognition}, pages 20321--20330, 2024.
 
+\bibitem{cheng2024gaussianpro}
+K.~Cheng, X.~Long, K.~Yang, Y.~Yao, W.~Yin, Y.~Ma, W.~Wang, and X.~Chen.
+\newblock Gaussianpro: 3d gaussian splatting with progressive propagation,
+  2024, 2402.14650.
+
 \bibitem{fan2024lightgaussian}
 Z.~Fan, K.~Wang, K.~Wen, Z.~Zhu, D.~Xu, and Z.~Wang.
 \newblock Lightgaussian: Unbounded 3d gaussian compression with 15x reduction
   and 200+ fps, 2024, 2311.17245.
 
+\bibitem{fang2024minisplatting}
+G.~Fang and B.~Wang.
+\newblock Mini-splatting: Representing scenes with a constrained number of
+  gaussians, 2024, 2403.14166.
+
 \bibitem{fei20243d}
 B.~Fei, J.~Xu, R.~Zhang, Q.~Zhou, W.~Yang, and Y.~He.
 \newblock 3d gaussian splatting as new era: A survey.
 \newblock {\em IEEE Transactions on Visualization and Computer Graphics}, 2024.
+
+\bibitem{feng2024flashgs}
+G.~Feng, S.~Chen, R.~Fu, Z.~Liao, Y.~Wang, T.~Liu, Z.~Pei, H.~Li, X.~Zhang, and
+  B.~Dai.
+\newblock Flashgs: Efficient 3d gaussian splatting for large-scale and
+  high-resolution rendering, 2024, 2408.07967.
 
 \bibitem{girish2024eagles}
 S.~Girish, K.~Gupta, and A.~Shrivastava.
@@ -41,6 +57,17 @@ P.~Hedman, J.~Philip, T.~Price, J.-M. Frahm, G.~Drettakis, and G.~Brostow.
 J.~Hu, R.~Li, V.~Ye, and A.~Kanazawa.
 \newblock gsplat compression, 2024.
 
+\bibitem{jung2024relaxing}
+J.~Jung, J.~Han, H.~An, J.~Kang, S.~Park, and S.~Kim.
+\newblock Relaxing accurate initialization constraint for 3d gaussian
+  splatting, 2024, 2403.09413.
+
+\bibitem{kim2024CVPR}
+S.~Kim, K.~Lee, and Y.~Lee.
+\newblock Color-cued efficient densification method for 3d gaussian splatting.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR) Workshops}, pages 775--783, June 2024.
+
 \bibitem{TanksAndTemples}
 A.~Knapitsch, J.~Park, Q.-Y. Zhou, and V.~Koltun.
 \newblock Tanks and temples: Benchmarking large-scale scene reconstruction.
@@ -55,6 +82,16 @@ L.~Li, Z.~Shen, Z.~Wang, L.~Shen, and L.~Bo.
 \newblock Compressing volumetric radiance fields to 1 mb.
 \newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
   Pattern Recognition}, pages 4222--4231, 2023.
+
+\bibitem{li2024mvgsplatting}
+Z.~Li, S.~Yao, Y.~Chu, A.~F. Garcia-Fernandez, Y.~Yue, E.~G. Lim, and X.~Zhu.
+\newblock Mvg-splatting: Multi-view guided gaussian splatting with adaptive
+  quantile-based geometric consistency densification, 2024, 2407.11840.
+
+\bibitem{liu2024atomgs}
+R.~Liu, R.~Xu, Y.~Hu, M.~Chen, and A.~Feng.
+\newblock Atomgs: Atomizing gaussian splatting for high-fidelity radiance
+  field, 2024, 2405.12369.
 
 \bibitem{lu2024scaffold}
 T.~Lu, M.~Yu, L.~Xu, Y.~Xiangli, L.~Wang, D.~Lin, and B.~Dai.
@@ -96,6 +133,22 @@ P.~Papantonakis, G.~Kopanas, B.~Kerbl, A.~Lanvin, and G.~Drettakis.
 \newblock {\em Proceedings of the ACM on Computer Graphics and Interactive
   Techniques}, 7(1):1--17, May 2024.
 
+\bibitem{ren2024octreegs}
+K.~Ren, L.~Jiang, T.~Lu, M.~Yu, L.~Xu, Z.~Ni, and B.~Dai.
+\newblock Octree-gs: Towards consistent real-time rendering with lod-structured
+  3d gaussians, 2024, 2403.17898.
+
+\bibitem{taming20243dgs}
+{Saswat Mallick and Rahul Goel}, B.~Kerbl, F.~Vicente~Carrasco, M.~Steinberger,
+  and F.~De~La~Torre.
+\newblock Taming 3dgs: High-quality radiance fields with limited resources.
+\newblock In {\em SIGGRAPH Asia 2024 Conference Papers}, 2024.
+
+\bibitem{seo2024flod}
+Y.~Seo, Y.~S. Choi, H.~S. Son, and Y.~Uh.
+\newblock Flod: Integrating flexible level of detail into 3d gaussian splatting
+  for customizable rendering, 2024, 2408.12894.
+
 \bibitem{sun2024f3dgs}
 X.~Sun, J.~C. Lee, D.~Rho, J.~H. Ko, U.~Ali, and E.~Park.
 \newblock F-3dgs: Factorized coordinates and representations for 3d gaussian
@@ -122,5 +175,26 @@ S.~Xie, W.~Zhang, C.~Tang, Y.~Bai, R.~Lu, S.~Ge, and Z.~Wang.
 \newblock Mesongs: Post-training compression of 3d gaussians via efficient
   attribute transformation.
 \newblock In {\em European Conference on Computer Vision}. Springer, 2024.
+
+\bibitem{yan2024multiscale}
+Z.~Yan, W.~F. Low, Y.~Chen, and G.~H. Lee.
+\newblock Multi-scale 3d gaussian splatting for anti-aliased rendering, 2024,
+  2311.17089.
+
+\bibitem{yang2024spectrally}
+R.~Yang, Z.~Zhu, Z.~Jiang, B.~Ye, X.~Chen, Y.~Zhang, Y.~Chen, J.~Zhao, and
+  H.~Zhao.
+\newblock Spectrally pruned gaussian fields with neural compensation, 2024,
+  2405.00676.
+
+\bibitem{zhang2024fregs}
+J.~Zhang, F.~Zhan, M.~Xu, S.~Lu, and E.~Xing.
+\newblock Fregs: 3d gaussian splatting with progressive frequency
+  regularization, 2024, 2403.06908.
+
+\bibitem{zhang2024pixelgs}
+Z.~Zhang, W.~Hu, Y.~Lao, T.~He, and H.~Zhao.
+\newblock Pixel-gs: Density control with pixel-aware gradient for 3d gaussian
+  splatting, 2024, 2403.15530.
 
 \end{thebibliography}
