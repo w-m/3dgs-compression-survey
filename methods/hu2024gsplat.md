@@ -3,7 +3,7 @@
 This approach leverages 3D Gaussian Splatting as Markov Chain Monte Carlo <a target="_blank" href="https://ubc-vision.github.io/3dgs-mcmc/">(3DGS-MCMC)</a>, interpreting the training process of positioning and optimizing Gaussians as a sampling procedure rather than minimizing a predefined loss function. 
 
 Additionally, it incorporates compression techniques derived from the 
-<insert>Morgenstern et al.</insert> paper, which organizes the parameters of 3DGS in a 2D grid, capitalizing on perceptual redundancies found in natural scenes, thereby significantly reducing storage requirements. 
+<insert>SOG</insert> paper, which organizes the parameters of 3DGS in a 2D grid, capitalizing on perceptual redundancies found in natural scenes, thereby significantly reducing storage requirements. 
 
 Further compression is achieved by applying methods from 
 <a target="_blank" href="https://aras-p.info/blog/2023/09/27/Making-Gaussian-Splats-more-smaller/">Making Gaussian Splats more smaller</a>, which reduces the size of Gaussian splats by clustering spherical harmonics into discrete elements and storing them as FP16 values.
