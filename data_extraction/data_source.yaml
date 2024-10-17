@@ -52,3 +52,7 @@ wu2024implicit:
 xie2024mesongs:
   url: "https://github.com/ShuzhaoXie/MesonGS/tree/main/results"
   is_csv: True
+  
+cheng2024gaussianpro:
+  url: "https://github.com/kcheng1021/GaussianPro/tree/version1.0/results"
+  is_csv: True
