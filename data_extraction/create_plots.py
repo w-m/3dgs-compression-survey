@@ -126,7 +126,7 @@ for dataset in dataset_order:
                 print(f"No data for {method_type['type']} methods in dataset {dataset}.")
                 continue
 
-            plt.figure(figsize=(10, 6))
+            plt.figure(figsize=(6.67, 4))
             for method in subset_df['Shortname'].unique():
                 method_data = subset_df[subset_df['Shortname'] == method]
                 x = method_data[method_type['x_column']]
@@ -209,7 +209,7 @@ for dataset in dataset_order:
             plt.savefig(plot_path, bbox_inches='tight')
             print(f"Saved plot: {plot_path}")
             ########################################################################
-            plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=5)
+            plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=4)
 
             plot_filename = f"{dataset}_{method_type['filename_suffix']}_{metric}_legend_h.pdf"
 
