@@ -313,6 +313,32 @@ multi_col_df_compression = table_df_dict["compression"]
 multi_col_df_compaction = table_df_dict["densification"]
 # print(table_df_dict["compression"])
 
+# remove leading zero in SSIM and LPIPS rows
+# print(multi_col_df_compression.keys())
+for i in ["Tanks and Temples", "Mip-NeRF 360", "Deep Blending", "Synthetic NeRF"]:
+    for j in ["SSIM", "LPIPS"]:
+        multi_col_df_compression[(i, j)] = (
+            multi_col_df_compression[(i, j)]
+            .astype(str)
+            .replace(
+                r"(<td[^>]*>)0\.(\d+)", r"\1.\2", regex=True
+            )  # Removes leading zero in cells with HTML tags
+            .replace(
+                r"^0\.(\d+)", r".\1", regex=True
+            )  # Removes leading zero in cells without HTML tags
+        )
+        if i != "Synthetic NeRF":
+            multi_col_df_compaction[(i, j)] = (
+                multi_col_df_compaction[(i, j)]
+                .astype(str)
+                .replace(
+                    r"(<td[^>]*>)0\.(\d+)", r"\1.\2", regex=True
+                )  # Removes leading zero in cells with HTML tags
+                .replace(
+                    r"^0\.(\d+)", r".\1", regex=True
+                )  # Removes leading zero in cells without HTML tags
+            )
+
 
 def extract_title_and_text(markdown: str):
     markdown = markdown.strip()
@@ -372,9 +398,9 @@ for method_i in ["compression", "densification"]:
 
     lines = buffer.getvalue().strip().split("\n")
     if method_i == "compression":
-        lines[0] = "\\begin{tabular}{ll|llll|llll|llll|llll}"
+        lines[0] = "\\begin{tabular}{ll|lllr|lllr|lllr|lllr}"
     else:
-        lines[0] = "\\begin{tabular}{ll|lllr|lllr|lllr}"
+        lines[0] = "\\begin{tabular}{ll|lrrr|lrrr|lrrr}"
     lines[2] = (
         lines[2]
         .replace("{r}", "{c|}")
