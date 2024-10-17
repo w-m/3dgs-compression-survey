@@ -17,6 +17,24 @@ dataset_names = {
     "SyntheticNeRF": "Synthetic NeRF"
 }
 
+org_3dgs = { #30K
+    "TanksAndTemples": ["23.14", "0.841", "0.183", 430964736, 1783867.00] ,
+    "MipNeRF360": ["27.21", "0.815", "0.214", 769654784, 3362470.00],
+    "DeepBlending": ["29.41", "0.903", "0.243", 708837376, 2975634.50],
+    "SyntheticNeRF": ["33.32", None, None, None, None],
+}
+
+colors = [
+    "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78",
+    "#2ca02c", "#98df8a", "#d62728", "#ff9896",
+    "#9467bd", "#c5b0d5", "#8c564b", "#c49c94",
+    "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
+    "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"
+]
+colors_d = ['#164f79', '#7a8da3', '#b2590a', '#b28253', '#1d721f', 
+            '#6ca46e', '#941d1d', '#b26b68', '#6b4d8a', '#897aa3', 
+            '#633e38', '#896e66', '#a05891', '#ae8093', '#595959', 
+            '#8d8d8d', '#868417', '#989867', '#1193b1', '#6ca0a2']
 
 def get_shortnames(methods_files=["methods_compression.bib"]):
     #get shortnames from bibtex
@@ -31,6 +49,8 @@ def get_shortnames(methods_files=["methods_compression.bib"]):
                     pass
                     #shortnames[entry["ID"]] = entry["ID"]
                     #print(f"Shortname not found for {entry['ID']}, using ID instead")
+    if "methods_compression.bib" in methods_files:
+        shortnames["3DGS"] = "3DGS"
     return shortnames
 
 def get_links(methods_files=["methods_compression.bib","methods_densification.bib"]):
@@ -68,17 +88,6 @@ def combine_tables_to_html():
     shortnames_d = get_shortnames(methods_files=["methods_densification.bib"])
 
     groupcolors = {}
-    colors = [
-        "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78",
-        "#2ca02c", "#98df8a", "#d62728", "#ff9896",
-        "#9467bd", "#c5b0d5", "#8c564b", "#c49c94",
-        "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
-        "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"
-    ]
-    colors_d = ['#164f79', '#7a8da3', '#b2590a', '#b28253', '#1d721f', 
-                '#6ca46e', '#941d1d', '#b26b68', '#6b4d8a', '#897aa3', 
-                '#633e38', '#896e66', '#a05891', '#ae8093', '#595959', 
-                '#8d8d8d', '#868417', '#989867', '#1193b1', '#6ca0a2']
 
     method_categories_dict = {}
     for name, shortname in shortnames.items():
@@ -91,6 +100,8 @@ def combine_tables_to_html():
             groupcolors[shortname] = colors_d.pop(0)
         method_categories_dict[name] = "d"
 
+    method_categories_dict["3DGS"] = "3"
+
     shortnames.update(shortnames_d)
 
     for dataset in dataset_order:
@@ -102,6 +113,19 @@ def combine_tables_to_html():
         df = df[df['Submethod'].notna()]
         #filter out "Baseline" keyword from Submethod
         df['Submethod'] = df['Submethod'].str.replace('Baseline', '')
+
+        #insert 3DGS
+        df = pd.concat([df, pd.DataFrame([{ 
+            'Method': '3DGS',
+            'Submethod': '',
+            'PSNR': org_3dgs[dataset][0],
+            'SSIM': org_3dgs[dataset][1] if org_3dgs[dataset][1] else '',
+            'LPIPS': org_3dgs[dataset][2] if org_3dgs[dataset][1] else '',
+            'Size [Bytes]': org_3dgs[dataset][3],
+            '#Gaussians': org_3dgs[dataset][4],
+            'Data Source': '',
+            'Comment': ''
+        }])], ignore_index=True)
 
         # parse all float columns to float and keep the exact numer of decimal places
         df["PSNR"] = df["PSNR"].apply(lambda x: Decimal(x) if x != '' else None)
@@ -150,10 +174,10 @@ def combine_tables_to_html():
     multi_col_df.reset_index(inplace=True)
 
     #insert category
-    multi_col_df[("category", "")] = "c"
+    multi_col_df[("category", "")] = "3"
     # Loop through method_categories_dict to set the category if the method name contains the key
     for method, category in method_categories_dict.items():
-        multi_col_df.loc[multi_col_df["Method"].str.contains(method, na=False), "category"] = category
+        multi_col_df.loc[multi_col_df["Method"].str.contains(f'"#{method}"', na=False), "category"] = category
 
     method_categories = list(multi_col_df["category"])
 
@@ -254,8 +278,9 @@ def combine_tables_to_html():
     metrics = ["PSNR", "SSIM", "LPIPS", "Size [MB]"]
     rank_combinations_c_all, metric_formulas_c = get_rank_combinations_and_formulas(datasets, metrics, filter_empty_cols_from_df("Size [MB]"))
 
-    #calc compression ranks for any combination of metrics and datasets for all compression methods
-    filtered_df = multi_col_df[multi_col_df['category'] == 'c'].copy()
+    #calc compression ranks for any combination of metrics and datasets for all compression methods +3DGS
+    filter_c3 = (multi_col_df['category'] == 'c') | (multi_col_df['category'] == '3')
+    filtered_df = multi_col_df[filter_c3].copy()
     rank_combinations_c, _ = get_rank_combinations_and_formulas(datasets, metrics, filtered_df)
 
     #calc densification ranks for combinations of metrics and datasets for all methods
@@ -263,8 +288,9 @@ def combine_tables_to_html():
     metrics = ["PSNR", "SSIM", "LPIPS", "#Gaussians"]
     rank_combinations_d_all, metric_formulas_d = get_rank_combinations_and_formulas(datasets, metrics, filter_empty_cols_from_df("#Gaussians"))
 
-    #calc compression ranks for any combination of metrics and datasets for all densification methods
-    filtered_df = multi_col_df[multi_col_df['category'] == 'd'].copy()
+    #calc compression ranks for any combination of metrics and datasets for all densification methods +3DGS
+    filter_d3 = (multi_col_df['category'] == 'd') | (multi_col_df['category'] == '3')
+    filtered_df = multi_col_df[filter_d3].copy()
     rank_combinations_d, _ = get_rank_combinations_and_formulas(datasets, metrics, filtered_df)
 
     rank_combinations = {
@@ -294,13 +320,13 @@ def combine_tables_to_html():
     latex_dfs = {}
     ranks = {}
     #first get ordered densification ranks for summary order and plot legend order
-    mask = multi_col_df['category'] == 'd'
+    mask = (multi_col_df['category'] == 'd') | (multi_col_df['category'] == '3')
     multi_col_df['Rank'] = pd.Series(rank_combinations["densification"]["111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
     ranks["d"] = get_ordered_ranks()
     latex_dfs["densification"] = multi_col_df.copy()
     
     #then same for compression and leave ranks like this as this is the default option on the website
-    mask = multi_col_df['category'] == 'c'
+    mask = (multi_col_df['category'] == 'c') | (multi_col_df['category'] == '3')
     multi_col_df['Rank'] = pd.Series(rank_combinations["compression"]["11111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
     ranks["c"] = get_ordered_ranks()
     latex_dfs["compression"] = multi_col_df.copy()
@@ -447,7 +473,7 @@ def load_methods_summaries(ranks, groupcolors):
     #sort here by rank to determine order of method summaries
     shortnames = get_shortnames(["methods_compression.bib","methods_densification.bib"])
 
-    #for now, only include ranked methods
+    #for now, only include ranked methods / uncomment to include unranked methods
     # shortnames_d = get_shortnames(["methods_densification.bib"])
     # shortnames_c = get_shortnames(["methods_compression.bib"])
     # for name in shortnames_d.values(): #also include non ranked methods
@@ -562,13 +588,6 @@ def get_plot_data(ranks):
         dfs[file.split(".")[0]] = df
 
     shortnames = sorted(shortnames.values())
-
-    org_3dgs = {
-        "TanksAndTemples": [23.14, 0.841, 0.183] ,
-        "MipNeRF360": [27.21, 0.815, 0.214],
-        "DeepBlending": [29.41, 0.903, 0.243],
-        "SyntheticNeRF": [33.32, None, None],
-    }
 
     data = []
     for dataset in dataset_order:
