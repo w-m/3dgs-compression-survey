@@ -136,7 +136,6 @@ function drawLegend() {
     // Add rest of legend items
 
     Object.keys(groupColors).forEach(group => {
-        console.log(group)
         if (group === "3DGS") {
             return;
         }
@@ -232,7 +231,6 @@ function updateRanks() {
     }
 
     const [newrank, classes] = rankCombinations[rank_category][selected_string];
-    console.log(newrank)
     let ii = 0
     for (var i = 0; i < table.columns(1).data()[0].length; i++) {
         if (!both && methodCategories[i] != category.slice(0,1) && methodCategories[i] != "3") { // ranks only apply to selected methods with correct category, always use 3 (3DGS)
