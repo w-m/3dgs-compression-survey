@@ -26,7 +26,7 @@ navaneet2023compact3d, 16K,27.03,0.804,0.243,18874368,,https://arxiv.org/src/231
 navaneet2023compact3d, 32K,27.12,0.806,0.240,19922944,845000.0,https://arxiv.org/src/2311.18159,
 niedermayr2024compressed,Baseline,26.981,0.801,0.238,30198989,,https://arxiv.org/pdf/2401.02436,
 papantonakis2024reducing,Baseline,27.10,0.809,0.226,30408704,1460000.0,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
-ren2024octreegs,Baseline,27.73,0.815,0.217,,686000.0,https://arxiv.org/pdf/2403.17898,
+ren2024octreegs,Baseline,28.05,0.819,0.217,,657000.0,https://arxiv.org/pdf/2403.17898,
 taming20243dgs,Baseline,27.29,0.799,0.253,,630000.0,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
 taming20243dgs, (Big),27.79,0.822,0.205,,3310000.0,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
 wang2024end,,26.03,0.764,0.299,6162424,479851.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
