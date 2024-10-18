@@ -26,7 +26,7 @@ navaneet2023compact3d, 16K,23.39,0.836,0.200,12582912,,https://arxiv.org/src/231
 navaneet2023compact3d, 32K,23.44,0.838,0.198,13631488,520000.0,https://arxiv.org/src/2311.18159,
 niedermayr2024compressed,Baseline,23.324,0.832,0.194,18119393,,https://arxiv.org/pdf/2401.02436,
 papantonakis2024reducing,Baseline,23.57,0.840,0.188,14680064,680000.0,https://repo-sam.inria.fr/fungraph/reduced_3dgs/reduced_3DGS_i3d.pdf,
-ren2024octreegs,Baseline,24.52,0.866,0.153,,481000.0,https://arxiv.org/pdf/2403.17898,
+ren2024octreegs,Baseline,24.68,0.866,0.153,,443000.0,https://arxiv.org/pdf/2403.17898,
 sun2024f3dgs,-CP-16,30.29,0.957,0.061,11471421,,https://arxiv.org/pdf/2405.17083,[N/T][N/P]
 taming20243dgs,Baseline,23.89,0.835,0.207,,290000.0,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
 taming20243dgs, (Big),24.04,0.851,0.170,,1840000.0,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
