@@ -50,7 +50,7 @@ def get_shortnames(methods_files=["methods_compression.bib"]):
                     #shortnames[entry["ID"]] = entry["ID"]
                     #print(f"Shortname not found for {entry['ID']}, using ID instead")
     if "methods_compression.bib" in methods_files:
-        shortnames["3DGS"] = "3DGS"
+        shortnames["3DGS"] = "3DGS-30K"
     return shortnames
 
 def get_links(methods_files=["methods_compression.bib","methods_densification.bib"]):
