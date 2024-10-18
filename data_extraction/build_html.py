@@ -284,7 +284,7 @@ def combine_tables_to_html():
     rank_combinations_c, _ = get_rank_combinations_and_formulas(datasets, metrics, filtered_df)
 
     #calc densification ranks for combinations of metrics and datasets for all methods
-    datasets = dataset_order[:2]
+    datasets = dataset_order[:3]
     metrics = ["PSNR", "SSIM", "LPIPS", "#Gaussians"]
     rank_combinations_d_all, metric_formulas_d = get_rank_combinations_and_formulas(datasets, metrics, filter_empty_cols_from_df("#Gaussians"))
 
@@ -321,7 +321,7 @@ def combine_tables_to_html():
     ranks = {}
     #first get ordered densification ranks for summary order and plot legend order
     mask = (multi_col_df['category'] == 'd') | (multi_col_df['category'] == '3')
-    multi_col_df['Rank'] = pd.Series(rank_combinations["densification"]["111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
+    multi_col_df['Rank'] = pd.Series(rank_combinations["densification"]["1111111"][0][:mask.sum()], index=multi_col_df[mask].index).astype(float)
     ranks["d"] = get_ordered_ranks()
     latex_dfs["densification"] = multi_col_df.copy()
     

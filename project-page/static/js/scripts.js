@@ -227,7 +227,7 @@ function updateRanks() {
     }
 
     if (category === 'densification') {
-        selected_string = selected_string.slice(0,6)
+        selected_string = selected_string.slice(0,7)
     }
 
     const [newrank, classes] = rankCombinations[rank_category][selected_string];
@@ -321,12 +321,12 @@ window.addEventListener('load', () => {
             $('.row-toggle-c').prop('checked', false);
             $('.row-toggle-d').prop('checked', true);
 
-            // Show first 2 datasets (t&t and mip)
+            // Show first 3 datasets (t&t and mip and dp)
             $('.column-toggle-datasets').eq(0).prop('checked', true);
             $('.column-toggle-datasets').eq(1).prop('checked', true);
+            $('.column-toggle-datasets').eq(2).prop('checked', true);
 
-            // hide last 2
-            $('.column-toggle-datasets').eq(2).prop('checked', false);
+            // hide last
             $('.column-toggle-datasets').eq(3).prop('checked', false);
 
             // show psnr, ssim, lpips, size
