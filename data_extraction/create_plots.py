@@ -30,7 +30,7 @@ def read_and_process_data():
             continue  # Skip non-CSV files
         file_path = os.path.join('results', file)
         try:
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(file_path, dtype={'Comment': str})
         except Exception as e:
             print(f"Error reading {file_path}: {e}")
             continue
