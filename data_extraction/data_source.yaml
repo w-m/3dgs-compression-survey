@@ -23,11 +23,8 @@ fan2024lightgaussian:
     - tab:main1
 
 chen2024hac:
-  url: "https://arxiv.org/src/2403.14530"
-  is_csv: False
-  table_names: 
-    - tab:main_quantitative
-  filename: "main_arxiv.tex"
+  url: "https://github.com/YihangChen-ee/HAC/tree/main/results"
+  is_csv: True
 
 niedermayr2024compressed:
   url: "https://arxiv.org/src/2401.02436"
@@ -52,7 +49,7 @@ wu2024implicit:
 xie2024mesongs:
   url: "https://github.com/ShuzhaoXie/MesonGS/tree/main/results"
   is_csv: True
-  
+
 cheng2024gaussianpro:
   url: "https://github.com/kcheng1021/GaussianPro/tree/version1.0/results"
   is_csv: True

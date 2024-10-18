@@ -18,9 +18,9 @@ dataset_names = {
 }
 
 org_3dgs = { #30K
-    "TanksAndTemples": ["23.14", "0.841", "0.183", 430964736, 1783867.00] ,
-    "MipNeRF360": ["27.21", "0.815", "0.214", 769654784, 3362470.00],
-    "DeepBlending": ["29.41", "0.903", "0.243", 708837376, 2975634.50],
+    "TanksAndTemples": ["23.14", "0.841", "0.183", 411000000, 1783867.00] ,
+    "MipNeRF360": ["27.21", "0.815", "0.214", 734000000, 3362470.00],
+    "DeepBlending": ["29.41", "0.903", "0.243", 676000000, 2975634.50],
     "SyntheticNeRF": ["33.32", None, None, None, None],
 }
 
@@ -106,7 +106,7 @@ def combine_tables_to_html():
 
     for dataset in dataset_order:
         #read csvs
-        df = pd.read_csv(f'results/{dataset}.csv', dtype={'PSNR': str, 'SSIM': str, 'LPIPS': str})
+        df = pd.read_csv(f'results/{dataset}.csv', dtype={'PSNR': str, 'SSIM': str, 'LPIPS': str, 'Comment': str})
         #drop rows if [N/T] in Comment
         df = df[~df['Comment'].str.contains(r'\[N/T\]', na=False)]
         #drop all rows with empty Submethod
@@ -157,7 +157,7 @@ def combine_tables_to_html():
         
 
         #change Size [Bytes] to Size [MB] and round
-        df.insert(5, "Size [MB]", df["Size [Bytes]"] / 1024 / 1024)
+        df.insert(5, "Size [MB]", df["Size [Bytes]"] / 1000 / 1000) #df.insert(5, "Size [MB]", df["Size [Bytes]"] / 1024 / 1024)
         df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
 
         #calculate bits per gaussian
@@ -567,7 +567,7 @@ def get_plot_data(ranks):
         
     for file in result_files:
         #read csvs
-        df = pd.read_csv(f'results/{file}')
+        df = pd.read_csv(f'results/{file}', dtype={'Comment': str})
         df['Submethod'] = df['Submethod'].astype('string').fillna('').replace('<NA>', '')
         df["Shortname"] = df["Method"].apply(lambda x: shortnames[x])
 
@@ -581,7 +581,7 @@ def get_plot_data(ranks):
         
         #change Size [Bytes] to Size [MB] and round
         if "Size [Bytes]" in df.columns:
-            df["Size [MB]"] = df["Size [Bytes]"] / 1024 / 1024
+            df["Size [MB]"] = df["Size [Bytes]"] / 1000 / 1000
             df["Size [MB]"] = df["Size [MB]"].apply(lambda x: round(x, 1))
             df.drop(columns=["Size [Bytes]"], inplace=True)
 

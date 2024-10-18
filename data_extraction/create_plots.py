@@ -51,7 +51,7 @@ def read_and_process_data():
 
         # Convert 'Size [Bytes]' to 'Size [MB]' if the column exists
         if "Size [Bytes]" in df.columns:
-            df["Size [MB]"] = (df["Size [Bytes]"] / (1024 * 1024)).round(1)
+            df["Size [MB]"] = (df["Size [Bytes]"] / (1000 * 1000)).round(1)
             df.drop(columns=["Size [Bytes]"], inplace=True)
 
         # Store the processed DataFrame

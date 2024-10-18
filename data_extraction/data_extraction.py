@@ -9,6 +9,7 @@ import requests
 from io import StringIO
 import numpy as np
 from decimal import Decimal, ROUND_HALF_UP
+from build_html import get_shortnames
 
 
 
@@ -187,6 +188,7 @@ dataset_scenes = {
 
 def read_csvs(sources_file):
     #read github csv files
+    shortnames = get_shortnames(["methods_compression.bib","methods_densification.bib"])
     csv_tables = {}
     for source in sources_file:
         if sources_file[source]["is_csv"]:
@@ -211,6 +213,7 @@ def read_csvs(sources_file):
                         df = pd.read_csv(data,dtype={
                             'Size [Bytes]': 'float',
                         })
+                        df['Submethod'] = df['Submethod'].apply(lambda x: x[len(shortnames[source]):] if isinstance(x, str) and x.startswith(shortnames[source]) else x) #remove shortname if submethod starts with shortname
                         df['Submethod'] = df['Submethod'].apply(lambda x: '' if isinstance(x, str) and x.strip() == '' else x) # make empty submethod names empty
                         df['Submethod'] = df['Submethod'].apply(lambda x: ' ' + x if isinstance(x, str) and len(x)>0 and x != "Baseline" and x[0].isalpha() else x) #add space if starts with alphabetical character
                         scene_dfs.append(df)
@@ -342,10 +345,11 @@ def df_to_results_csv(pd_tables, sources_file, csv_tables):
                         continue
                     if dataset_name in result_tables:
                         value = pd_tables[source][column][row]
+                        if value!="": continue
                         if any(val in metric for val in ["SIZE", "STORAGE", "MEM", "MB", "Mem"]):
                             value = value.replace(" MB", "").replace("MB", "") #expect MB
                             #convert to Bytes
-                            value = int(float(value) * 1024 * 1024)
+                            value = int(float(value) * 1000 * 1000)
                             metric = "Size [Bytes]"
                         # elif metric in ["PSNR","SSIM","LPIPS"]:
                         #     pass
