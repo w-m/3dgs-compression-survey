@@ -440,6 +440,7 @@ for method_i in ["compression", "densification"]:
         '<td class="third">', "\\cellcolor{" + colors[2] + "}"
     )
     tex_table_str = tex_table_str.replace("</td>", "")
+    tex_table_str = tex_table_str.replace("3DGS-30K", "\\textbf{3DGS-30K}")
 
     # copy images from website folder into latex folder
     src_folder = "project-page/static/images/"
