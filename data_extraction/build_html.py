@@ -513,7 +513,7 @@ def load_methods_summaries(ranks, groupcolors):
                     name = next((k for k, v in shortnames.items() if v == shortname), None)
                     assert name is not None
                     color = groupcolors[shortname]
-                    colorbox_text = f'<span class="text-item"><span class="text-color-box" style="background-color: {color};"></span><a href="#{name}" style="display: inline;">{shortname}</a></span>'
+                    colorbox_text = f'<span><span class="text-color-box" style="background-color: {color};"></span><a href="#{name}" style="display: inline;">{shortname}</a></span>'
                     
                     summary = summary.replace(match.group(0), colorbox_text)
                 
