@@ -418,8 +418,8 @@ def combine_tables_to_html():
 
     apply_dataset_names(multi_col_df)
 
-    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["display", "cell-border"], 
-                                      justify="center", border=0, escape=False)
+    html_string = multi_col_df.to_html(na_rep='', index=False, table_id="results", classes=["order-column", "hover", "cell-border"], 
+                                      justify="center", border=0, escape=False) # remove "display" as it includes stripes
 
     # Function to clean up nested <td> elements using regex
     def clean_nested_td(html):
