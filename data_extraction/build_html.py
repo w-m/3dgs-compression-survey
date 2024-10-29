@@ -405,6 +405,36 @@ def combine_tables_to_html():
         latex_dfs[methods]['Method'] = latex_dfs[methods]['Method'].apply(extract_method_name)
         apply_dataset_names(latex_dfs[methods])
         
+    # from matplotlib.colors import Normalize
+    # from matplotlib.cm import get_cmap
+
+    # def apply_gradient_to_df(df, cmap_name='summer', skip_cols=2):
+    #     cmap = get_cmap(cmap_name)
+        
+    #     def background_color(val, column_min, column_max):
+    #         # Convert values to float if they aren't already
+    #         try:
+    #             val = float(val)
+    #             column_min = float(column_min)
+    #             column_max = float(column_max)
+    #         except ValueError:
+    #             return ''  # Skip non-numeric values
+
+    #         # Normalize based on the min/max of the specific column
+    #         norm_val = (val - column_min) / (column_max - column_min) if column_max != column_min else 0
+    #         color = cmap(norm_val)
+    #         # Convert to a hex color
+    #         return f'background-color: rgba({color[0]*255}, {color[1]*255}, {color[2]*255}, {color[3]})'
+        
+    #     # Apply the gradient to all columns except the first two
+    #     styled_df = df.style.apply(lambda x: [
+    #         background_color(val, x.min(), x.max()) if x.name not in df.columns[:skip_cols] else ''
+    #         for val in x], axis=0)
+        
+    #     return styled_df
+    # # Apply the function to the sample dataframe, skipping the first two columns
+    # multi_col_df = apply_gradient_to_df(multi_col_df)
+        
     new_columns = []
     for col in multi_col_df.columns: # rename #Gaussians
         if col[1] == '#Gaussians':
