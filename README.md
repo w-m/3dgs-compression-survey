@@ -119,7 +119,7 @@ If you use our survey in your research, please cite our work. You can use the fo
 
 ## Updates
 
-- 2024-10-21: Officialy rename "densification" methods to "compaction" methods on website to align with survey paper
+- 2024-10-21: Officially rename "densification" methods to "compaction" methods on website to align with survey paper
 - 2024-10-17: Add GaussiansPro, AtomGS and Taming3DGS to densification/compaction methods
 - 2024-10-14: Add MesonGS to compression methods
 - 2024-09-30: Add densification methods to survey
