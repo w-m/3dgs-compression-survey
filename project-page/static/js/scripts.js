@@ -239,13 +239,98 @@ function updateRanks() {
         table.cell(i, 1).data(newrank[ii]);
 
         $(table.cell(i, 1).node()).removeClass();
-        if (classes[ii] != "") {
-            $(table.cell(i, 1).node()).addClass(classes[ii]);
-        }
 
         $(table.cell(i, 1).node()).addClass('has-text-right');
         ii++;
     
+    }
+
+    const colorAllMethods = 1;
+    const numColumns = table.columns().header().length;
+    const onlyVisible = 1
+
+    if (colorAllMethods) {
+        for (let col = 1; col < numColumns-1; col++) { // numColumns-1
+            let columnHeader = table.column(col).header().textContent;
+            let invertPalette = columnHeader.includes("LPIPS") || 
+                    columnHeader.includes("Size") || 
+                    columnHeader.includes("b/G") || 
+                    columnHeader.includes("Gauss")|| 
+                    columnHeader==="";
+            let columnValues;
+            if (both | !onlyVisible){
+                columnValues = table.column(col).data().toArray();
+            } else {
+                columnValues = table.rows({ filter: 'applied' }).data().toArray()
+                    .filter(row => row[numColumns - 1].includes(category.slice(0, 1)) || row[numColumns - 1].includes("3"))  // Check if the last column contains "category.slice(0,1)" or "3"
+                    .map(row => row[col]);
+            }
+            
+            // If "Gauss" is in the column header, remove commas from the values
+            if (columnHeader.includes("Gauss")) {
+                columnValues = columnValues.map(value => {
+                    return value.toString().replace(/,/g, ''); // Remove all commas from values
+                });                
+            }
+            const maxSize = 60 // MB
+            if (columnHeader.includes("Size")) {
+                columnValues = columnValues.filter(value => value < maxSize);
+            }
+
+            if (columnHeader.includes("Size") | columnHeader.includes("Gauss")  ) {
+                columnValues = columnValues.map(value => value > 0 ? Math.log(value) : 0); //value > 0 ?  Math.log2(Math.log2(value + 1) + 1) : 0);
+            }
+            
+            columnValues = columnValues.map(Number);
+            columnValues = columnValues.filter(value => !isNaN(value) && value !== 0);
+
+            // Check if there are valid numeric values
+            if (columnValues.length === 0) {
+                continue; // Skip coloring if no valid values exist
+            }
+
+            // Find the min and max values in the column
+            let minVal = Math.min(...columnValues.filter(value => value !== 0)); // Remove 0 if you don't want 0 as min
+            let maxVal = Math.max(...columnValues);
+
+            // Iterate over each row in the column
+            table.column(col).nodes().each(function(node, index) {
+                let cellValue = $(node).text(); // Get the value of the cell
+                if (columnHeader.includes("Size") & cellValue >= maxSize) {
+                    $(node).css('background-color', `rgba(100, 100, 100, 0.15)`);
+                    return;
+                }
+                if (cellValue === null || cellValue === undefined || cellValue==="") {
+                    $(node).css('background-color', '');
+                    return; // exit the function if cellValue is null or undefined
+                }
+                // If "Gauss" is in the column header, remove commas
+                if (columnHeader.includes("Gauss")){
+                    cellValue = cellValue.toString().replace(/,/g, ''); // Remove all commas from the value
+                }
+                if (columnHeader.includes("Size") | columnHeader.includes("Gauss")) {
+                    cellValue = parseFloat(cellValue);  // Ensure the cell value is treated as a number
+                    cellValue = cellValue > 0 ? Math.log(cellValue) : 0; //cellValue > 0 ?  Math.log2(Math.log2(cellValue + 1) + 1) : 0;  // log(x + 1) to avoid log(0)
+
+                }
+                cellValue = parseFloat(cellValue); 
+                if (cellValue === null || cellValue === undefined) {
+
+                    return; // exit the function if cellValue is null or undefined
+                }
+                let normalized_value = 0
+                if (maxVal !== minVal) {
+                    normalized_value = (cellValue - minVal) / (maxVal - minVal);
+                    // Clip the value to the range [0, 1]
+                    normalized_value = Math.max(0, Math.min(1, normalized_value));
+                } 
+                let color = evaluate_cmap(normalized_value, "summer", !invertPalette)
+                let rgbaColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.4)`;
+
+                $(node).css('background-color', rgbaColor);
+                $(node).removeClass();
+            });
+        }
     }
     // sort the table
     table.order([1, 'asc']).draw();
@@ -351,6 +436,9 @@ window.addEventListener('load', () => {
     });
 
     $('.row-toggle-c, .row-toggle-d').on('change', updateRowVisibility);
+
+    updateRanks(); // color after initial table load, need to change
+
 
 });
 

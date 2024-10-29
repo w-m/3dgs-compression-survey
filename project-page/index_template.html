@@ -37,11 +37,13 @@
     <script async src="static/js/fontawesome.all.min.js"></script>
     <script defer src="static/js/plotly-1.58.5.min.js"></script>
     <script src="static/js/datatables.min.js"></script>
+    <script src="static/js/js-colormaps.js"></script>
 
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js" integrity="sha512-1kNZVA50gKlorLAWU83+SdOAUwABzfFFQ4WuOAZTeS/UhNhnm9zU7rDv/Q5NEzSnr5u2L6uhR/+8icjjmHjSnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link defer rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" integrity="sha512-J8je2SgrCzA7hNBeiCJiA6oETHTTdp3We3EriOgJp6POycGLcDXj5dSwWlAPQcYGeaQ4N3uf30aOg/Nt5pxW2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
 
 </head>
 
@@ -201,7 +203,6 @@
         "scrollX": true,        // Enables horizontal scrolling
         // "colReorder": true,     // Enables column reordering with drag and drop <- breaks checkbox legend if enabled
         "fixedColumns": true,    // Always show first / "Methods" column
-        "stripe": true,
         "orderClasses": false,
         "order": [[1, 'asc']] // Sets the default ordering to rank ascending
 
@@ -321,11 +322,12 @@
             <div class="column is-four-fifths">
                 <div class="content has-text-justified">
                     <p>
-                        The best methods in each category are highlighted with 
-                        <span class="first" style="font-weight: bold; padding: 2px 6px;">gold</span>, 
-                        <span class="second" style="font-weight: bold; padding: 2px 6px;">silver</span>, and 
-                        <span class="third" style="font-weight: bold; padding: 2px 6px;">bronze</span> colors.
-
+                        The results are colored gradually from  
+                        <span class="best" style="font-weight: bold; padding: 2px 6px;">best</span>
+                        to
+                        <span class="worst" style="font-weight: bold; padding: 2px 6px;">worst</span>
+                        seperatly in each column. 
+                        <!-- All interpolations are made linearly with the "summer" color gradient from matplotlib, except for the Sizes which are cut off at 60MB and scaled logarithmically, to help distinguish smaller numbers despite large values being present (k Gauss also log) -->
                         <br>
                         <br>
 
