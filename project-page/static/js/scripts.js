@@ -40,7 +40,9 @@ function drawPlots(plotData, allowedKeys, allowedDatasets) {
             const data = [];
             for (const [group, { x, x2, y, text }] of Object.entries(groupData)) {
                 const color = groupColors[group];
-                const visible = checkboxStates[group];
+                // const visible = checkboxStates[group];
+                const visible = plotOption === 'size' ? checkboxStates[group] : true; //always show all for #gaussians
+                
                 const xValues = plotOption === 'size' ? x : x2;
 
                 // if all xvalues are nan continue
