@@ -11,15 +11,20 @@
         
         % center the table
         \begin{adjustbox}{center}
-           \begin{tabular}{ll|lllr|lllr|lllr}
+           \begin{tabular}{ll|lrrr|lrrr|lrrr}
 \toprule
-Method & Rank & \multicolumn{4}{c|}{TanksAndTemples} & \multicolumn{4}{c|}{MipNeRF360} & \multicolumn{4}{c|}{DeepBlending} \\
- & \tiny  & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \#Gaussians$\downarrow$ & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \#Gaussians$\downarrow$ & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \#Gaussians$\downarrow$ \\
+Method & Rank & \multicolumn{4}{c|}{Tanks and Temples} & \multicolumn{4}{c|}{Mip-NeRF 360} & \multicolumn{4}{c|}{Deep Blending} \\
+ & \tiny  & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny k Gauss & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny k Gauss & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny k Gauss \\
 \midrule
-Mini-Splatting & \cellcolor{lightred}1.9 & \cellcolor{lightyellow}23.18 & \cellcolor{lightyellow}0.835 & 0.202 & \cellcolor{lightred}200000.0 & \cellcolor{lightyellow}27.34 & \cellcolor{lightorange}0.822 & \cellcolor{lightorange}0.217 & \cellcolor{lightred}490000.0 & \cellcolor{lightorange}29.98 & \cellcolor{lightorange}0.908 & \cellcolor{lightyellow}0.253 & \cellcolor{lightorange}350000.0 \\
-Octree-GS & \cellcolor{lightorange}2.3 & \cellcolor{lightred}24.52 & \cellcolor{lightred}0.866 & \cellcolor{lightorange}0.153 & \cellcolor{lightyellow}481000.0 & \cellcolor{lightred}27.73 & \cellcolor{lightyellow}0.815 & \cellcolor{lightorange}0.217 & \cellcolor{lightyellow}686000.0 & \cellcolor{lightred}30.41 & \cellcolor{lightred}0.913 & \cellcolor{lightorange}0.238 & \cellcolor{lightred}144000.0 \\
-Mini-Splatting-D & \cellcolor{lightyellow}2.8 & \cellcolor{lightorange}23.23 & \cellcolor{lightorange}0.853 & \cellcolor{lightred}0.140 & 4280000.0 & \cellcolor{lightorange}27.51 & \cellcolor{lightred}0.831 & \cellcolor{lightred}0.176 & 4690000.0 & \cellcolor{lightyellow}29.88 & \cellcolor{lightyellow}0.906 & \cellcolor{lightred}0.211 & 4630000.0 \\
-Color-cued GS & \cellcolor{lightyellow}2.8 & \cellcolor{lightyellow}23.18 & 0.830 & \cellcolor{lightyellow}0.198 & \cellcolor{lightorange}370000.0 & 27.07 & 0.797 & \cellcolor{lightyellow}0.249 & \cellcolor{lightorange}646000.0 & 29.71 & 0.902 & 0.255 & \cellcolor{lightyellow}644000.0 \\
+Octree-GS & \cellcolor{lightred}2.7 & \cellcolor{lightred}24.68 & \cellcolor{lightred}.866 & \cellcolor{lightorange}.153 & 443 & \cellcolor{lightred}28.05 & \cellcolor{lightyellow}.819 & .217 & 657 & \cellcolor{lightred}30.49 & \cellcolor{lightorange}.912 & .241 & \cellcolor{lightred}112 \\
+Mini-Splatting & \cellcolor{lightorange}3.4 & 23.18 & .835 & .202 & \cellcolor{lightred}200 & 27.34 & \cellcolor{lightorange}.822 & .217 & \cellcolor{lightred}490 & \cellcolor{lightyellow}29.98 & \cellcolor{lightyellow}.908 & .253 & \cellcolor{lightyellow}350 \\
+Taming3DGS & \cellcolor{lightyellow}4.8 & 23.89 & .835 & .207 & \cellcolor{lightorange}290 & 27.29 & .799 & .253 & \cellcolor{lightorange}630 & 27.79 & .822 & .263 & \cellcolor{lightorange}270 \\
+Taming3DGS (Big) & \cellcolor{lightyellow}4.8 & \cellcolor{lightyellow}24.04 & .851 & .170 & 1,840 & \cellcolor{lightorange}27.79 & \cellcolor{lightorange}.822 & \cellcolor{lightorange}.205 & 3,310 & \cellcolor{lightorange}30.14 & .907 & \cellcolor{lightyellow}.235 & 2,810 \\
+AtomGS & 4.9 & 23.70 & .849 & \cellcolor{lightyellow}.166 & 1,480 & 27.38 & .816 & \cellcolor{lightyellow}.211 & 3,140 &  &  &  &  \\
+GaussianPro & 5.0 & \cellcolor{lightorange}24.09 & \cellcolor{lightorange}.862 & .185 & 1,441 & 27.43 & .813 & .219 & 3,403 & 29.79 & \cellcolor{lightred}.913 & \cellcolor{lightorange}.222 & 2,582 \\
+Color-cued GS & 5.5 & 23.18 & .830 & .198 & \cellcolor{lightyellow}370 & 27.07 & .797 & .249 & \cellcolor{lightyellow}646 & 29.71 & .902 & .255 & 644 \\
+Mini-Splatting-D & 5.7 & 23.23 & \cellcolor{lightyellow}.853 & \cellcolor{lightred}.140 & 4,280 & \cellcolor{lightyellow}27.51 & \cellcolor{lightred}.831 & \cellcolor{lightred}.176 & 4,690 & 29.88 & .906 & \cellcolor{lightred}.211 & 4,630 \\
+\textbf{3DGS-30K} & 6.6 & 23.14 & .841 & .183 & 1,783 & 27.21 & .815 & .214 & 3,362 & 29.41 & .903 & .243 & 2,975 \\
 \bottomrule
 \end{tabular}
         \end{adjustbox}
