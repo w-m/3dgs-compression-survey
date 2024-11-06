@@ -98,6 +98,12 @@ T.~Lu, M.~Yu, L.~Xu, Y.~Xiangli, L.~Wang, D.~Lin, and B.~Dai.
 \newblock Scaffold-gs: Structured 3d gaussians for view-adaptive rendering,
   2024.
 
+\bibitem{taming20243dgs}
+S.~S. Mallick, R.~Goel, B.~Kerbl, F.~V. Carrasco, M.~Steinberger, and F.~D.~L.
+  Torre.
+\newblock Taming 3dgs: High-quality radiance fields with limited resources.
+\newblock In {\em SIGGRAPH Asia 2024 Conference Papers}, 2024.
+
 \bibitem{mildenhall2020nerf}
 B.~Mildenhall, P.~P. Srinivasan, M.~Tancik, J.~T. Barron, R.~Ramamoorthi, and
   R.~Ng.
@@ -137,12 +143,6 @@ P.~Papantonakis, G.~Kopanas, B.~Kerbl, A.~Lanvin, and G.~Drettakis.
 K.~Ren, L.~Jiang, T.~Lu, M.~Yu, L.~Xu, Z.~Ni, and B.~Dai.
 \newblock Octree-gs: Towards consistent real-time rendering with lod-structured
   3d gaussians, 2024, 2403.17898.
-
-\bibitem{taming20243dgs}
-{Saswat Mallick and Rahul Goel}, B.~Kerbl, F.~Vicente~Carrasco, M.~Steinberger,
-  and F.~De~La~Torre.
-\newblock Taming 3dgs: High-quality radiance fields with limited resources.
-\newblock In {\em SIGGRAPH Asia 2024 Conference Papers}, 2024.
 
 \bibitem{seo2024flod}
 Y.~Seo, Y.~S. Choi, H.~S. Son, and Y.~Uh.
