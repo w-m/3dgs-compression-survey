@@ -54,3 +54,7 @@ xie2024mesongs:
 cheng2024gaussianpro:
   url: "https://github.com/kcheng1021/GaussianPro/tree/version1.0/results"
   is_csv: True
+
+liu2024compgs:
+  url: "https://github.com/LiuXiangrui/CompGS/tree/main/results"
+  is_csv: True
