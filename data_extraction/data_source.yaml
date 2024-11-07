@@ -10,7 +10,8 @@ lee2024compact:
     - tab:qual2
 
 navaneet2023compact3d:
-  url: "https://arxiv.org/src/2311.18159"
+#   url: "https://arxiv.org/src/2311.18159"
+  url: "https://arxiv.org/src/2311.18159v2" # needs this v2 as newer version breaks latex parsing 
   is_csv: False
   table_names: 
     - tab:comp_sota 
