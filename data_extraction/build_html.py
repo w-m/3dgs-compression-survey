@@ -660,6 +660,8 @@ def get_published_at(
                         pub = "TOG"
                     elif "SIGGRAPH" in pub:
                         pub = "SIGGRAPH"
+                    elif "ACM International Conference on Multimedia" in pub:
+                        pub = "MM"
 
                     pub = pub + " '" + entry["year"][-2:]
 
