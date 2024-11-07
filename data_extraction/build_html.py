@@ -335,7 +335,6 @@ def combine_tables_to_html():
             dataset_count += dataset_rank.notna()
 
         total_rank = (total_rank / dataset_count).apply(lambda x: round(x, 1))
-
         return total_rank
 
     def get_rank_combinations_and_formulas(datasets, metrics, df):
