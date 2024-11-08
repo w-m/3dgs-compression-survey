@@ -119,6 +119,7 @@ If you use our survey in your research, please cite our work. You can use the fo
 
 ## Updates
 
+- 2024-11-05: Updated arXiv version with compression and compaction methods and a fundamentals of 3DGS compression
 - 2024-10-21: Officially rename "densification" methods to "compaction" methods on website to align with survey paper
 - 2024-10-17: Add GaussiansPro, AtomGS and Taming3DGS to densification/compaction methods
 - 2024-10-14: Add MesonGS to compression methods
