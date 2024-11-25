@@ -1,0 +1,3 @@
+### ContextGS: Compact 3D Gaussian Splatting with Anchor Level Context Model
+
+This paper proposes the first autoregressive model at the anchor level for 3DGS compression. This work divides anchors into different levels and the anchors that are not coded yet can be predicted based on the already coded ones in all the coarser levels, leading to more accurate modeling and higher coding efficiency. To further improve the efficiency of entropy coding, a low-dimensional quantized feature is introduced as the hyperprior for each anchor, which can be effectively compressed. This work can be applied to both Scaffold-GS and vanilla 3DGS.

@@ -29,6 +29,8 @@ papantonakis2024reducing,Baseline,27.10,0.809,0.226,29000000,1460000.0,https://r
 ren2024octreegs,Baseline,28.05,0.819,0.217,,657000.0,https://arxiv.org/pdf/2403.17898,
 taming20243dgs,Baseline,27.29,0.799,0.253,,630000.0,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
 taming20243dgs, (Big),27.79,0.822,0.205,,3310000.0,https://humansensinglab.github.io/taming-3dgs/docs/paper.pdf,
+wang2024contextgs,_lowrate,27.62,0.808,0.237,13297458,,https://raw.githubusercontent.com/wyf0912/ContextGS/main/results,
+wang2024contextgs,_highrate,27.75,0.811,0.231,19308117,,https://raw.githubusercontent.com/wyf0912/ContextGS/main/results,
 wang2024end,,26.03,0.764,0.299,6162424,479851.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,26.50,0.784,0.268,9761150,776862.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,26.87,0.796,0.248,15351860,1237152.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
