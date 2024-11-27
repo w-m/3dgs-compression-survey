@@ -504,6 +504,53 @@ def combine_tables_to_html():
 
         return actual_df
 
+    def add_top_3_classes_per_type(
+        df, actual_df, category_col="category", include_3dgs=True
+    ):
+        colors = ["first", "second", "third"]
+        for col in df.columns:
+            try:
+                float_col = df[col].astype(float)
+            except ValueError:
+                continue  # Skip non-numeric columns
+
+            # Loop through each category type ('c', 'd')
+            for category_type in df[category_col].unique():
+                if category_type not in ["c", "d"]:
+                    continue  # Skip unrelated categories
+
+                # Filter rows by category
+                filtered_indices = df[df[category_col] == category_type].index
+                filtered_col = float_col[filtered_indices]
+
+                # Explicitly include the 3DGS-30K row in the filtered column
+                if include_3dgs:
+                    filtered_indices = filtered_indices.union(
+                        df[df["Method"].str.contains("3DGS-30K", na=False)].index
+                    )
+                    filtered_col = float_col[filtered_indices]
+
+                if (
+                    any(
+                        keyword in col[1].lower()
+                        for keyword in ["size", "lpips", "gauss", "b/g"]
+                    )
+                    or "rank" in col[0].lower()
+                ):
+                    top_3 = pd.Series(filtered_col.unique()).nsmallest(3)
+                else:
+                    top_3 = pd.Series(filtered_col.unique()).nlargest(3)
+
+                # Assign "first", "second", "third" classes to the filtered rows
+                for i, val in enumerate(top_3):
+                    matching_indices = filtered_col[filtered_col == val].index
+                    for index in matching_indices:
+                        actual_df.at[index, col] = (
+                            f'<td class="{colors[i]}">{actual_df.at[index, col]}</td>'
+                        )
+
+        return actual_df
+
     multi_col_df_copy = multi_col_df.copy()
 
     def numGaussians_to_k_Gauss(df):
@@ -527,7 +574,7 @@ def combine_tables_to_html():
         )
 
     numGaussians_to_k_Gauss(multi_col_df)
-    multi_col_df = add_top_3_classes(
+    multi_col_df = add_top_3_classes_per_type(
         multi_col_df_copy, multi_col_df.astype(str)
     ).replace(["nan", "NaN", "None"], "")
 
