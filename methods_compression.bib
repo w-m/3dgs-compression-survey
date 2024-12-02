@@ -1,15 +1,3 @@
-@misc{wang2024contextgs,
-  title={ContextGS: Compact 3D Gaussian Splatting with Anchor Level Context Model},
-  author={Wang, Yufei and Li, Zhihao and Guo, Lanqing and Yang, Wenhan and Kot, Alex C and Wen, Bihan},
-  booktitle={Neural Information Processing Systems},
-  year={2024},
-  shortname={ContextGS},
-  url={https://github.com/wyf0912/ContextGS},
-  abstract={
-      Recently, 3D Gaussian Splatting (3DGS) has become a promising framework for novel view synthesis, offering fast rendering speeds and high fidelity. However, the large number of Gaussians and their associated attributes require effective compression techniques. Existing methods primarily compress neural Gaussians individually and independently, i.e., coding all the neural Gaussians at the same time, with little design for their interactions and spatial dependence. Inspired by the effectiveness of the context model in image compression, we propose the first autoregressive model at the anchor level for 3DGS compression in this work. We divide anchors into different levels and the anchors that are not coded yet can be predicted based on the already coded ones in all the coarser levels, leading to more accurate modeling and higher coding efficiency. To further improve the efficiency of entropy coding, e.g., to code the coarsest level with no already coded anchors, we propose to introduce a low-dimensional quantized feature as the hyperprior for each anchor, which can be effectively compressed. Our work pioneers the context model in the anchor level for 3DGS representation, yielding an impressive size reduction of over 100 times compared to vanilla 3DGS and 15 times compared to the most recent state-of-the-art work Scaffold-GS, while achieving comparable or even higher rendering quality.
-  }
-}
-
 @misc{morgenstern2024compact,
       title={Compact 3D Scene Representation via Self-Organizing Gaussian Grids}, 
       author={Wieland Morgenstern and Florian Barthel and Anna Hilsmann and Peter Eisert},
@@ -185,4 +173,16 @@
   url={https://www.arxiv.org/abs/2404.09458},
   abstract={Gaussian splatting, renowned for its exceptional rendering quality and efficiency, has emerged as a prominent technique in 3D scene representation. However, the substantial data volume of Gaussian splatting impedes its practical utility in real-world applications. Herein, we propose an efficient 3D scene representation, named Compressed Gaussian Splatting (CompGS), which harnesses compact Gaussian primitives for faithful 3D scene modeling with a remarkably reduced data size. To ensure the compactness of Gaussian primitives, we devise a hybrid primitive structure that captures predictive relationships between each other. Then, we exploit a small set of anchor primitives for prediction, allowing the majority of primitives to be encapsulated into highly compact residual forms. Moreover, we develop a rate-constrained optimization scheme to eliminate redundancies within such hybrid primitives, steering our CompGS towards an optimal trade-off between bitrate consumption and representation efficacy. Experimental results show that the proposed CompGS significantly outperforms existing methods, achieving superior compactness in 3D scene representation without compromising model accuracy and rendering quality. Our code will be released on GitHub for further research.},
   shortname={CompGS}
+}
+
+@misc{wang2024contextgs,
+  title={ContextGS: Compact 3D Gaussian Splatting with Anchor Level Context Model},
+  author={Wang, Yufei and Li, Zhihao and Guo, Lanqing and Yang, Wenhan and Kot, Alex C and Wen, Bihan},
+  booktitle={Neural Information Processing Systems},
+  year={2024},
+  shortname={ContextGS},
+  url={https://github.com/wyf0912/ContextGS},
+  abstract={
+      Recently, 3D Gaussian Splatting (3DGS) has become a promising framework for novel view synthesis, offering fast rendering speeds and high fidelity. However, the large number of Gaussians and their associated attributes require effective compression techniques. Existing methods primarily compress neural Gaussians individually and independently, i.e., coding all the neural Gaussians at the same time, with little design for their interactions and spatial dependence. Inspired by the effectiveness of the context model in image compression, we propose the first autoregressive model at the anchor level for 3DGS compression in this work. We divide anchors into different levels and the anchors that are not coded yet can be predicted based on the already coded ones in all the coarser levels, leading to more accurate modeling and higher coding efficiency. To further improve the efficiency of entropy coding, e.g., to code the coarsest level with no already coded anchors, we propose to introduce a low-dimensional quantized feature as the hyperprior for each anchor, which can be effectively compressed. Our work pioneers the context model in the anchor level for 3DGS representation, yielding an impressive size reduction of over 100 times compared to vanilla 3DGS and 15 times compared to the most recent state-of-the-art work Scaffold-GS, while achieving comparable or even higher rendering quality.
+  }
 }
