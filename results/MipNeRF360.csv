@@ -15,6 +15,7 @@ hu2024gsplat,,27.70,0.825,0.197,57812682,4000000.0,https://raw.githubusercontent
 kim2024CVPR,Baseline,27.07,0.797,0.249,73000000,646000.0,https://openaccess.thecvf.com/content/CVPR2024W/3DMV/papers/Kim_Color-cued_Efficient_Densification_Method_for_3D_Gaussian_Splatting_CVPRW_2024_paper.pdf,
 lee2024compact,+PP,27.03,0.797,0.247,29100000,,https://arxiv.org/src/2311.13681,
 lee2024compact,Baseline,27.08,0.798,0.247,48800000,1388162.0,https://arxiv.org/src/2311.13681,
+lee2025compression3dgaussiansplatting,Baseline,27.30,0.810,0.236,10260579,2591839.0,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_lee2025compression3dgaussiansplatting,
 liu2024atomgs,Baseline,27.38,0.816,0.211,778950993,3140929.0,https://arxiv.org/pdf/2405.12369,(#Gaussians and Size in Email to Yi-Hsin + MB are actually MiB as they then result to the 248bytes/G))
 liu2024compgs,,26.37,0.778,0.276,9257029,457368.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
 liu2024compgs,,26.78,0.791,0.259,11551380,475965.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
