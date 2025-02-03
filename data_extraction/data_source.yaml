@@ -62,3 +62,7 @@ cheng2024gaussianpro:
 liu2024compgs:
   url: "https://github.com/LiuXiangrui/CompGS/tree/main/results"
   is_csv: True
+
+lee2025compression3dgaussiansplatting:
+  url: "https://github.com/w-m/3dgs-compression-survey/tree/main/sources/results_lee2025compression3dgaussiansplatting"
+  is_csv: True  
