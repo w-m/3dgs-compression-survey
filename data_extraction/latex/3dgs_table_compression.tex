@@ -16,27 +16,29 @@
 Method & Rank & \multicolumn{4}{c|}{Tanks and Temples} & \multicolumn{4}{c|}{Mip-NeRF 360} & \multicolumn{4}{c|}{Deep Blending} & \multicolumn{4}{c|}{Synthetic NeRF} \\
  & \tiny  & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} & \tiny PSNR$\uparrow$ & \tiny SSIM$\uparrow$ & \tiny LPIPS$\downarrow$ & \tiny \makecell{Size \\ MB$\downarrow$} \\
 \midrule
-HAC-highrate & \cellcolor{lightred}4.0 & \cellcolor{lightred}24.40 & \cellcolor{lightorange}.853 & \cellcolor{lightorange}.177 & 11.8 & \cellcolor{lightred}27.77 & \cellcolor{lightyellow}.811 & .230 & 22.9 & \cellcolor{lightyellow}30.34 & .906 & .258 & 6.7 & \cellcolor{lightorange}33.71 & \cellcolor{lightyellow}.968 & \cellcolor{lightyellow}.034 & \cellcolor{lightyellow}2.0 \\
-HAC-lowrate & \cellcolor{lightorange}4.3 & \cellcolor{lightyellow}24.04 & .846 & .187 & \cellcolor{lightred}8.5 & \cellcolor{lightyellow}27.53 & .807 & .238 & \cellcolor{lightorange}16.0 & 29.98 & .902 & .269 & \cellcolor{lightred}4.6 & 33.24 & .967 & .037 & \cellcolor{lightred}1.2 \\
-gsplat-1.00M & \cellcolor{lightyellow}4.5 & 24.03 & \cellcolor{lightred}.857 & \cellcolor{lightred}.163 & 16.1 & 27.29 & \cellcolor{lightyellow}.811 & \cellcolor{lightyellow}.229 & \cellcolor{lightorange}16.0 &  &  &  &  &  &  &  &  \\
-IGS low & 5.5 & 23.70 & .836 & .227 & \cellcolor{lightorange}8.9 & 27.34 & \cellcolor{lightyellow}.811 & .255 & \cellcolor{lightred}13.4 & \cellcolor{lightorange}30.63 & .904 & .293 & \cellcolor{lightyellow}6.6 & \cellcolor{lightyellow}33.36 & \cellcolor{lightorange}.971 & .036 & \cellcolor{lightorange}1.9 \\
-IGS high & 6.1 & \cellcolor{lightorange}24.05 & \cellcolor{lightyellow}.849 & .211 & 13.1 & \cellcolor{lightorange}27.62 & \cellcolor{lightred}.820 & .245 & 27.0 & \cellcolor{lightred}32.33 & \cellcolor{lightred}.924 & .253 & 8.1 & \cellcolor{lightred}34.18 & \cellcolor{lightred}.975 & \cellcolor{lightred}.032 & 2.9 \\
-Compact3D 32K & 7.4 & 23.44 & .838 & .198 & 13.0 & 27.12 & .806 & .240 & 19.0 & 29.90 & \cellcolor{lightyellow}.907 & .251 & 13.0 &  &  &  &  \\
-Compact3D 16K & 7.8 & 23.39 & .836 & .200 & 12.0 & 27.03 & .804 & .243 & 18.0 & 29.90 & .906 & .252 & 12.0 &  &  &  &  \\
-RDO-Gaussian & 8.5 & 23.34 & .835 & .195 & 12.0 & 27.05 & .802 & .239 & 23.5 & 29.63 & .902 & .252 & 18.0 & 33.12 & .967 & .035 & 2.3 \\
-Reduced3DGS & 8.8 & 23.57 & .840 & .188 & 14.0 & 27.10 & .809 & \cellcolor{lightorange}.226 & 29.0 & 29.63 & .902 & \cellcolor{lightorange}.249 & 18.0 &  &  &  &  \\
-SOG w/o SH & 9.8 & 23.15 & .828 & .198 & \cellcolor{lightyellow}9.3 & 26.56 & .791 & .241 & \cellcolor{lightyellow}16.7 & 29.12 & .892 & .270 & \cellcolor{lightorange}5.7 & 31.37 & .959 & .043 & \cellcolor{lightyellow}2.0 \\
-MesonGS c3 & 10.9 & 23.29 & .835 & .197 & 17.4 & 26.99 & .797 & .246 & 25.9 & 29.48 & .903 & .252 & 29.0 & 32.96 & \cellcolor{lightyellow}.968 & \cellcolor{lightorange}.033 & 3.5 \\
-Compressed3D & 11.3 & 23.32 & .832 & .194 & 17.3 & 26.98 & .801 & .238 & 28.8 & 29.38 & .898 & .253 & 25.3 & 32.94 & .967 & \cellcolor{lightorange}.033 & 3.7 \\
-MesonGS c1 & 11.6 & 23.31 & .835 & .196 & 18.5 & 26.99 & .796 & .247 & 28.5 & 29.50 & .903 & .251 & 31.1 & 32.94 & \cellcolor{lightyellow}.968 & \cellcolor{lightorange}.033 & 3.9 \\
-SOG & 11.8 & 23.56 & .837 & .186 & 22.8 & 27.08 & .799 & .230 & 40.3 & 29.26 & .894 & .268 & 17.7 & 33.23 & .966 & \cellcolor{lightyellow}.034 & 4.1 \\
-Compact3DGS+PP & 12.2 & 23.32 & .831 & .202 & 20.9 & 27.03 & .797 & .247 & 29.1 & 29.73 & .900 & .258 & 23.8 & 32.88 & \cellcolor{lightyellow}.968 & \cellcolor{lightyellow}.034 & 2.8 \\
-EAGLES & 12.8 & 23.37 & .84 & .20 & 29.0 & 27.23 & .81 & .24 & 54.0 & 29.86 & \cellcolor{lightorange}.91 & \cellcolor{lightyellow}.25 & 52.0 &  &  &  &  \\
-Scaffold-GS & 13.1 & 23.96 & \cellcolor{lightorange}.853 & \cellcolor{lightorange}.177 & 87.0 & 27.50 & .806 & .252 & 156.0 & 30.21 & .906 & .254 & 66.0 &  &  &  &  \\
-\textbf{3DGS-30K} & 13.8 & 23.14 & .841 & \cellcolor{lightyellow}.183 & 411.0 & 27.21 & \cellcolor{lightorange}.815 & \cellcolor{lightred}.214 & 734.0 & 29.41 & .903 & \cellcolor{lightred}.243 & 676.0 & 33.32 &  &  &  \\
-Compact3DGS & 14.0 & 23.32 & .831 & .201 & 39.4 & 27.08 & .798 & .247 & 48.8 & 29.79 & .901 & .258 & 43.2 & 33.33 & \cellcolor{lightyellow}.968 & \cellcolor{lightyellow}.034 & 5.8 \\
-LightGaussian & 14.6 & 23.11 & .817 & .231 & 22.0 & 27.28 & .805 & .243 & 42.0 &  &  &  &  & 32.72 & .965 & .037 & 7.8 \\
-EAGLES-Small & 15.3 & 23.10 & .82 & .22 & 19.0 & 26.94 & .80 & .25 & 47.0 & 29.92 & .90 & \cellcolor{lightyellow}.25 & 33.0 &  &  &  &  \\
+ContextGS_lowrate & \cellcolor{lightred}4.3 & \cellcolor{lightyellow}24.12 & .849 & .186 & 9.9 & \cellcolor{lightyellow}27.62 & .808 & .237 & \cellcolor{lightorange}13.3 & 30.09 & \cellcolor{lightyellow}.907 & .265 & \cellcolor{lightred}3.7 &  &  &  &  \\
+HAC-highrate & \cellcolor{lightorange}4.4 & \cellcolor{lightred}24.40 & \cellcolor{lightyellow}.853 & \cellcolor{lightyellow}.177 & 11.8 & \cellcolor{lightred}27.77 & \cellcolor{lightorange}.811 & .230 & 22.9 & \cellcolor{lightorange}30.34 & .906 & .258 & 6.7 & \cellcolor{lightred}33.71 & \cellcolor{lightred}.968 & \cellcolor{lightorange}.034 & \cellcolor{lightorange}2.0 \\
+CodecGS & \cellcolor{lightyellow}4.8 & 23.63 & .841 & .192 & \cellcolor{lightred}7.8 & 27.30 & \cellcolor{lightyellow}.810 & .236 & \cellcolor{lightred}10.3 & 29.81 & .906 & .251 & 9.0 &  &  &  &  \\
+HAC-lowrate & 5.0 & 24.04 & .846 & .187 & \cellcolor{lightorange}8.5 & 27.53 & .807 & .238 & \cellcolor{lightyellow}16.0 & 29.98 & .902 & .269 & \cellcolor{lightorange}4.6 & 33.24 & \cellcolor{lightorange}.967 & .037 & \cellcolor{lightred}1.2 \\
+gsplat-1.00M & 5.3 & 24.03 & \cellcolor{lightred}.857 & \cellcolor{lightred}.163 & 16.1 & 27.29 & \cellcolor{lightorange}.811 & \cellcolor{lightyellow}.229 & \cellcolor{lightyellow}16.0 &  &  &  &  &  &  &  &  \\
+ContextGS_highrate & 5.8 & \cellcolor{lightorange}24.29 & \cellcolor{lightorange}.855 & \cellcolor{lightorange}.176 & 12.4 & \cellcolor{lightorange}27.75 & \cellcolor{lightorange}.811 & .231 & 19.3 & \cellcolor{lightred}30.41 & \cellcolor{lightorange}.909 & .259 & 6.9 &  &  &  &  \\
+Compact3D 32K & 9.3 & 23.44 & .838 & .198 & 13.0 & 27.12 & .806 & .240 & 19.0 & 29.90 & \cellcolor{lightyellow}.907 & .251 & 13.0 &  &  &  &  \\
+Compact3D 16K & 9.7 & 23.39 & .836 & .200 & 12.0 & 27.03 & .804 & .243 & 18.0 & 29.90 & .906 & .252 & 12.0 &  &  &  &  \\
+RDO-Gaussian & 9.8 & 23.34 & .835 & .195 & 12.0 & 27.05 & .802 & .239 & 23.5 & 29.63 & .902 & .252 & 18.0 & 33.12 & \cellcolor{lightorange}.967 & \cellcolor{lightyellow}.035 & \cellcolor{lightyellow}2.3 \\
+CompGS & 9.8 & 23.70 & .837 & .208 & 10.1 & 27.26 & .803 & .239 & 17.3 & 29.69 & .901 & .279 & 9.2 &  &  &  &  \\
+Reduced3DGS & 10.4 & 23.57 & .840 & .188 & 14.0 & 27.10 & .809 & \cellcolor{lightorange}.226 & 29.0 & 29.63 & .902 & \cellcolor{lightorange}.249 & 18.0 &  &  &  &  \\
+SOG w/o SH & 10.5 & 23.15 & .828 & .198 & \cellcolor{lightyellow}9.3 & 26.56 & .791 & .241 & 16.7 & 29.12 & .892 & .270 & \cellcolor{lightyellow}5.7 & 31.37 & .959 & .043 & \cellcolor{lightorange}2.0 \\
+MesonGS c3 & 12.0 & 23.29 & .835 & .197 & 17.4 & 26.99 & .797 & .246 & 25.9 & 29.48 & .903 & .252 & 29.0 & 32.96 & \cellcolor{lightred}.968 & \cellcolor{lightred}.033 & 3.5 \\
+Compressed3D & 12.4 & 23.32 & .832 & .194 & 17.3 & 26.98 & .801 & .238 & 28.8 & 29.38 & .898 & .253 & 25.3 & 32.94 & \cellcolor{lightorange}.967 & \cellcolor{lightred}.033 & 3.7 \\
+MesonGS c1 & 12.6 & 23.31 & .835 & .196 & 18.5 & 26.99 & .796 & .247 & 28.5 & 29.50 & .903 & .251 & 31.1 & 32.94 & \cellcolor{lightred}.968 & \cellcolor{lightred}.033 & 3.9 \\
+SOG & 12.7 & 23.56 & .837 & .186 & 22.8 & 27.08 & .799 & .230 & 40.3 & 29.26 & .894 & .268 & 17.7 & 33.23 & \cellcolor{lightyellow}.966 & \cellcolor{lightorange}.034 & 4.1 \\
+Compact3DGS+PP & 13.3 & 23.32 & .831 & .202 & 20.9 & 27.03 & .797 & .247 & 29.1 & 29.73 & .900 & .258 & 23.8 & 32.88 & \cellcolor{lightred}.968 & \cellcolor{lightorange}.034 & 2.8 \\
+EAGLES & 14.4 & 23.37 & .84 & .20 & 29.0 & 27.23 & \cellcolor{lightyellow}.81 & .24 & 54.0 & 29.86 & \cellcolor{lightred}.91 & \cellcolor{lightyellow}.25 & 52.0 &  &  &  &  \\
+Scaffold-GS & 14.6 & 23.96 & \cellcolor{lightyellow}.853 & \cellcolor{lightyellow}.177 & 87.0 & 27.50 & .806 & .252 & 156.0 & \cellcolor{lightyellow}30.21 & .906 & .254 & 66.0 &  &  &  &  \\
+Compact3DGS & 14.9 & 23.32 & .831 & .201 & 39.4 & 27.08 & .798 & .247 & 48.8 & 29.79 & .901 & .258 & 43.2 & \cellcolor{lightorange}33.33 & \cellcolor{lightred}.968 & \cellcolor{lightorange}.034 & 5.8 \\
+LightGaussian & 15.3 & 23.11 & .817 & .231 & 22.0 & 27.28 & .805 & .243 & 42.0 &  &  &  &  & 32.72 & .965 & .037 & 7.8 \\
+\textbf{3DGS-30K} & 15.3 & 23.14 & .841 & .183 & 411.0 & 27.21 & \cellcolor{lightred}.815 & \cellcolor{lightred}.214 & 734.0 & 29.41 & .903 & \cellcolor{lightred}.243 & 676.0 & \cellcolor{lightyellow}33.32 &  &  &  \\
+EAGLES-Small & 17.2 & 23.10 & .82 & .22 & 19.0 & 26.94 & .80 & .25 & 47.0 & 29.92 & .90 & \cellcolor{lightyellow}.25 & 33.0 &  &  &  &  \\
 \bottomrule
 \end{tabular}
         \end{adjustbox}
