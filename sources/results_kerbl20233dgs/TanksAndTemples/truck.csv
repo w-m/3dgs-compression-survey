@@ -1,0 +1,2 @@
+Submethod,PSNR,SSIM,LPIPS,Size [Bytes],#Gaussians
+3DGS-30K,25.187,0.879,0.148,411000000, 1783867.00 # Size and num Gaussians are avarages over dataset
