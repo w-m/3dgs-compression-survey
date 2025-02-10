@@ -66,3 +66,7 @@ liu2024compgs:
 lee2025compression3dgaussiansplatting:
   url: "https://github.com/w-m/3dgs-compression-survey/tree/main/sources/results_lee2025compression3dgaussiansplatting"
   is_csv: True  
+
+kerbl3Dgaussians:
+  url: "https://github.com/w-m/3dgs-compression-survey/tree/main/sources/results_kerbl20233dgs"
+  is_csv: True

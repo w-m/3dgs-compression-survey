@@ -21,7 +21,7 @@ org_3dgs = {  # 30K
     "TanksAndTemples": ["23.14", "0.841", "0.183", 411000000, 1783867.00],
     "MipNeRF360": ["27.21", "0.815", "0.214", 734000000, 3362470.00],
     "DeepBlending": ["29.41", "0.903", "0.243", 676000000, 2975634.50],
-    "SyntheticNeRF": ["33.32", None, None, None, None],
+    "SyntheticNeRF": ["33.31", None, None, None, None],
 }
 
 colors = [
@@ -153,32 +153,32 @@ def combine_tables_to_html():
         # filter out "Baseline" keyword from Submethod
         df["Submethod"] = df["Submethod"].str.replace("Baseline", "")
 
-        # insert 3DGS
-        df = pd.concat(
-            [
-                df,
-                pd.DataFrame(
-                    [
-                        {
-                            "Method": "3DGS",
-                            "Submethod": "",
-                            "PSNR": org_3dgs[dataset][0],
-                            "SSIM": (
-                                org_3dgs[dataset][1] if org_3dgs[dataset][1] else ""
-                            ),
-                            "LPIPS": (
-                                org_3dgs[dataset][2] if org_3dgs[dataset][1] else ""
-                            ),
-                            "Size [Bytes]": org_3dgs[dataset][3],
-                            "#Gaussians": org_3dgs[dataset][4],
-                            "Data Source": "",
-                            "Comment": "",
-                        }
-                    ]
-                ),
-            ],
-            ignore_index=True,
-        )
+        # # insert 3DGS
+        # df = pd.concat(
+        #     [
+        #         df,
+        #         pd.DataFrame(
+        #             [
+        #                 {
+        #                     "Method": "3DGS",
+        #                     "Submethod": "",
+        #                     "PSNR": org_3dgs[dataset][0],
+        #                     "SSIM": (
+        #                         org_3dgs[dataset][1] if org_3dgs[dataset][1] else ""
+        #                     ),
+        #                     "LPIPS": (
+        #                         org_3dgs[dataset][2] if org_3dgs[dataset][1] else ""
+        #                     ),
+        #                     "Size [Bytes]": org_3dgs[dataset][3],
+        #                     "#Gaussians": org_3dgs[dataset][4],
+        #                     "Data Source": "",
+        #                     "Comment": "",
+        #                 }
+        #             ]
+        #         ),
+        #     ],
+        #     ignore_index=True,
+        # )
 
         # parse all float columns to float and keep the exact numer of decimal places
         df["PSNR"] = df["PSNR"].apply(lambda x: Decimal(x) if x != "" else None)
@@ -505,7 +505,7 @@ def combine_tables_to_html():
         return actual_df
 
     def add_top_3_classes_per_type(
-        df, actual_df, category_col="category", include_3dgs=True
+        df, actual_df, category_col="category", include_3dgs=False
     ):
         colors = ["first", "second", "third"]
         for col in df.columns:
@@ -523,12 +523,12 @@ def combine_tables_to_html():
                 filtered_indices = df[df[category_col] == category_type].index
                 filtered_col = float_col[filtered_indices]
 
-                # Explicitly include the 3DGS-30K row in the filtered column
-                if include_3dgs:
-                    filtered_indices = filtered_indices.union(
-                        df[df["Method"].str.contains("3DGS-30K", na=False)].index
-                    )
-                    filtered_col = float_col[filtered_indices]
+                # # Explicitly include the 3DGS-30K row in the filtered column
+                # if include_3dgs:
+                #     filtered_indices = filtered_indices.union(
+                #         df[df["Method"].str.contains("3DGS-30K", na=False)].index
+                #     )
+                #     filtered_col = float_col[filtered_indices]
 
                 if (
                     any(
@@ -985,7 +985,7 @@ def get_plot_data(ranks):
 
     checkbox_states = {}
     for method in shortnames.values():
-        if method in ["Scaffold-GS", "AtomGS", "GaussianPro"]:
+        if method in ["3DGS-30K", "Scaffold-GS", "AtomGS", "GaussianPro"]:
             checkbox_states[method] = False
         else:
             checkbox_states[method] = True
