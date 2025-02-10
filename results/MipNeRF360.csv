@@ -12,6 +12,7 @@ hu2024gsplat,,26.64,0.788,0.270,6916294,360000.0,https://raw.githubusercontent.c
 hu2024gsplat,,26.88,0.796,0.256,8796870,490000.0,https://raw.githubusercontent.com/nerfstudio-project/gsplat/main/examples/benchmarks/compression/results,
 hu2024gsplat,-1.00M,27.29,0.811,0.229,16038022,1000000.0,https://raw.githubusercontent.com/nerfstudio-project/gsplat/main/examples/benchmarks/compression/results,
 hu2024gsplat,,27.70,0.825,0.197,57812682,4000000.0,https://raw.githubusercontent.com/nerfstudio-project/gsplat/main/examples/benchmarks/compression/results,
+kerbl3Dgaussians,Baseline,27.21,0.815,0.214,734000000,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_kerbl20233dgs,
 kim2024CVPR,Baseline,27.07,0.797,0.249,73000000,646000.0,https://openaccess.thecvf.com/content/CVPR2024W/3DMV/papers/Kim_Color-cued_Efficient_Densification_Method_for_3D_Gaussian_Splatting_CVPRW_2024_paper.pdf,
 lee2024compact,+PP,27.03,0.797,0.247,29100000,,https://arxiv.org/src/2311.13681,
 lee2024compact,Baseline,27.08,0.798,0.247,48800000,1388162.0,https://arxiv.org/src/2311.13681,

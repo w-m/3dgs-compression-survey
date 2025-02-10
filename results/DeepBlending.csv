@@ -8,6 +8,7 @@ fang2024minisplatting,Baseline,29.98,0.908,0.253,,350000.0,https://arxiv.org/pdf
 fang2024minisplatting,-D,29.88,0.906,0.211,,4630000.0,https://arxiv.org/pdf/2403.14166,
 girish2024eagles,-Small,29.92,0.90,0.25,33000000,1190000.0,https://arxiv.org/pdf/2312.04564,
 girish2024eagles,Baseline,29.86,0.91,0.25,52000000,,https://arxiv.org/pdf/2312.04564,
+kerbl3Dgaussians,Baseline,29.41,0.903,0.243,676000000,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_kerbl20233dgs,
 kim2024CVPR,Baseline,29.71,0.902,0.255,72000000,644000.0,https://openaccess.thecvf.com/content/CVPR2024W/3DMV/papers/Kim_Color-cued_Efficient_Densification_Method_for_3D_Gaussian_Splatting_CVPRW_2024_paper.pdf,
 lee2024compact,+PP,29.73,0.900,0.258,23800000,,https://arxiv.org/src/2311.13681,
 lee2024compact,Baseline,29.79,0.901,0.258,43200000,1058679.0,https://arxiv.org/src/2311.13681,
