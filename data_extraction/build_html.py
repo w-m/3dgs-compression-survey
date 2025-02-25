@@ -45,6 +45,7 @@ colors = [
     "#dbdb8d",
     "#17becf",
     "#9edae5",
+    "#ff00ff",
 ]
 colors_d = [
     "#164f79",
