@@ -710,6 +710,8 @@ def get_published_at(
                         pub = "MM"
                     elif "Neural Information Processing Systems" in pub:
                         pub = "NeurIPS"
+                    elif "International Conference on Learning Representations" in pub:
+                        pub = "ICLR"
                     pub = pub + " '" + entry["year"][-2:]
 
                 published_at[entry["ID"]] = pub
