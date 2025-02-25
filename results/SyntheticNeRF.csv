@@ -1,6 +1,8 @@
 Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],#Gaussians,Data Source,Comment
 chen2024hac,-lowrate,33.24,0.967,0.037,1236009,99924,https://raw.githubusercontent.com/YihangChen-ee/HAC/main/results,
 chen2024hac,-highrate,33.71,0.968,0.034,1950692,143127,https://raw.githubusercontent.com/YihangChen-ee/HAC/main/results,
+chen2025hac-plus,-lowrate,32.77,0.965,0.041,793523,51208, https://raw.githubusercontent.com/YihangChen-ee/HAC-plus/main/results,
+chen2025hac-plus,-highrate,33.76,0.969,0.033,1934334,205794, https://raw.githubusercontent.com/YihangChen-ee/HAC-plus/main/results,
 fan2024lightgaussian,Baseline,32.725,0.965,0.037,7838000,,https://arxiv.org/pdf/2311.17245,"Taken from Table 6, avg of per-scene results"
 kerbl3Dgaussians,Baseline,33.31,NaN,NaN,,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_kerbl20233dgs,
 lee2024compact,+PP,32.88,0.968,0.034,2799698,,https://arxiv.org/pdf/2403.14530,

@@ -70,3 +70,7 @@ lee2025compression3dgaussiansplatting:
 kerbl3Dgaussians:
   url: "https://github.com/w-m/3dgs-compression-survey/tree/main/sources/results_kerbl20233dgs"
   is_csv: True
+
+chen2025hac-plus:
+  url: " https://github.com/YihangChen-ee/HAC-plus/tree/main/results"
+  is_csv: True
