@@ -1,6 +1,8 @@
 Method,Submethod,PSNR,SSIM,LPIPS,Size [Bytes],#Gaussians,Data Source,Comment
 chen2024hac,-lowrate,24.04,0.846,0.187,8493728,848774.0,https://raw.githubusercontent.com/YihangChen-ee/HAC/main/results,
 chen2024hac,-highrate,24.40,0.853,0.177,11789455,1025887.0,https://raw.githubusercontent.com/YihangChen-ee/HAC/main/results,
+chen2025fcgs,-lowrate,23.48,0.833,0.193,18761122,1826652.0,https://raw.githubusercontent.com/YihangChen-ee/FCGS/main/results,
+chen2025fcgs,-highrate,23.62,0.839,0.184,33576977,1826652.0,https://raw.githubusercontent.com/YihangChen-ee/FCGS/main/results,
 chen2025hac-plus,-lowrate,24.22,0.849,0.190,5426905,511289.0, https://raw.githubusercontent.com/YihangChen-ee/HAC-plus/main/results,
 chen2025hac-plus,-highrate,24.33,0.853,0.181,7260969,716161.0, https://raw.githubusercontent.com/YihangChen-ee/HAC-plus/main/results,
 cheng2024gaussianpro,,23.71,0.857,0.186,349679125,1410003.0,https://raw.githubusercontent.com/kcheng1021/GaussianPro/version1.0/results,
