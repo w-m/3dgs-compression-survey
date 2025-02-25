@@ -105,19 +105,17 @@ An up-to-date LaTeX version of the survey table can be found [here](https://gith
 If you use our survey in your research, please cite our work. You can use the following BibTeX entry:
 
 ```bibtex
-@misc{3DGSzip2024,
+@article{3DGSzip2024,
     title={3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods}, 
-    author={Milena T. Bagdasarian and Paul Knoll and Yi-Hsin Li and Florian Barthel and Anna Hilsmann and 
-            Peter Eisert and Wieland Morgenstern},
-    year={2024},
-    eprint={2407.09510},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV},
-    url={https://arxiv.org/abs/2407.09510}, 
-}
+    author={Milena T. Bagdasarian and Paul Knoll and Yi-Hsin Li and Florian Barthel and Anna Hilsmann and Peter Eisert and Wieland Morgenstern},
+    journal={arXiv preprint arXiv:2407.09510},
+    year={2024}, 
+} 
 ```
 
 ## Updates
+- 2025-02-25: Added HAC++
+- 2025-02-25: Added FCGS
 - 2025-02-10: Removed IGS as the publication is withdrawn
 - 2025-02-05: Added CodecGS
 - 2024-11-21: Added ContextGS
