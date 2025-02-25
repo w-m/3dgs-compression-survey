@@ -114,6 +114,7 @@ If you use our survey in your research, please cite our work. You can use the fo
 ```
 
 ## Updates
+- 2025-02-25: added GaussianSpa
 - 2025-02-25: Added HAC++
 - 2025-02-25: Added FCGS
 - 2025-02-10: Removed IGS as the publication is withdrawn

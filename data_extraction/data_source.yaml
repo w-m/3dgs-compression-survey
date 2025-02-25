@@ -78,3 +78,7 @@ chen2025hac-plus:
 chen2025fcgs:
   url: "https://github.com/YihangChen-ee/FCGS/tree/main/results"
   is_csv: True
+
+zhang2024gaussianspa:
+  url: "https://github.com/noodle-lab/GaussianSpa/tree/main/results"
+  is_csv: True
