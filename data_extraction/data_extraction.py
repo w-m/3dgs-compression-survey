@@ -383,7 +383,11 @@ def read_csvs(sources_file):
                             "Comment": "",
                         }
                         if "#Gaussians" in df.columns:
-                            filled_row["#Gaussians"] = int(row.get("#Gaussians", pd.NA))
+                            gaussians_value = row.get("#Gaussians", pd.NA)
+                            if pd.notna(gaussians_value) and gaussians_value != "NaN":
+                                filled_row["#Gaussians"] = int(gaussians_value)
+                            else:
+                                filled_row["#Gaussians"] = pd.NA
 
                         filled_rows.append(filled_row)
 
