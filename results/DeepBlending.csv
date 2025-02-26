@@ -20,6 +20,8 @@ lee2025compression3dgaussiansplatting,Baseline,29.81,0.906,0.251,9045757,2468145
 liu2024compgs,,29.30,0.895,0.293,6320023,298689.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
 liu2024compgs,,29.40,0.897,0.289,7152496,266042.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
 liu2024compgs,Baseline,29.69,0.901,0.279,9191336,229486.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
+liu2024hemgs,-lowrate,30.24,0.908,0.266,2993003,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_liu2024hemgs,
+liu2024hemgs,-highrate,30.37,0.911,0.253,6696783,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_liu2024hemgs,
 lu2024scaffold,Baseline,30.21,0.906,0.254,66000000,,https://arxiv.org/pdf/2312.00109,
 morgenstern2024compact, w/o SH,29.12,0.892,0.270,5712320,800173.0,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 morgenstern2024compact,Baseline,29.26,0.894,0.268,17736797,890433.0,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,

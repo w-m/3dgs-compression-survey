@@ -82,3 +82,7 @@ chen2025fcgs:
 zhang2024gaussianspa:
   url: "https://github.com/noodle-lab/GaussianSpa/tree/main/results"
   is_csv: True
+
+liu2024hemgs:
+  url: "https://github.com/w-m/3dgs-compression-survey/tree/main/sources/results_liu2024hemgs"
+  is_csv: True

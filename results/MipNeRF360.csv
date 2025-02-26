@@ -25,6 +25,8 @@ liu2024atomgs,Baseline,27.38,0.816,0.211,778950993,3140929.0,https://arxiv.org/p
 liu2024compgs,,26.37,0.778,0.276,9257029,457368.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
 liu2024compgs,,26.78,0.791,0.259,11551380,475965.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
 liu2024compgs,Baseline,27.26,0.803,0.239,17301474,493205.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
+liu2024hemgs,-lowrate,27.75,0.806,0.248,12538557,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_liu2024hemgs,
+liu2024hemgs,-highrate,27.93,0.813,0.230,21000111,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_liu2024hemgs,
 lu2024scaffold,Baseline,27.50,0.806,0.252,156000000,,https://arxiv.org/pdf/2403.14530,Results taken from HAC paper as they only evaluated on 7 scenes
 morgenstern2024compact, w/o SH,26.56,0.791,0.241,16684812,2149729.0,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 morgenstern2024compact,Baseline,27.08,0.799,0.230,40284501,2176333.0,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,

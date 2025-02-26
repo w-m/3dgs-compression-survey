@@ -25,6 +25,8 @@ liu2024atomgs,Baseline,23.70,0.849,0.166,367206072,1480685.0,https://arxiv.org/p
 liu2024compgs,,23.11,0.815,0.236,6177041,233056.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
 liu2024compgs,,23.39,0.828,0.219,7624788,244759.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
 liu2024compgs,Baseline,23.70,0.837,0.208,10070163,235240.0,https://raw.githubusercontent.com/LiuXiangrui/CompGS/main/results,
+liu2024hemgs,-lowrate,24.42,0.848,0.192,6034293,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_liu2024hemgs,
+liu2024hemgs,-highrate,24.58,0.856,0.176,10136479,,https://raw.githubusercontent.com/w-m/3dgs-compression-survey/main/sources/results_liu2024hemgs,
 lu2024scaffold,Baseline,23.96,0.853,0.177,87000000,,https://arxiv.org/pdf/2312.00109,
 morgenstern2024compact, w/o SH,23.15,0.828,0.198,9293275,1207490.0,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
 morgenstern2024compact,Baseline,23.56,0.837,0.186,22778535,1242209.0,https://raw.githubusercontent.com/fraunhoferhhi/Self-Organizing-Gaussians/main/results,
