@@ -988,7 +988,13 @@ def get_plot_data(ranks):
 
     checkbox_states = {}
     for method in shortnames.values():
-        if method in ["3DGS-30K", "Scaffold-GS", "AtomGS", "GaussianPro"]:
+        if method in [
+            "3DGS-30K",
+            "Scaffold-GS",
+            "AtomGS",
+            "GaussianPro",
+            "GaussianSpa",
+        ]:
             checkbox_states[method] = False
         else:
             checkbox_states[method] = True
