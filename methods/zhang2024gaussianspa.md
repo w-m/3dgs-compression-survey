@@ -1,3 +1,3 @@
 ### GaussianSpa: An “Optimizing-Sparsifying” Simplification Framework for Compact and High-Quality 3D Gaussian Splatting
 
- 
+ GaussianSpa, an optimization-based simplification framework that significantly reduces the number of Gaussians while maintaining high rendering quality. GaussianSpa formulates simplification as an optimization problem and introduces an “optimizing-sparsifying” solution that alternately solves two independent sub-problems, gradually imposing strong sparsity onto the Gaussians in the training process.
