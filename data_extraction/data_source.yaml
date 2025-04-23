@@ -1,3 +1,7 @@
+pateux2025bogauss:
+  url: "file:///home/syap7420/Dev/3dgs-compression-survey/bogauss/results"
+  is_csv: True
+
 wang2024contextgs:
   url: "https://github.com/wyf0912/ContextGS/tree/main/results"
   is_csv: True
