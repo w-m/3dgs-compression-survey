@@ -614,7 +614,8 @@
       var rankCombinations = {{ rank_combinations | safe }};
       var metricFormulas = {{ metric_formulas | safe }};
       var methodCategories = {{ method_categories | safe }};
-      var densificationMethods = {{ densification_methods | safe }}
+      var densificationMethods = {{ densification_methods | safe }};
+      var groupTypes = {{ group_types | safe }};
     </script>
 
     <br />
@@ -628,6 +629,27 @@
         </label>
         <span class="switch-text right">Number of Gaussians</span>
       </div>
+    </div>
+
+    <br />
+
+    <div class="outer-container" id="category-controls">
+      <label class="category-toggle">
+        <input type="checkbox" data-category="all" />
+        All methods
+      </label>
+      <label class="category-toggle">
+        <input type="checkbox" data-category="compression" />
+        Compression
+      </label>
+      <label class="category-toggle">
+        <input type="checkbox" data-category="compaction" />
+        Compaction
+      </label>
+      <label class="category-toggle">
+        <input type="checkbox" data-category="local" />
+        Local benchmarks
+      </label>
     </div>
 
     <br />

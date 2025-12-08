@@ -26,6 +26,14 @@ function resizePlots() {
 }
 
 var legendContainer = document.getElementById('legend');
+const groupCheckboxes = {};
+const categoryCheckboxes = {};
+const categoryGroups = {
+    compression: [],
+    compaction: [],
+    local: []
+};
+let suppressCategoryUpdates = false;
 
 function drawPlots(plotData, allowedKeys, allowedDatasets) {
     plotData.forEach((plotSet, i) => {
@@ -148,6 +156,7 @@ function drawLegend() {
         checkbox.dataset.group = group;
         checkbox.style.marginLeft = '5px';
         checkbox.addEventListener('change', updatePlotVisibility);
+        groupCheckboxes[group] = checkbox;
 
         var colorBox = document.createElement('div');
         if (group in densificationMethods){
@@ -171,15 +180,35 @@ function drawLegend() {
 function updatePlotVisibility(event) {
     var group = event.target.dataset.group;
     var visible = event.target.checked;
-    checkboxStates[group] = !checkboxStates[group]
+    setGroupVisibility(group, visible);
+}
+
+function setGroupVisibility(group, visible, skipCategoryUpdate = false) {
+    visible = !!visible;
+    checkboxStates[group] = visible;
+
+    if (groupCheckboxes[group]) {
+        groupCheckboxes[group].checked = visible;
+    }
 
     document.querySelectorAll('.plot-content').forEach(plotContent => {
-        plotContent.data.forEach((trace, index) => {
-            if (trace.name === group || (trace.line && trace.line.color === groupColors[group])) {
-                Plotly.restyle(plotContent, { visible: visible }, [index]);
+        const plotData = plotContent.data || [];
+        const indices = [];
+        plotData.forEach((trace, index) => {
+            const matchesMarker = trace.name === group;
+            const matchesLine = trace.mode === 'lines' && trace.line && trace.line.color === groupColors[group];
+            if (matchesMarker || matchesLine) {
+                indices.push(index);
             }
         });
+        if (indices.length > 0) {
+            Plotly.restyle(plotContent, { visible: visible }, indices);
+        }
     });
+
+    if (!skipCategoryUpdate && !suppressCategoryUpdates) {
+        updateCategoryCheckboxStates();
+    }
 }
 
 function updateRanks() {    
@@ -280,6 +309,114 @@ const switchInput = document.getElementById('switchInput');
 const switchInputCD = document.getElementById('switchInputCD');
 let plotOption = 'size';  
 
+function getGroupsForCategory(category) {
+    if (category === 'all') {
+        return Object.keys(groupCheckboxes);
+    }
+    return categoryGroups[category] ? [...categoryGroups[category]] : [];
+}
+
+function initializeCategoryGroups() {
+    Object.keys(categoryGroups).forEach(key => {
+        categoryGroups[key] = [];
+    });
+
+    if (groupTypes && typeof groupTypes === 'object') {
+        Object.entries(groupTypes).forEach(([group, type]) => {
+            if (!categoryGroups[type]) {
+                categoryGroups[type] = [];
+            }
+            categoryGroups[type].push(group);
+        });
+    }
+
+    Object.keys(groupCheckboxes).forEach(group => {
+        const assigned = Object.values(categoryGroups).some(arr => arr.includes(group));
+        if (!assigned) {
+            categoryGroups.compression.push(group);
+        }
+    });
+}
+
+function updateCategoryCheckboxStates() {
+    Object.entries(categoryCheckboxes).forEach(([category, checkbox]) => {
+        const groups = getGroupsForCategory(category);
+        if (!groups.length) {
+            checkbox.checked = false;
+            checkbox.indeterminate = false;
+            return;
+        }
+
+        let allOn = true;
+        let allOff = true;
+        groups.forEach(group => {
+            if (checkboxStates[group]) {
+                allOff = false;
+            } else {
+                allOn = false;
+            }
+        });
+
+        if (allOn) {
+            checkbox.checked = true;
+            checkbox.indeterminate = false;
+        } else if (allOff) {
+            checkbox.checked = false;
+            checkbox.indeterminate = false;
+        } else {
+            checkbox.checked = false;
+            checkbox.indeterminate = true;
+        }
+    });
+}
+
+function handleCategoryChange(event) {
+    const checkbox = event.target;
+    const category = checkbox.dataset.category;
+    const groups = getGroupsForCategory(category);
+
+    if (!groups.length) {
+        checkbox.checked = false;
+        checkbox.indeterminate = false;
+        return;
+    }
+
+    const states = groups.map(group => !!checkboxStates[group]);
+    const anyOn = states.some(Boolean);
+    const anyOff = states.some(state => !state);
+
+    let target = checkbox.checked;
+    if (anyOn && anyOff) {
+        target = true;
+    }
+
+    suppressCategoryUpdates = true;
+    groups.forEach(group => {
+        const methodCheckbox = groupCheckboxes[group];
+        if (methodCheckbox) {
+            if (methodCheckbox.checked !== target) {
+                methodCheckbox.checked = target;
+                methodCheckbox.dispatchEvent(new Event('change'));
+            }
+        } else {
+            setGroupVisibility(group, target, true);
+        }
+    });
+    suppressCategoryUpdates = false;
+    updateCategoryCheckboxStates();
+}
+
+function initializeCategoryControls() {
+    const controls = document.querySelectorAll('#category-controls input[type="checkbox"]');
+    controls.forEach(control => {
+        const category = control.dataset.category;
+        categoryCheckboxes[category] = control;
+        control.addEventListener('change', handleCategoryChange);
+    });
+    initializeCategoryGroups();
+    updateCategoryCheckboxStates();
+}
+
 updateRowVisibility();
 
 window.addEventListener('load', () => {
@@ -300,6 +437,8 @@ window.addEventListener('load', () => {
     }
 
     drawLegend();
+
+    initializeCategoryControls();
 
     drawPlotsSequentially();
 
@@ -353,4 +492,3 @@ window.addEventListener('load', () => {
     $('.row-toggle-c, .row-toggle-d').on('change', updateRowVisibility);
 
 });
-

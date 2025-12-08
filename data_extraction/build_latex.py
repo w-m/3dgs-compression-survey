@@ -308,7 +308,7 @@ with open("data_extraction/latex/tex_templates/contributions.tex", "r") as file:
 #                     df.at[index, col] = f"\\cellcolor{{{colors[i]}}}{df.at[index, col]}"
 #         return df
 
-_, _, _, _, _, _, table_df_dict = combine_tables_to_html()
+_, _, _, _, _, _, table_df_dict, _ = combine_tables_to_html()
 multi_col_df_compression = table_df_dict["compression"]
 multi_col_df_compaction = table_df_dict["densification"]
 # print(table_df_dict["compression"])

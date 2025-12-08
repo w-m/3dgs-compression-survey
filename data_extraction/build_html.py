@@ -4,7 +4,7 @@ import bibtexparser
 from jinja2 import Environment, FileSystemLoader
 import re
 import json
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from PIL import Image
 import numpy as np
 import itertools
@@ -71,6 +71,143 @@ colors_d = [
 ]
 
 
+def _consume_color(palette, key):
+    if palette:
+        return palette.pop(0)
+    # deterministic fallback color if palette is exhausted
+    return f"#{abs(hash(key)) % 0xFFFFFF:06x}"
+
+
+def load_local_benchmarks(
+    base_path="sources-local-benchmark", existing_shortnames=None
+):
+    if existing_shortnames is None:
+        existing_shortnames = set()
+
+    if not os.path.isdir(base_path):
+        return {}, {}
+
+    dataset_rows = {}
+    local_shortnames = {}
+
+    for method_name in sorted(os.listdir(base_path)):
+        method_path = os.path.join(base_path, method_name)
+        if not os.path.isdir(method_path) or method_name.startswith("."):
+            continue
+
+        method_key = f"local_{method_name}"
+        shortname = method_name
+
+        if (
+            shortname in existing_shortnames
+            or shortname in local_shortnames.values()
+        ):
+            raise ValueError(
+                f"Duplicate shortname detected for local benchmark method: {shortname}"
+            )
+
+        local_shortnames[method_key] = shortname
+
+        for dataset in dataset_order:
+            dataset_path = os.path.join(method_path, dataset)
+            if not os.path.isdir(dataset_path):
+                continue
+
+            scene_dfs = []
+            for file in sorted(os.listdir(dataset_path)):
+                if not file.endswith(".csv"):
+                    continue
+                scene_path = os.path.join(dataset_path, file)
+                scene_df = pd.read_csv(scene_path)
+                if "Submethod" not in scene_df.columns:
+                    raise ValueError(
+                        f"Expected 'Submethod' column in {scene_path}"
+                    )
+                scene_df["Submethod"] = (
+                    scene_df["Submethod"].astype("string").fillna("").replace("<NA>", "")
+                )
+                scene_dfs.append(scene_df)
+
+            if not scene_dfs:
+                continue
+
+            reference_submethods = scene_dfs[0]["Submethod"].tolist()
+            for df in scene_dfs[1:]:
+                if df["Submethod"].tolist() != reference_submethods:
+                    raise ValueError(
+                        f"Submethods mismatch across scenes for {method_name} in {dataset}"
+                    )
+
+            aggregated_rows = []
+            for idx, submethod in enumerate(reference_submethods):
+                formatted_submethod = (
+                    submethod
+                    if submethod == "" or str(submethod).startswith("-")
+                    else f"-{submethod}"
+                )
+                row = {
+                    "Method": method_key,
+                    "Submethod": formatted_submethod,
+                    "PSNR": "",
+                    "SSIM": "",
+                    "LPIPS": "",
+                    "Size [Bytes]": None,
+                    "#Gaussians": None,
+                    "Data Source": "",
+                    "Comment": "",
+                }
+
+                for metric in [
+                    "PSNR",
+                    "SSIM",
+                    "LPIPS",
+                    "Size [Bytes]",
+                    "#Gaussians",
+                ]:
+                    if metric not in scene_dfs[0].columns:
+                        continue
+
+                    values = [
+                        pd.to_numeric(df.iloc[idx][metric], errors="coerce")
+                        for df in scene_dfs
+                    ]
+                    valid_values = [v for v in values if not pd.isna(v)]
+                    if not valid_values:
+                        continue
+
+                    avg_val = sum(valid_values) / len(valid_values)
+
+                    if metric == "PSNR":
+                        row[metric] = str(
+                            Decimal(str(avg_val)).quantize(
+                                Decimal("0.00"), rounding=ROUND_HALF_UP
+                            )
+                        )
+                    elif metric == "SSIM":
+                        row[metric] = str(
+                            Decimal(str(avg_val)).quantize(
+                                Decimal("0.000"), rounding=ROUND_HALF_UP
+                            )
+                        )
+                    elif metric == "LPIPS":
+                        row[metric] = str(
+                            Decimal(str(avg_val)).quantize(
+                                Decimal("0.000"), rounding=ROUND_HALF_UP
+                            )
+                        )
+                    elif metric in ["Size [Bytes]", "#Gaussians"]:
+                        row[metric] = int(round(avg_val))
+                    else:
+                        row[metric] = str(avg_val)
+
+                aggregated_rows.append(row)
+
+            if aggregated_rows:
+                dataset_rows.setdefault(dataset, []).extend(aggregated_rows)
+
+    return dataset_rows, local_shortnames
+
+
 def get_shortnames(methods_files=["methods_compression.bib"]):
     # get shortnames from bibtex
     shortnames = {}
@@ -124,17 +261,23 @@ def combine_tables_to_html():
     shortnames = get_shortnames()
     shortnames_d = get_shortnames(methods_files=["methods_densification.bib"])
 
+    existing_shortnames = set(shortnames.values()) | set(shortnames_d.values())
+    local_tables, local_shortnames = load_local_benchmarks(
+        existing_shortnames=existing_shortnames
+    )
+    shortnames.update(local_shortnames)
+
     groupcolors = {}
 
     method_categories_dict = {}
     for name, shortname in shortnames.items():
         if shortname not in ["F-3DGS"]:
-            groupcolors[shortname] = colors.pop(0)
+            groupcolors[shortname] = _consume_color(colors, shortname)
         method_categories_dict[name] = "c"
 
     for name, shortname in shortnames_d.items():
         if shortname not in ["F-3DGS"]:
-            groupcolors[shortname] = colors_d.pop(0)
+            groupcolors[shortname] = _consume_color(colors_d, shortname)
         method_categories_dict[name] = "d"
 
     method_categories_dict["3DGS"] = "3"
@@ -147,6 +290,13 @@ def combine_tables_to_html():
             f"results/{dataset}.csv",
             dtype={"PSNR": str, "SSIM": str, "LPIPS": str, "Comment": str},
         )
+        if dataset in local_tables:
+            local_df = pd.DataFrame(local_tables[dataset])
+            missing_cols = [col for col in df.columns if col not in local_df.columns]
+            for col in missing_cols:
+                local_df[col] = "" if df[col].dtype == object else np.nan
+            local_df = local_df[df.columns]
+            df = pd.concat([df, local_df], ignore_index=True)
         # drop rows if [N/T] in Comment
         df = df[~df["Comment"].str.contains(r"\[N/T\]", na=False)]
         # drop all rows with empty Submethod
@@ -670,6 +820,17 @@ def combine_tables_to_html():
     # Clean the HTML string
     cleaned_html_string = clean_nested_td(html_string)
 
+    group_types = {}
+    for method, shortname in shortnames.items():
+        if shortname not in groupcolors:
+            continue
+        if method.startswith("local_"):
+            group_types[shortname] = "local"
+        elif method in shortnames_d:
+            group_types[shortname] = "compaction"
+        else:
+            group_types[shortname] = "compression"
+
     return (
         cleaned_html_string,
         ranks,
@@ -678,6 +839,7 @@ def combine_tables_to_html():
         metric_formulas,
         method_categories,
         latex_dfs,
+        group_types,
     )
 
 
@@ -744,9 +906,10 @@ def load_methods_summaries(ranks, groupcolors):
 
     for category in ["c", "d"]:
         for shortname in ranks[category].keys():
-            file = [key for key, value in shortnames.items() if value == shortname][
-                0
-            ] + ".md"
+            matches = [key for key, value in shortnames.items() if value == shortname]
+            if not matches:
+                continue
+            file = matches[0] + ".md"
             if not os.path.exists(f"methods/{file}"):
                 continue
             with open(f"methods/{file}", "r") as f:
@@ -842,12 +1005,26 @@ def get_plot_data(ranks):
     shortnames_d = get_shortnames(
         ["methods_densification.bib"]
     )  # mark densification methdos for different representation in plots
+    existing_shortnames = set(shortnames.values()) | set(shortnames_d.values())
+    local_tables, local_shortnames = load_local_benchmarks(
+        existing_shortnames=existing_shortnames
+    )
+    shortnames.update(local_shortnames)
 
     result_files = os.listdir("results")
 
     for file in result_files:
         # read csvs
         df = pd.read_csv(f"results/{file}", dtype={"Comment": str})
+        dataset_name = file.split(".")[0]
+        if dataset_name in local_tables:
+            local_df = pd.DataFrame(local_tables[dataset_name])
+            missing_cols = [col for col in df.columns if col not in local_df.columns]
+            for col in missing_cols:
+                local_df[col] = "" if df[col].dtype == object else np.nan
+            local_df = local_df[df.columns]
+            df = pd.concat([df, local_df], ignore_index=True)
+
         df["Submethod"] = (
             df["Submethod"].astype("string").fillna("").replace("<NA>", "")
         )
@@ -860,6 +1037,10 @@ def get_plot_data(ranks):
 
         # remove from df if [N/P] in comment
         df = df[~df["Comment"].str.contains(r"\[N/P\]", na=False)]
+
+        for col in ["PSNR", "SSIM", "LPIPS", "Size [Bytes]", "#Gaussians"]:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
 
         # change Size [Bytes] to Size [MB] and round
         if "Size [Bytes]" in df.columns:
@@ -1011,6 +1192,7 @@ if __name__ == "__main__":
         metric_formulas,
         method_categories,
         _,
+        group_types,
     ) = combine_tables_to_html()
     summaries = load_methods_summaries(ranks, groupcolors)
     plot_data, group_links, checkbox_states, densification_methods = get_plot_data(
@@ -1036,6 +1218,7 @@ if __name__ == "__main__":
         "metric_formulas": json.dumps(metric_formulas),
         "method_categories": json.dumps(method_categories),
         "densification_methods": json.dumps(densification_methods),
+        "group_types": json.dumps(group_types),
     }
 
     # Render das Template mit den Daten
