@@ -1,3 +1,7 @@
+wang2026smolgs:
+  url: "http://github.com/AaltoML/Smol-GS/tree/main/results"
+  is_csv: True
+
 pateux2025bogauss:
   url: "https://github.com/spateux/3dgs-compression-survey/tree/pateux2025bogauss/sources/results_pateux2025bogauss"
   is_csv: True

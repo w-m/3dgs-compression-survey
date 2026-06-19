@@ -46,6 +46,8 @@ wang2024end,,29.35,0.895,0.277,4135678,318768.0,https://raw.githubusercontent.co
 wang2024end,,29.49,0.899,0.265,6706772,528719.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,,29.59,0.902,0.257,10959800,887813.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
 wang2024end,Baseline,29.63,0.902,0.252,17998224,1474690.0,https://raw.githubusercontent.com/USTC-IMCL/RDO-Gaussian/main/results,
+wang2026smolgs,-base,30.12,0.905,0.262,2860438,254500.0,http://raw.githubusercontent.com/AaltoML/Smol-GS/main/results,
+wang2026smolgs,-large,30.20,0.906,0.258,3365954,303681.0,http://raw.githubusercontent.com/AaltoML/Smol-GS/main/results,
 xie2024mesongs, c3,29.48,0.903,0.252,29011600,2022966.0,https://raw.githubusercontent.com/ShuzhaoXie/MesonGS/main/results,
 xie2024mesongs, c1,29.50,0.903,0.251,31071609,2166331.0,https://raw.githubusercontent.com/ShuzhaoXie/MesonGS/main/results,
 zhang2024gaussianspa,Baseline,30.13,0.913,0.236,130933503,527952.0,https://raw.githubusercontent.com/noodle-lab/GaussianSpa/main/results,
