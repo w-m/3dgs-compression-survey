@@ -120,6 +120,7 @@ note = {\url{https://w-m.github.io/3dgs-compression-survey/}},
 ```
 
 ## Updates
+- 2026-07-14: Added GSICO
 - 2026-06-05: Added Smol-GS
 - 2025-04-29: Article published, updated bibtex in Readme and on website
 - 2025-03-04: Added GaussianSpa Summary (provided by authors).

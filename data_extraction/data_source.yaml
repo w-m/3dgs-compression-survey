@@ -1,3 +1,7 @@
+martin2026structured:
+  url: "https://github.com/pedrogcmartin/GSICO/tree/main/results"
+  is_csv: True
+
 wang2026smolgs:
   url: "http://github.com/AaltoML/Smol-GS/tree/main/results"
   is_csv: True
