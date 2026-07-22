@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=w-m&project=3dgs-compression-survey&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 # 3DGS.zip: A survey on 3D Gaussian Splatting Compression Methods
 This repository contains a comprehensive survey of 3D Gaussian Splatting (3DGS) compression methods. You can view the full survey table and comparison plots at [w-m.github.io/3dgs-compression-survey/](https://w-m.github.io/3dgs-compression-survey/).
 
